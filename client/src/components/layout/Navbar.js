@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 export class Header extends Component {
     renderContent() {
@@ -10,7 +11,22 @@ export class Header extends Component {
         }
     }
     render() {
-        return <div>{this.renderContent()}</div>;
+        return (
+        <div>
+          <nav className="navbar navbar-light navbar-expand-sm mb-4 bg-light">
+            <Link className="navbar-brand text-dark" to="/">
+              DevJoin
+            </Link>
+            <div className="collapse navbar-collapse" id="mobile-nav">
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                  {this.renderContent()}
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        );
     }
 }
 
