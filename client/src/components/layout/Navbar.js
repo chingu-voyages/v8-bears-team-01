@@ -19,9 +19,16 @@ export class Navbar extends Component {
   };
   renderContent() {
       if (this.props.auth) {
-          return <a href="/api/logout">Logout</a>;
+          return <div> <a href="#" className="mr-4">My Profile</a>
+          <a href="/api/logout">Logout</a>
+          </div>;
       } else {
-          return <a href="/auth/google">Log In</a>;
+          return  <div>
+          <button onClick={this.handleRegisterToggle} className="btn btn-outline-primary mr-2">Log In</button>
+          <button 
+          onClick={this.handleRegisterToggle}
+          className="btn btn-danger">Sign Up</button>
+          </div>
       }
   }
   render() {
@@ -34,9 +41,6 @@ export class Navbar extends Component {
           <nav className="my-2 my-md-0 mr-md-3">
             {this.renderContent()}
           </nav>
-          <button 
-            onClick={this.handleRegisterToggle}
-            className="btn btn-outline-primary">Sign Up</button>
         </div>
         <RegisterModal
         isOpen={this.state.registerIsActive}
