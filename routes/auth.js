@@ -17,14 +17,14 @@ module.exports = app => {
     );
 
     app.get(
-      "/facebook", 
+      "/auth/facebook", 
       passport.authenticate("facebook", {
         scope: ["email"]
       })
     );
 
     app.get(
-      "/facebook/callback", 
+      "/auth/facebook/callback", 
       passport.authenticate("facebook", { failureRedirect: "/failedLogin" }),
       (req, res) => {
         if (process.env.NODE_ENV === "production") {
