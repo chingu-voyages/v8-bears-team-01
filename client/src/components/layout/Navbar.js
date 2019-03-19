@@ -21,7 +21,7 @@ export class Navbar extends Component {
       if (this.props.auth) {
           return <a href="/api/logout">Logout</a>;
       } else {
-          return <a href="/auth/google">Login With Google</a>;
+          return <a href="/auth/google">Log In</a>;
       }
   }
   render() {
@@ -36,7 +36,7 @@ export class Navbar extends Component {
           </nav>
           <button 
             onClick={this.handleRegisterToggle}
-            className="btn btn-outline-primary">Sign up</button>
+            className="btn btn-outline-primary">Sign Up</button>
         </div>
         <RegisterModal
         isOpen={this.state.registerIsActive}

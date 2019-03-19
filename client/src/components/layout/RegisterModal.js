@@ -23,6 +23,10 @@ const RegisterModal = (props) => (
           <a className="btn facebook-btn btn-block" href="/auth/facebook">
             <i className="fab fa-facebook modal-icon"></i>  Sign up With Facebook
           </a>
+          <p>or</p>
+          <input placeholder="Email"></input><br></br>
+          <input placeholder="Password"></input><br></br>
+          <button>Sign Up</button>
           <p className="policy-modal-link text-secondary"><span>Read our </span>
             <button className="btn btn-link policy-modal-link" onClick={props.handleRequestClose}><Link to="/privacy">Privacy Policy.</Link></button>
           </p>

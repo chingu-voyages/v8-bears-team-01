@@ -16,6 +16,25 @@ module.exports = app => {
         }
     );
 
+    app.get(
+      "/facebook", 
+      passport.authenticate("facebook", {
+        scope: ["email"]
+      })
+    );
+
+    app.get(
+      "/facebook/callback", 
+      passport.authenticate("facebook", { failureRedirect: "/failedLogin" }),
+      (req, res) => {
+        if (process.env.NODE_ENV === "production") {
+          return res.redirect("/");
+        } else {
+          return res.redirect("http://localhost:3000"); 
+        }
+      }
+    );
+
     app.get("/api/logout", (req, res) => {
         req.logout();
         res.redirect("/");
