@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactModal from 'react-modal';
-import { Link } from 'react-router-dom';
 
-const RegisterModal = (props) => (
+const LoginModal = (props) => (
   <div>
     <div className="container">
       <ReactModal
@@ -16,7 +15,7 @@ const RegisterModal = (props) => (
       >
        <div className="modal-header-section">
           <button className="btn btn-link nav-link text-muted close-button" onClick={props.handleRequestClose}>x</button>
-            <h2 className="font-weight-light modal-text">Sign Up</h2>
+            <h2 className="font-weight-light modal-text">Log In</h2>
         </div>
         <div className="content">
           <a className="btn google-btn mr-2 ml-2" href="/auth/google">
@@ -28,14 +27,11 @@ const RegisterModal = (props) => (
           <p>or</p>
           <input className="form-control" placeholder="Email"></input><br></br>
           <input className="form-control" placeholder="Password"></input><br></br>
-          <button className="btn sign-up-button mb-4">Sign Up</button>
-          <p className="policy-modal-link text-secondary"><span>Read our </span>
-            <button className="btn btn-link policy-modal-link" onClick={props.handleRequestClose}><Link to="/privacy">Privacy Policy.</Link></button>
-          </p>
+          <button className="btn sign-up-button mb-4">Log in</button>
         </div>
       </ReactModal>
     </div>
   </div>
 )
 
-export default RegisterModal;
+export default LoginModal;

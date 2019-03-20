@@ -13,10 +13,11 @@
   background-color: #e9e9e9;
 }
 
-.modal-header {
+.modal-header-section {
   border-radius: 0;
-  background-image: linear-gradient(to right, #5bcfc6 0%, #6dd1cc 100%);
+  background-image: linear-gradient(to right, #5bcfc6 5%, #6dd1cc 55%);
   text-align: center;
+  padding: 15px 0 15px 0;
 }
 
 .modal-text {

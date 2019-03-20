@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import RegisterModal from "./RegisterModal";
+import LoginModal from "./LoginModal";
 
 export class Navbar extends Component {
   state = {
@@ -24,7 +25,7 @@ export class Navbar extends Component {
           </div>;
       } else {
           return  <div>
-          <button onClick={this.handleRegisterToggle} className="btn btn-outline-primary mr-2">Log In</button>
+          <button onClick={this.handleLoginToggle} className="btn btn-outline-primary mr-2">Log In</button>
           <button 
           onClick={this.handleRegisterToggle}
           className="btn btn-danger">Sign Up</button>
@@ -44,6 +45,10 @@ export class Navbar extends Component {
         </div>
         <RegisterModal
         isOpen={this.state.registerIsActive}
+        handleRequestClose={this.handleRequestClose}
+        />
+        <LoginModal
+        isOpen={this.state.loginIsActive}
         handleRequestClose={this.handleRequestClose}
         />
       </div>
