@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { fetchUser } from "../actions/auth";
 
 import Landing from "./Landing";
+import Navbar from "./layout/Navbar";
 
 class App extends Component {
     componentDidMount() {
@@ -14,7 +15,10 @@ class App extends Component {
         return (
             <div>
                 <BrowserRouter>
+                  <div>
+                    <Navbar />
                     <Route exact path="/" component={Landing} />
+                  </div>
                 </BrowserRouter>
             </div>
         );
