@@ -1,5 +1,6 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 
 const keys = require("../config/keys");
 
@@ -42,4 +43,38 @@ passport.use(
             done(null, user);
         }
     )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: keys.facebookClientID,
+      clientSecret: keys.facebookClientSecret,
+      callbackURL: keys.facebookCallbackURL,
+      profileFields: ["emails", "name", "picture.type(large)"]
+    },
+    (accessToken, refreshToken, profile, done) => {
+      process.nextTick(() => {
+        User.findOne({ profileID: profile.id }, (err, user) => {
+          if (err) return done(err);
+          if (user) return done(null, user);
+          else {
+            console.log("****new facebook signup****");
+            const profileInfo = {
+              profileID: profile.id,
+              name: profile.name.givenName,
+              email: profile.emails[0].value,
+              picture: profile.photos[0].value
+            };
+            const newUser = new User(profileInfo);
+
+            newUser.save(err => {
+              if (err) throw err;
+              else return done(null, newUser);
+            });
+          }
+        });
+      });
+    }
+  )
 );
