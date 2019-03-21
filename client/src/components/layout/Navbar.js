@@ -90,8 +90,12 @@ export class Navbar extends Component {
     };
 
     axios.post(`/auth/login`, obj).then(resp => {
-      console.log("return login");
-    });
+      //push user to home page
+      // this.props.history.push('/');
+    })
+    .catch(err=>{
+      this.setState({ errorMsg: err.response.data.errMessage})
+    })
   };
 
   handleSignup = () => {
@@ -106,8 +110,11 @@ export class Navbar extends Component {
     };
 
     axios.post(`/auth/signup`, obj).then(resp => {
-      console.log("return signup");
-    });
+     // this.props.history.push('/');
+    })
+    .catch(err=>{
+      this.setState({ errorMsg: err.response.data.errMessage})
+    })
   };
 
   clearFields = () => {
