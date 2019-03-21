@@ -7,25 +7,25 @@ import Landing from "./Landing";
 import Navbar from "./layout/Navbar";
 
 class App extends Component {
-    componentDidMount() {
-        this.props.fetchUser();
-    }
+  componentDidMount() {
+    this.props.fetchUser();
+  }
 
-    render() {
-        return (
-            <div>
-                <BrowserRouter>
-                  <div>
-                    <Navbar />
-                    <Route exact path="/" component={Landing} />
-                  </div>
-                </BrowserRouter>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <BrowserRouter>
+          <div>
+            <Navbar />
+            <Route exact path="/" component={Landing} />
+          </div>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
 export default connect(
-    null,
-    { fetchUser }
+  null,
+  { fetchUser }
 )(App);

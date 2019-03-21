@@ -11,15 +11,15 @@ import * as serviceWorker from "./serviceWorker";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
-    reducers,
-    composeEnhancers(applyMiddleware(reduxThunk))
+  reducers,
+  composeEnhancers(applyMiddleware(reduxThunk))
 );
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.querySelector("#root")
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.querySelector("#root")
 );
 
 // If you want your app to work offline and load faster, you can change
