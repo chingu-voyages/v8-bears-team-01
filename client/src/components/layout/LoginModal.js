@@ -30,7 +30,7 @@ const LoginModal = props => (
         </a>
         <p>or</p>
         <input
-          value={this.props.email}
+          value={props.email}
           type="email"
           className="form-control"
           onChange={e => props.updateEmail(e.target.value)}
@@ -38,7 +38,7 @@ const LoginModal = props => (
         />
         <br />
         <input
-          value={this.props.password}
+          value={props.password}
           type="password"
           className="form-control"
           onChange={e => props.updatePassword(e.target.value)}
