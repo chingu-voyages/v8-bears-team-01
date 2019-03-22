@@ -104,6 +104,7 @@ export class Navbar extends Component {
       .post(`/auth/login`, obj)
       .then(resp => {
         console.log(resp.data);
+        this.setState({errMessage: ''})
         //push user to home page
         // this.props.history.push('/');
       })
@@ -128,6 +129,7 @@ export class Navbar extends Component {
       .post(`/auth/signup`, obj)
       .then(resp => {
         console.log(resp.data);
+        this.setState({errMessage: ''})
         // this.props.history.push('/');
       })
       .catch(err => {
