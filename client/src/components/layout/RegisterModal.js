@@ -32,18 +32,21 @@ const RegisterModal = props => (
           </a>
           <p>or</p>
           <input
+            value={this.props.name}
             className="form-control"
             onChange={e => props.updateName(e.target.value)}
             placeholder="Name"
           />
           <br />
           <input
+            value={this.props.email}
             className="form-control"
             onChange={e => props.updateEmail(e.target.value)}
             placeholder="Email"
           />
           <br />
           <input
+            value={this.props.password}
             type="password"
             className="form-control"
             onChange={e => props.updatePassword(e.target.value)}
@@ -51,6 +54,7 @@ const RegisterModal = props => (
           />
           <br />
           <input
+            value={this.props.comfirmPassowrd}
             type="password"
             className="form-control"
             onChange={e => props.updateConfirmPassword(e.target.value)}
