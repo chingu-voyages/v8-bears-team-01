@@ -24,6 +24,7 @@ export class Navbar extends Component {
     this.setState(() => ({ loginIsActive: !this.state.loginIsActive }));
   };
   handleRequestClose = () => {
+    this.clearFields();
     this.setState(() => ({ registerIsActive: false, loginIsActive: false }));
   };
 
