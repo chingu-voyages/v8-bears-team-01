@@ -11,6 +11,7 @@ export class Navbar extends Component {
     loginIsActive: false,
     email: "",
     password: "",
+    comfirmPassword: "",
     name: "",
     errorMsg: ""
   };
@@ -34,38 +35,47 @@ export class Navbar extends Component {
     this.setState({ password: val });
   };
 
+  updateConfirmPassword = val => {
+    this.setState({ comfirmPassword: val });
+  };
+
   updateName = val => {
     this.setState({ name: val });
   };
 
   handleValidation = type => {
-    const { email, password, name } = this.state;
+    const { email, password, comfirmPassword, name } = this.state;
     if (type === "signup") {
       if (!email || !password || !name) {
         this.setState({ errorMsg: "All fields are required" });
-        return;
+        return false;
       }
       if (password.length < 6 || password.length > 30) {
         this.setState({
           errorMsg: "Password must be between 6 and 30 characters"
         });
-        return;
+        return false;
       }
       if (password.includes(" ")) {
         this.setState({ errorMsg: "Password cannot contain spaces" });
+        return false;
+      }
+      if (comfirmPassword !== password) {
+        this.setState({ errorMsg: "Passwords must match" });
+        return false;
       }
     }
 
     if (type === "login") {
       if (!email || !password) {
         this.setState({ errorMsg: "All fields are required" });
-        return;
+        return false;
       }
     }
 
     if (!email.includes("@")) {
       this.setState({ errorMsg: "Invalid email address." });
-      return;
+      return false;
     }
 
     if (
@@ -75,12 +85,13 @@ export class Navbar extends Component {
       password.includes('"')
     ) {
       this.setState({ errorMsg: "Fields cannot contain ' or \"" });
-      return;
+      return false;
     }
   };
 
   handleLogin = () => {
-    //  this.handleValidation('login');
+    let response = this.handleValidation("login");
+    if (response === false) return;
     let email = this.state.email;
     let password = this.state.password;
 
@@ -89,17 +100,21 @@ export class Navbar extends Component {
       password: password.trim()
     };
 
-    axios.post(`/auth/login`, obj).then(resp => {
-      //push user to home page
-      // this.props.history.push('/');
-    })
-    .catch(err=>{
-      this.setState({ errorMsg: err.response.data.errMessage})
-    })
+    axios
+      .post(`/auth/login`, obj)
+      .then(resp => {
+        console.log(resp.data);
+        //push user to home page
+        // this.props.history.push('/');
+      })
+      .catch(err => {
+        this.setState({ errorMsg: err.response.data.errMessage });
+      });
   };
 
   handleSignup = () => {
-    // this.handleValidation('signup');
+    let response = this.handleValidation("signup");
+    if (response === false) return;
     let email = this.state.email;
     let password = this.state.password;
     let name = this.state.name;
@@ -109,12 +124,15 @@ export class Navbar extends Component {
       name: name.trim()
     };
 
-    axios.post(`/auth/signup`, obj).then(resp => {
-     // this.props.history.push('/');
-    })
-    .catch(err=>{
-      this.setState({ errorMsg: err.response.data.errMessage})
-    })
+    axios
+      .post(`/auth/signup`, obj)
+      .then(resp => {
+        console.log(resp.data);
+        // this.props.history.push('/');
+      })
+      .catch(err => {
+        this.setState({ errorMsg: err.response.data.errMessage });
+      });
   };
 
   clearFields = () => {
@@ -122,7 +140,8 @@ export class Navbar extends Component {
       email: "",
       password: "",
       name: "",
-      errorMsg: ""
+      errorMsg: "",
+      comfirmPassword: ""
     });
   };
 
@@ -175,6 +194,7 @@ export class Navbar extends Component {
           handleSignup={this.handleSignup}
           updateName={this.updateName}
           errorMsg={this.state.errorMsg}
+          updateConfirmPassword={this.updateConfirmPassword}
         />
         <LoginModal
           isOpen={this.state.loginIsActive}
