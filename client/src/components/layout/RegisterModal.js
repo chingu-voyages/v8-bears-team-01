@@ -49,6 +49,14 @@ const RegisterModal = props => (
             onChange={e => props.updatePassword(e.target.value)}
             placeholder="Password"
           />
+
+          <input
+            type="password"
+            className="form-control"
+            onChange={e => props.comfirmPassword(e.target.value)}
+            placeholder="Comfirm Password"
+          />
+
           <p style={{ color: "red" }}>
             <em>
               <small>{props.errorMsg}</small>
