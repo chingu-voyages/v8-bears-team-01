@@ -49,11 +49,11 @@ const RegisterModal = props => (
             onChange={e => props.updatePassword(e.target.value)}
             placeholder="Password"
           />
-
+          <br />
           <input
             type="password"
             className="form-control"
-            onChange={e => props.comfirmPassword(e.target.value)}
+            onChange={e => props.updateConfirmPassword(e.target.value)}
             placeholder="Comfirm Password"
           />
 
