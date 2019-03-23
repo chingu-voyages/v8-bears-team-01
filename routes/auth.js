@@ -59,9 +59,12 @@ module.exports = app => {
 
                     if(bcrypt.compareSync(password,resp.password)){
                         //save password in user details in req.user
-                        res.status(200).json(resp)
+                        req.user = resp
+                       
+                       res.status(200).json(resp)
+          
                         //redirect user to home page
-                        // res.redirect('http://localhost:5000/')
+                       
             
                     } else {
                        
@@ -73,7 +76,7 @@ module.exports = app => {
                     res.status(404).json({errMessage: 'email does not exist'})
                 }
              })
-             .catch(err=>console.log(err))
+             .catch(err=> res.status(404).json({errMessage: 'something went wrong'}))
 
     })
 
@@ -87,7 +90,7 @@ module.exports = app => {
                   return res.status(500).json({errMessage:'email already exists'})
                 }
             })
-             .catch(err=>console.log(err))
+             .catch(err=>res.status(500).json({errMessage: 'something went wrong'}))
 
         //save the name,email and password in the db
 
@@ -95,7 +98,7 @@ module.exports = app => {
         //this says how much salt is required
         let salt = bcrypt.genSaltSync(10) 
 
-        //this transforms the password into hash
+        //this transforms the password into hash using the salt
        let hash = bcrypt.hashSync(password,salt)
        
        //save name,email and hash in db
@@ -106,7 +109,9 @@ module.exports = app => {
     });
              newUser.save()
                     .then(resp=>{
+                        req.user = resp
                         res.status(200).json(resp)
+                       
                     })
                     .catch(err=>{
                         res.status(404).json(err)

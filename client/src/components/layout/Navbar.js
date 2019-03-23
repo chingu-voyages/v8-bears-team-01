@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router'
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
 import axios from "axios";
+import { fetchUser } from "../../actions/auth";
 
 export class Navbar extends Component {
   state = {
@@ -104,17 +106,21 @@ export class Navbar extends Component {
     axios
       .post(`/auth/login`, obj)
       .then(resp => {
-        console.log(resp.data);
-        this.setState({errMessage: ''})
+      //   console.log(resp.data);
+        this.clearFields()
+        this.setState({errMessage: '', loginIsActive: false})
+        this.fetchUser()
+      
         //push user to home page
-        // this.props.history.push('/');
+         //this.props.history.push('/');
       })
       .catch(err => {
-        this.setState({ errorMsg: err.response.data.errMessage });
+        err.response &&  this.setState({ errorMsg: err.response.data.errMessage });
       });
   };
 
   handleSignup = () => {
+    
     let response = this.handleValidation("signup");
     if (response === false) return;
     let email = this.state.email;
@@ -129,12 +135,14 @@ export class Navbar extends Component {
     axios
       .post(`/auth/signup`, obj)
       .then(resp => {
-        console.log(resp.data);
-        this.setState({errMessage: ''})
+        //console.log(resp.data);
+        this.clearFields()
+        this.setState({errMessage: '',registerIsActive: false})
         // this.props.history.push('/');
+        
       })
       .catch(err => {
-        this.setState({ errorMsg: err.response.data.errMessage });
+      err.response &&  this.setState({ errorMsg: err.response.data.errMessage });
       });
   };
 
@@ -190,6 +198,10 @@ export class Navbar extends Component {
           <nav className="my-2 my-md-0 mr-md-3">{this.renderContent()}</nav>
         </div>
         <RegisterModal
+          email={this.state.email}
+          name={this.state.name}
+          password={this.state.password}
+          confirmPassword={this.state.comfirmPassword}
           isOpen={this.state.registerIsActive}
           handleRequestClose={this.handleRequestClose}
           updateEmail={this.updateEmail}
@@ -200,6 +212,9 @@ export class Navbar extends Component {
           updateConfirmPassword={this.updateConfirmPassword}
         />
         <LoginModal
+          email={this.state.email}
+          name={this.state.name}
+          password={this.state.password}
           isOpen={this.state.loginIsActive}
           handleRequestClose={this.handleRequestClose}
           updateEmail={this.updateEmail}
@@ -218,4 +233,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default withRouter(connect(mapStateToProps,{fetchUser})(Navbar));
