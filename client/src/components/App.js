@@ -10,22 +10,14 @@ class App extends Component {
     componentDidMount() {
         this.props.fetchUser();
     }
-
     render() {
         return (
             <div>
                 <BrowserRouter>
-<<<<<<< HEAD
                     <div>
                         <Navbar />
-                        <Route exact path="/" component={Landing} />
+                        <Route exact path="/" component={ProjectList} />
                     </div>
-=======
-                  <div>
-                    <Navbar />
-                    <Route exact path="/" component={ProjectList} />
-                  </div>
->>>>>>> pr-6
                 </BrowserRouter>
             </div>
         );
