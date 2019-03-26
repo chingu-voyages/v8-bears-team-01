@@ -16,6 +16,7 @@
     "author": "Daniel Ko <danko56666@gmail.com>",
     "license": "MIT",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.18.3",
         "client": "file:client",
         "concurrently": "^4.1.0",
