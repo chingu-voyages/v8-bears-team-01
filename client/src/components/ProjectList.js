@@ -7,13 +7,13 @@ const card_style = {
 
 const Project = props => (
     <div className="card" style={card_style}>
-        <Link to="/project/:id-placeholder"> <img class="card-img-top" src="https://via.placeholder.com/100" alt="Card image cap"/> </Link>
-        <div class="card-body">
-            <h5 class="card-title">{props.project.title}</h5>           
+        <Link to="/project/:id-placeholder"> <img className="card-img-top" src="https://via.placeholder.com/100" alt="Card image cap"/> </Link>
+        <div className="card-body">
+            <h5 className="card-title">{props.project.title}</h5>           
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Open Positions: {props.project.num_open_positions}</li>
-            <li class="list-group-item">Team:</li>
+        <ul className="list-group list-group-flush">
+            <li className="list-group-item">Open Positions: {props.project.num_open_positions}</li>
+            <li className="list-group-item">Team:</li>
         </ul>
     </div>
 )
@@ -77,7 +77,7 @@ export class ProjectList extends Component {
         return (
             <div className="projects-list-container">
                 <h3>List of Projects</h3>
-                <div class="card-deck">
+                <div className="card-deck">
                     { this.projectList() }
                 </div>  
             </div>
