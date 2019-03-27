@@ -89,6 +89,13 @@
   color: white;
 }
 
+.facebook-btn,
+.google-btn {
+   	width: 42px;
+    height: 42px;
+    line-height: 1.8em;
+}
+
 .facebook-btn:focus,
 .facebook-btn:hover {
   background-color: #3c4d85;
@@ -103,7 +110,7 @@
 
 .policy-modal-link {
   font-size: .8rem;
-  margin-top: $sm-size;
+  margin-top: .4rem;
 }
 
 button.policy-modal-link {
@@ -112,4 +119,31 @@ button.policy-modal-link {
   outline: none;
   margin: 0;
   padding: 0;
+}
+
+/* Base Divider class */
+
+.divider {
+  display: flex;
+}
+
+.divider:before,
+.divider:after {
+  content: "";
+  flex: 1;
+}
+
+/* Base line */
+
+.line {
+  align-items: center;
+  margin: 1em -1em;
+  
+}
+
+.line:before,
+.line:after {
+  height: 1px;
+  margin: 0 1em;
+  box-shadow: 0 0.5px 0 black;
 }

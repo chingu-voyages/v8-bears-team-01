@@ -28,7 +28,7 @@ const LoginModal = props => (
                 <a className="btn facebook-btn mr-2 ml-2" href="/auth/facebook">
                     <i className="fab fa-facebook modal-icon" />
                 </a>
-                <p>or</p>
+                <p className="divider line mt-4 mb-4">or</p>
                 <input
                     value={props.email}
                     type="email"

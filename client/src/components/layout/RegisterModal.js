@@ -33,7 +33,7 @@ const RegisterModal = props => (
                     >
                         <i className="fab fa-facebook modal-icon" />
                     </a>
-                    <p>or</p>
+                    <p className="divider line mt-4 mb-4">or</p>
                     <input
                         value={props.name}
                         className="form-control"
@@ -48,24 +48,25 @@ const RegisterModal = props => (
                         placeholder="Email"
                     />
                     <br />
-                    <input
-                        value={props.password}
-                        type="password"
-                        className="form-control"
-                        onChange={e => props.updatePassword(e.target.value)}
-                        placeholder="Password"
-                    />
-                    <br />
-                    <input
-                        value={props.comfirmPassowrd}
-                        type="password"
-                        className="form-control"
-                        onChange={e =>
-                            props.updateConfirmPassword(e.target.value)
-                        }
-                        placeholder="Comfirm Password"
-                    />
-
+                    <div className="input-group">
+                      <input
+                          value={props.password}
+                          type="password"
+                          className="form-control mr-1"
+                          onChange={e => props.updatePassword(e.target.value)}
+                          placeholder="Password"
+                      />
+                      <br />
+                      <input
+                          value={props.comfirmPassowrd}
+                          type="password"
+                          className="form-control ml-1"
+                          onChange={e =>
+                              props.updateConfirmPassword(e.target.value)
+                          }
+                          placeholder="Comfirm Password"
+                      />
+                    </div>
                     <p style={{ color: "red" }}>
                         <em>
                             <small>{props.errorMsg}</small>
