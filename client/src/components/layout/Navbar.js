@@ -114,10 +114,8 @@ export class Navbar extends Component {
                 //   console.log(resp.data);
                 this.clearFields();
                 this.setState({ errMessage: "", loginIsActive: false });
-                this.fetchUser();
-
-                //push user to home page
-                //this.props.history.push('/');
+                window.location.assign('/')
+               
             })
             .catch(err => {
                 err.response &&
@@ -143,7 +141,9 @@ export class Navbar extends Component {
                 //console.log(resp.data);
                 this.clearFields();
                 this.setState({ errMessage: "", registerIsActive: false });
-                // this.props.history.push('/');
+                
+                window.location.assign('/')
+               
             })
             .catch(err => {
                 err.response &&

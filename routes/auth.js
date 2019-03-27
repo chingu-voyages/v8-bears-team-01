@@ -15,6 +15,7 @@ module.exports = app => {
         "/auth/google/callback",
         passport.authenticate("google"),
         (req, res) => {
+            req.session.user = req.user
             res.redirect("/");
         }
     );
@@ -31,20 +32,24 @@ module.exports = app => {
       passport.authenticate("facebook", { failureRedirect: "/failedLogin" }),
       (req, res) => {
         if (process.env.NODE_ENV === "production") {
-          return res.redirect("/");
+            req.session.user = req.user
+            return res.redirect("/");
         } else {
+            req.session.user = req.user
           return res.redirect("http://localhost:3000"); 
         }
       }
     );
 
     app.get("/api/logout", (req, res) => {
+        delete req.session.user
+        
         req.logout();
         res.redirect("/");
     });
 
     app.get("/api/current_user", (req, res) => {
-        res.send(req.user);
+        res.send(req.session.user);
     });
 
     app.post(`/auth/login`, (req,res)=>{
@@ -59,7 +64,7 @@ module.exports = app => {
 
                     if(bcrypt.compareSync(password,resp.password)){
                         //save password in user details in req.user
-                        req.user = resp
+                        req.session.user = resp
                        
                        res.status(200).json(resp)
           
@@ -109,7 +114,7 @@ module.exports = app => {
     });
              newUser.save()
                     .then(resp=>{
-                        req.user = resp
+                        req.session.user = resp
                         res.status(200).json(resp)
                        
                     })
