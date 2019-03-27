@@ -75,11 +75,11 @@ export class ProjectList extends Component {
 
     render() {
         return (
-            <div className="projects-list-container">
-                <h3>List of Projects</h3>
-                <div class="card-deck">
-                    { this.projectList() }
-                </div>  
+            <div className="projects-list-container container">
+                <h3 className="pb-4 pt-4">Latest Projects</h3>
+                  <div className="card-deck">
+                      { this.projectList() }
+                </div>
             </div>
         );
     }
