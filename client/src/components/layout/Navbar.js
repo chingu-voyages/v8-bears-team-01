@@ -177,7 +177,7 @@ export class Navbar extends Component {
                 <div>
                     <button
                         onClick={this.handleLoginToggle}
-                        className="btn btn-outline-primary mr-2"
+                        className="btn btn-outline-secondary mr-2"
                     >
                         Log In
                     </button>

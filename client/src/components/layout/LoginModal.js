@@ -14,12 +14,12 @@ const LoginModal = props => (
         >
             <div className="modal-header-section">
                 <button
-                    className="btn btn-link nav-link text-muted close-button"
+                    className="btn btn-link nav-link text-light close-button"
                     onClick={props.handleRequestClose}
                 >
-                    x
+                  <i class="fas fa-times"></i>
                 </button>
-                <h2 className="font-weight-light modal-text">Log In</h2>
+                <h2 className="font-weight-light">Log In</h2>
             </div>
             <div className="content">
                 <a className="btn google-btn mr-2 ml-2" href="/auth/google">

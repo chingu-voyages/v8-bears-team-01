@@ -16,13 +16,13 @@
 .modal-header-section {
   border-radius: 0;
   background-image: linear-gradient(to right, #5bcfc6 5%, #6dd1cc 55%);
-  text-align: center;
+  text-align: right;
   padding: 15px 0 15px 0;
 }
 
-.modal-text {
+.modal-header-section h2 {
+  text-align: center;
   color: white;
-  justify-content: center;
   vertical-align: middle;
 }
 
@@ -67,7 +67,10 @@
 }
 
 .close-button {
-  float: right;
+  padding: 0;
+  margin-right: 10px;
+  margin-top: -20px;
+  display: inline;
 }
 
 .google-btn {
