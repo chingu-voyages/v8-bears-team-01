@@ -1,50 +1,56 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const card_style = {
     width: "18rem"
-}
+};
 
 const Project = props => (
     <div className="card" style={card_style}>
-        <Link to="/project/:id-placeholder"> <img class="card-img-top" src="https://via.placeholder.com/100" alt="Card image cap"/> </Link>
-        <div class="card-body">
-            <h5 class="card-title">{props.project.title}</h5>           
+        <Link to="/project/:id-placeholder">
+            {" "}
+            <img
+                className="card-img-top"
+                src="https://via.placeholder.com/100"
+                alt="Card image cap"
+            />{" "}
+        </Link>
+        <div className="card-body">
+            <h5 className="card-title">{props.project.title}</h5>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Open Positions: {props.project.num_open_positions}</li>
-            <li class="list-group-item">Team:</li>
+        <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+                Open Positions: {props.project.num_open_positions}
+            </li>
+            <li className="list-group-item">Team:</li>
         </ul>
     </div>
-)
+);
 
 export class ProjectList extends Component {
-
     constructor(props) {
         super(props);
         // this.state = { projects: [] }
-        this.state = {projects: [
-            { 
-                title: "Example Title 1",
-                num_open_positions: 4,
-
-            },
-            { 
-                title: "Example Title 2",
-                num_open_positions: 42,
-
-            },
-            { 
-                title: "Example Title 3",
-                num_open_positions: 45,
-
-            },
-            { 
-                title: "Example Title 4",
-                num_open_positions: 32,
-
-            }
-        ]};
+        this.state = {
+            projects: [
+                {
+                    title: "Example Title 1",
+                    num_open_positions: 4
+                },
+                {
+                    title: "Example Title 2",
+                    num_open_positions: 42
+                },
+                {
+                    title: "Example Title 3",
+                    num_open_positions: 45
+                },
+                {
+                    title: "Example Title 4",
+                    num_open_positions: 32
+                }
+            ]
+        };
     }
 
     // componentDidMount() {
@@ -64,7 +70,7 @@ export class ProjectList extends Component {
     //     })
     //     .catch((error) => {
     //         console.log(error);
-    //     })   
+    //     })
     // }
 
     projectList() {
@@ -77,9 +83,7 @@ export class ProjectList extends Component {
         return (
             <div className="projects-list-container container">
                 <h3 className="pb-4 pt-4">Latest Projects</h3>
-                  <div className="card-deck">
-                      { this.projectList() }
-                </div>
+                <div className="card-deck">{this.projectList()}</div>
             </div>
         );
     }
