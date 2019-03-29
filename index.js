@@ -7,6 +7,8 @@ const bodyParser = require("body-parser");
 const keys = require("./config/keys");
 const authRoute = require("./routes/auth");
 const projectRoute = require("./routes/projects");
+const searchRoute = require("./routes/search");
+
 require("./models/User");
 require("./models/Projects");
 require("./services/passport");
@@ -28,6 +30,7 @@ app.use(passport.session());
 
 authRoute(app);
 projectRoute(app);
+searchRoute(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

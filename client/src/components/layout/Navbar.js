@@ -200,9 +200,9 @@ export class Navbar extends Component {
                             CodeCollab
                         </Link>
                     </h5>
-                    <div className="search-container">
+                    <div className="search-container d-xs-none d-sm-none d-md-block">
                       <form action="/search" method="get">
-                        <input className="search expandright" id="searchright" type="search" name="q" placeholder="Search"></input>
+                        <input className="search expandright d-xs-none d-sm-none d-md-block" id="searchright" type="search" name="q" placeholder="Search"></input>
                         <label className="button searchbutton" for="searchright"><span class="mglass">&#9906;</span></label>
                       </form>
                     </div>
