@@ -5,8 +5,10 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 
 const keys = require("./config/keys");
-const authRoutes = require("./routes/auth");
+const authRoute = require("./routes/auth");
+const projectRoute = require("./routes/projects");
 require("./models/User");
+require("./models/Projects");
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
@@ -15,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.use(
-    cookieSession({ 
+    cookieSession({
         maxAge: 30 * 24 * 60 * 60 * 1000,
         keys: [keys.cookieKey]
     })
@@ -24,9 +26,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-authRoutes(app);
+authRoute(app);
+projectRoute(app);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT,()=>{
-    console.log('now running on port '+PORT)
+app.listen(PORT, () => {
+    console.log("now running on port " + PORT);
 });
