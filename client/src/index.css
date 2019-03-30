@@ -318,6 +318,14 @@ footer {
   text-align: left;
 }
 
+.footer-icon {
+  padding-right: 2px;
+}
+
+.copyright {
+  color: #808080
+}
+
 @media screen and (max-width: 576px) {
   .footer-list > li {
     text-align: center;
@@ -325,8 +333,4 @@ footer {
   h4, h5{
     text-align: center;
   }
-}
-
-.footer-icon {
-  padding-right: 2px;
 }

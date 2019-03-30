@@ -61,10 +61,10 @@ const Footer = () => (
         </div>
       </div>
       </div>
-        <div className="footer-bottom text-muted">
+        <div className="footer-bottom">
           <div className="row">
           <div className="col-md-12">
-            <p>Copyright &copy; {new Date().getFullYear()} CodeCollab</p>
+            <p className="copyright">Copyright &copy; {new Date().getFullYear()} CodeCollab</p>
           </div>
         </div>
       </div>
