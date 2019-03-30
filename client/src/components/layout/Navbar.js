@@ -203,7 +203,7 @@ export class Navbar extends Component {
                     <div className="search-container d-xs-none d-sm-none d-md-block">
                       <form action="/search" method="get">
                         <input className="search expandright d-xs-none d-sm-none d-md-block" id="searchright" type="search" name="q" placeholder="Search"></input>
-                        <label className="button searchbutton" for="searchright"><span class="mglass">&#9906;</span></label>
+                        <label className="button searchbutton" for="searchright"><span className="mglass">&#9906;</span></label>
                       </form>
                     </div>
                     <nav className="my-2 my-md-0 mr-md-3">

@@ -2,14 +2,18 @@
 const Project = require("../models/Projects");
 
 module.exports = app => {
-  app.get("/search", (req, res) => {
-    const searchQuery = new RegExp(req.query.q);
-    
-  Project.find().or([
-        { 'name': { $regex: searchQuery }},
-        { 'description': { $regex: searchQuery }},
-    ]).sort('name').exec(function(err, data) {
-        res.json(data);
-    });  
+  app.get("/api/search", (req, res) => {
+    const searchQuery = req.query.q;
+    const searchQueryRegex = new RegExp(searchQuery);
+
+    Project.find().or([
+          { 'name': { $regex: searchQueryRegex }},
+          { 'description': { $regex: searchQueryRegex }},
+      ]).sort('name').exec(function(err, data) {
+          res.json({
+            query: searchQuery,
+            results: data
+          });
+      });  
   });
 };

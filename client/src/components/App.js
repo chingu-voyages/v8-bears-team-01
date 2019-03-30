@@ -5,6 +5,7 @@ import { fetchUser } from "../actions/auth";
 
 import ProjectList from "./ProjectList";
 import Navbar from "./layout/Navbar";
+import SearchPage from "./SearchPage";
 
 class App extends Component {
     componentDidMount() {
@@ -17,6 +18,7 @@ class App extends Component {
                     <div>
                         <Navbar />
                         <Route exact path="/" component={ProjectList} />
+                        <Route path="/search" component={SearchPage} />
                     </div>
                 </BrowserRouter>
             </div>
