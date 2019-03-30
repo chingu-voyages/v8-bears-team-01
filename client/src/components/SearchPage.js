@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-const card_style = {
-  width: "18rem"
-};
-
 class SearchPage extends Component {
   constructor() {
     super();
@@ -32,9 +28,10 @@ class SearchPage extends Component {
         <div className="projects-list-container container">
           
           <div className="text-center mt-5 mb-4">
-            {this.state.query.length > 0 && <h3>Showing Results for: {this.state.query}</h3> }
+            {!!this.state.query && this.state.query.length > 0 ? <h3>Showing Results for: {this.state.query}</h3> : <p>Please enter a valid search term</p>}
           </div>
           <div className="row mb-5 justify-content-center">
+            {this.state.projects.length === 0 && <p>No results found.</p>}
             {projects.map(project => (
               <div className="col-sm-12 col-md-6 col-lg-3 p-3">
                 <div className="card" key={project._id}>
