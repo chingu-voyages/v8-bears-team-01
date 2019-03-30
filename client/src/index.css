@@ -1,4 +1,18 @@
+body, html {
+  min-height: 100vh;
+}
+
+.page-wrapper {
+  position: relative;
+}
+
+.page-content {
+  min-height: 100vh;
+  padding-bottom: 20rem;
+}
+
 /* Modal Styles */
+
 
 .ReactModalPortal > div {
   opacity: 0;
@@ -242,4 +256,77 @@ button.policy-modal-link {
 
 .expandright:focus {
 	padding: 0 0 0 16px;
+}
+
+/* Footer */
+
+footer {
+  font-family: 'Pathway Gothic One', sans-serif;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+  color: #f2f2f2	;
+  line-height: 2rem;
+}
+
+.footer-container {
+  padding: 1rem 8rem 0 8rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.footer-bottom {
+  margin-top: .6rem;
+}
+
+.footer-top h4 {
+  text-transform: uppercase;
+  font-size: 2rem;
+  padding-bottom: 5px;
+  text-align: left;
+}
+
+.footer-top h5{
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    padding-top: 7px;
+    padding-bottom: 5px;
+    transform: scale(1.1, 1);
+    text-align: left;
+    color: #f2f2f2;
+}
+
+.footer-logo {
+  width: .8rem;
+  height: .8rem;
+  padding: 0 5px 5px 5px;
+}
+
+.footer-link {
+  color: #909090;
+}
+
+.footer-link:hover {
+  color: rgb(209, 209, 209);
+}  
+
+.footer-list > li {
+  margin-left: -4px;
+  text-align: left;
+}
+
+@media screen and (max-width: 576px) {
+  .footer-list > li {
+    text-align: center;
+  }
+  h4, h5{
+    text-align: center;
+  }
+}
+
+.footer-icon {
+  padding-right: 2px;
 }

@@ -5,6 +5,7 @@ import { fetchUser } from "../actions/auth";
 
 import ProjectList from "./ProjectList";
 import Navbar from "./layout/Navbar";
+import Footer from "./layout/Footer";
 import SearchPage from "./SearchPage";
 
 class App extends Component {
@@ -13,15 +14,16 @@ class App extends Component {
     }
     render() {
         return (
-            <div>
-                <BrowserRouter>
-                    <div>
-                        <Navbar />
-                        <Route exact path="/" component={ProjectList} />
-                        <Route path="/search" component={SearchPage} />
-                    </div>
-                </BrowserRouter>
-            </div>
+          <BrowserRouter>
+              <div className="page-wrapper">
+                  <Navbar />
+                  <div className="page-content">
+                    <Route exact path="/" component={ProjectList} />
+                    <Route path="/search" component={SearchPage} />
+                  </div>
+                  <Footer />
+              </div>
+          </BrowserRouter>
         );
     }
 }
