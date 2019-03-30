@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+
+const card_style = {
+  width: "18rem"
+};
 
 class SearchPage extends Component {
   constructor() {
@@ -24,19 +29,37 @@ class SearchPage extends Component {
     const projects = this.state.projects;
     return (
       <div>
-        <div className="text-center mt-5">
-          {this.state.query.length > 0 && <h3>Showing Results for: {this.state.query}</h3> }
-        </div>
-          {projects.map(project => (
-            <div className="row" key={project._id}>
-              <div className="col-md-8">
-                <h2>{project.name}</h2>
+        <div className="projects-list-container container">
+          
+          <div className="text-center mt-5 mb-4">
+            {this.state.query.length > 0 && <h3>Showing Results for: {this.state.query}</h3> }
+          </div>
+          <div className="row mb-5 justify-content-center">
+            {projects.map(project => (
+              <div className="col-sm-12 col-md-6 col-lg-3 p-3">
+                <div className="card" key={project._id}>
+                  <Link to={"/project/:" + project._id}>
+                      {" "}
+                      <img
+                          className="card-img-top"
+                          src="https://via.placeholder.com/100"
+                          alt="Card image cap"
+                      />{" "}
+                  </Link>
+                  <div className="card-body">
+                      <h5 className="card-title">{!!project.name && project.name}</h5>
+                  </div>
+                  <ul className="list-group list-group-flush">
+                      <li className="list-group-item">
+                          {!!project.description && project.description}
+                      </li>
+                      <li className="list-group-item">Team:</li>
+                  </ul>
+                </div>
               </div>
-              <div className="col-md-4">
-                <h4>{project.description}</h4>
-              </div>
+            ))}
             </div>
-          ))}
+          </div>
       </div>
     )
   }
