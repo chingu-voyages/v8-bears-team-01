@@ -13,7 +13,7 @@ class SearchPage extends Component {
     fetch("/api/search" + this.props.location.search)
       .then(response => response.json())
       .then(data => {
-        window.localStorage.setItem("projectList", JSON.stringify(data.results));
+        // window.localStorage.setItem("projectList", JSON.stringify(data.results));
         this.setState({ query: data.query, projects: data.results });
       })
       .catch(err => console.log(err));
