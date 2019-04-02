@@ -33,8 +33,8 @@ class SearchPage extends Component {
           <div className="row mb-5 justify-content-center">
             {this.state.projects.length === 0 && <p>No results found.</p>}
             {projects.map(project => (
-              <div className="col-sm-12 col-md-6 col-lg-3 p-3">
-                <div className="card" key={project._id}>
+              <div className="col-sm-12 col-md-6 col-lg-3 p-3" key={project._id}>
+                <div className="card">
                   <Link to={"/project/:" + project._id}>
                       {" "}
                       <img
