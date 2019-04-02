@@ -46,25 +46,8 @@ export class ProjectList extends Component {
               .catch(err=>{
                   console.log(err)
               })
-        // fetch('http://localhost:5000/api/projects/')
-        //     .then(response => {
-        //         this.setState({projects: response.data});
-        //         console.log(response.data)
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     })
     }
 
-    // componentDidUpdate() {
-    //     fetch('http://localhost:4000/projects/')
-    //     .then(response => {
-    //         this.setState({projects: response.data});
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //     })
-    // }
 
     projectList() {
         return this.state.projects.map((currentProject, i) => {
