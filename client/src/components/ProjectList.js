@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios'
 import { Link } from "react-router-dom";
 
 const card_style = {
@@ -28,40 +29,32 @@ const Project = props => (
 );
 
 export class ProjectList extends Component {
-    constructor(props) {
-        super(props);
+    
         // this.state = { projects: [] }
-        this.state = {
-            projects: [
-                {
-                    title: "Example Title 1",
-                    num_open_positions: 4
-                },
-                {
-                    title: "Example Title 2",
-                    num_open_positions: 42
-                },
-                {
-                    title: "Example Title 3",
-                    num_open_positions: 45
-                },
-                {
-                    title: "Example Title 4",
-                    num_open_positions: 32
-                }
-            ]
-        };
-    }
 
-    // componentDidMount() {
-    //     fetch('http://localhost:4000/projects/')
-    //         .then(response => {
-    //             this.setState({projects: response.data});
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         })
-    // }
+    state = {
+            projects: []
+        };
+    
+
+    componentDidMount() {
+        axios.get('/api/projects/')
+              .then(resp=>{
+                  this.setState({projects: resp.data})
+               
+              })
+              .catch(err=>{
+                  console.log(err)
+              })
+        // fetch('http://localhost:5000/api/projects/')
+        //     .then(response => {
+        //         this.setState({projects: response.data});
+        //         console.log(response.data)
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     })
+    }
 
     // componentDidUpdate() {
     //     fetch('http://localhost:4000/projects/')
