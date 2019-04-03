@@ -37,6 +37,7 @@ export class ProjectList extends Component {
   };
 
   componentDidMount() {
+      this.setState({isLoading: true})
     axios
       .get("/api/projects/")
       .then(resp => {
@@ -57,7 +58,7 @@ export class ProjectList extends Component {
     return (
       <div className="projects-list-container container">
         <h3 className="pb-4 pt-4">
-          Latest Projects{" "}
+          Latest Projects{" "}     
           {this.state.isLoading && (
             <div
               className="spinner-border spinner-border-sm"
