@@ -19,7 +19,7 @@ const RegisterModal = props => (
             className="btn btn-link nav-link text-light close-button"
             onClick={props.handleRequestClose}
           >
-            <i class="fas fa-times" />
+            <i className="fas fa-times" />
           </button>
           <h2 className="font-weight-light">Sign Up</h2>
         </div>
