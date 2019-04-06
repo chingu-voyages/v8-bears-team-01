@@ -8,10 +8,18 @@ module.exports = app => {
     });
 
     app.post("/api/projects", async (req, res) => {
-        const { name, deadline, description, roles, img } = req.body;
+        const {
+            ownerName,
+            projectName,
+            deadline,
+            description,
+            roles,
+            img
+        } = req.body;
 
         const project = new Project({
-            name,
+            ownerName,
+            projectName,
             deadline,
             description,
             roles,
