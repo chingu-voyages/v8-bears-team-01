@@ -17,7 +17,7 @@ const Project = props => (
             />{" "}
         </Link>
         <div className="card-body">
-            <h5 className="card-title">{props.project.title}</h5>
+            <h5 className="card-title">{props.project.projectName}</h5>
         </div>
         <ul className="list-group list-group-flush">
             <li className="list-group-item">

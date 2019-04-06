@@ -64,14 +64,14 @@ class SearchPage extends Component {
                   </Link>
                   <div className="card-body">
                     <h5 className="card-title">
-                      {!!project.name && project.name}
+                      {!!project.projectName && project.projectName}
                     </h5>
                   </div>
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                       {!!project.description && project.description}
                     </li>
-                    <li className="list-group-item">Team:</li>
+                  <li className="list-group-item">Team Leader:{!!project.ownerName && project.ownerName}</li>
                   </ul>
                 </div>
               </div>
