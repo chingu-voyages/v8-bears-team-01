@@ -13,7 +13,10 @@ require("./models/User");
 require("./models/Projects");
 require("./services/passport");
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI).catch((err) => {
+  console.log('error connecting to DB:', err);
+});
+
 
 const app = express();
 app.use(bodyParser.json());
