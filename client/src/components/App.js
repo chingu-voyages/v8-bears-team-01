@@ -3,10 +3,11 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUser } from "../actions/auth";
 
-import ProjectList from "./ProjectList";
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
 import SearchPage from "./SearchPage";
+import LandingPage from "./LandingPage";
+import NewProject from "./projects/NewProject";
 
 class App extends Component {
     componentDidMount() {
@@ -14,16 +15,17 @@ class App extends Component {
     }
     render() {
         return (
-          <BrowserRouter>
-              <div className="page-wrapper">
-                  <Navbar />
-                  <div className="page-content">
-                    <Route exact path="/" component={ProjectList} />
-                    <Route path="/search" component={SearchPage} />
-                  </div>
-                  <Footer />
-              </div>
-          </BrowserRouter>
+            <BrowserRouter>
+                <div className="page-wrapper">
+                    <Navbar />
+                    <div className="page-content">
+                        <Route exact path="/" component={LandingPage} />
+                        <Route path="/search" component={SearchPage} />
+                        <Route path="/newproject" component={NewProject} />
+                    </div>
+                    <Footer />
+                </div>
+            </BrowserRouter>
         );
     }
 }
