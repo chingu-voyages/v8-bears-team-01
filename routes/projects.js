@@ -2,9 +2,13 @@ const Project = require("../models/Projects");
 
 module.exports = app => {
     app.get("/api/projects", async (req, res) => {
-        const projects = await Project.find();
-
-        res.json(projects);
+        try {
+          const projects = await Project.find();
+          res.json(projects);
+      } catch (err) {
+          console.log( 'api error', err);
+          res.status(422).send(err);
+      }
     });
 
     app.post("/api/projects", async (req, res) => {
