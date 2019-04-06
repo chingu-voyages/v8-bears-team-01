@@ -2,17 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const card_style = {
-    width: "18rem"
-};
-
 const Project = props => (
     <div
       className="col-sm-12 col-md-6 col-lg-3 p-3"
       key={props.project._id}
     >
       <div className="card">
-          <Link to="/project/:id-placeholder">
+          <Link to={"/project/:" + props.project._id}>
               {" "}
               <img
                   className="card-img-top"
@@ -27,7 +23,7 @@ const Project = props => (
               <li className="list-group-item">
                   Open Positions: {props.project.num_open_positions}
               </li>
-              <li className="list-group-item">Team:</li>
+              <li className="list-group-item">Team Leader: {props.project.ownerName}</li>
           </ul>
       </div>
     </div>
