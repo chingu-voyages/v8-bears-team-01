@@ -7,24 +7,29 @@ const card_style = {
 };
 
 const Project = props => (
-    <div className="card" style={card_style}>
-        <Link to="/project/:id-placeholder">
-            {" "}
-            <img
-                className="card-img-top"
-                src="https://via.placeholder.com/100"
-                alt="Card image cap"
-            />{" "}
-        </Link>
-        <div className="card-body">
-            <h5 className="card-title">{props.project.projectName}</h5>
-        </div>
-        <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-                Open Positions: {props.project.num_open_positions}
-            </li>
-            <li className="list-group-item">Team:</li>
-        </ul>
+    <div
+      className="col-sm-12 col-md-6 col-lg-3 p-3"
+      key={props.project._id}
+    >
+      <div className="card">
+          <Link to="/project/:id-placeholder">
+              {" "}
+              <img
+                  className="card-img-top"
+                  src="https://via.placeholder.com/100"
+                  alt="Card image cap"
+              />{" "}
+          </Link>
+          <div className="card-body">
+              <h5 className="card-title">{props.project.projectName}</h5>
+          </div>
+          <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                  Open Positions: {props.project.num_open_positions}
+              </li>
+              <li className="list-group-item">Team:</li>
+          </ul>
+      </div>
     </div>
 );
 
