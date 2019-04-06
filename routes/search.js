@@ -4,7 +4,8 @@ const Project = require("../models/Projects");
 module.exports = app => {
   app.get("/api/search", (req, res) => {
     const searchQuery = req.query.q;
-    const searchQueryRegex = new RegExp(searchQuery, 'i');
+    const searchQueryEsc = searchQuery.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    const searchQueryRegex = new RegExp(searchQueryEsc, 'i');
 
     Project.find().or([
           { 'projectName': { $regex: searchQueryRegex }},

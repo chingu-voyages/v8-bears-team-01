@@ -10,6 +10,45 @@ class SearchPage extends Component {
       isLoading: false
     };
   }
+  renderContent() {
+    const projects = this.state.projects;
+    return (
+      <div>
+        <h3>Showing Results for: {this.state.query}</h3>
+        <div className="row mb-5 justify-content-center">
+        {this.state.projects.length === 0 && <p>No results found.</p>}
+        {projects.map(project => (
+          <div
+            className="col-sm-12 col-md-6 col-lg-3 p-3"
+            key={project._id}
+          >
+            <div className="card">
+              <Link to={"/project/:" + project._id}>
+                {" "}
+                <img
+                  className="card-img-top"
+                  src="https://via.placeholder.com/100"
+                  alt="Card image cap"
+                />{" "}
+              </Link>
+              <div className="card-body">
+                <h5 className="card-title">
+                  {!!project.projectName && project.projectName}
+                </h5>
+              </div>
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item">
+                  {!!project.description && project.description}
+                </li>
+              <li className="list-group-item">Team Leader:{!!project.ownerName && project.ownerName}</li>
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+  }
   getResults = () => {
     fetch("/api/search" + this.props.location.search)
       .then(response => response.json())
@@ -28,7 +67,6 @@ class SearchPage extends Component {
     this.getResults();
   }
   render() {
-    const projects = this.state.projects;
     return (
       <div>
         <div className="projects-list-container container">
@@ -41,41 +79,10 @@ class SearchPage extends Component {
               <span className="sr-only">Loading...</span>
             </div>)}
             {!!this.state.query && this.state.query.length > 0 ? (
-              <h3>Showing Results for: {this.state.query}</h3>
+              this.renderContent()
             ) : (
               <p>Please enter a valid search term</p>
             )}
-          </div>
-          <div className="row mb-5 justify-content-center">
-            {this.state.projects.length === 0 && <p>No results found.</p>}
-            {projects.map(project => (
-              <div
-                className="col-sm-12 col-md-6 col-lg-3 p-3"
-                key={project._id}
-              >
-                <div className="card">
-                  <Link to={"/project/:" + project._id}>
-                    {" "}
-                    <img
-                      className="card-img-top"
-                      src="https://via.placeholder.com/100"
-                      alt="Card image cap"
-                    />{" "}
-                  </Link>
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      {!!project.projectName && project.projectName}
-                    </h5>
-                  </div>
-                  <ul className="list-group list-group-flush">
-                    <li className="list-group-item">
-                      {!!project.description && project.description}
-                    </li>
-                  <li className="list-group-item">Team Leader:{!!project.ownerName && project.ownerName}</li>
-                  </ul>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
