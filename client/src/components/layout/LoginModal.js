@@ -51,7 +51,7 @@ const LoginModal = props => (
           </em>
         </p>
         <br />
-        <button onClick={props.handleLogin} className="btn sign-up-button mb-4">
+        <button onClick={props.handleLogin} className="btn btn-teal mb-4">
           Log in{" "}
           {props.isLoading && (
             <div className="spinner-border spinner-border-sm " role="status">

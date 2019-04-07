@@ -13,6 +13,18 @@ body, html {
   padding-bottom: 20rem;
 }
 
+/* Reusable Styles */
+
+.btn-teal {
+  color: white;
+  background-color: #5bcfc6;
+}
+
+.btn-teal:hover {
+  color: white;
+  background-color: #4fc1b8;
+}
+
 /* Modal Styles */
 
 .ReactModalPortal > div {
@@ -119,11 +131,6 @@ body, html {
   background-color: #3c4d85;
   color: white;
   outline: none;
-}
-
-.sign-up-button {
-  color: white;
-  background-color: #5bcfc6;
 }
 
 .policy-modal-link {

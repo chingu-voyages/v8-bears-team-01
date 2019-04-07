@@ -21,7 +21,6 @@ const Project = props => (
           <p class="card-text">{props.project.description}</p>
           </div>
       </div>
-      
     </div>
 );
 
@@ -68,7 +67,7 @@ export class LandingPage extends Component {
               </h3>
               <div className="card-deck">{this.projectList()}</div>
               <Link to="/newproject">
-                  <button>Add new project</button>
+                  <button className="btn btn-teal">Add new project</button>
               </Link>
           </div>
         );

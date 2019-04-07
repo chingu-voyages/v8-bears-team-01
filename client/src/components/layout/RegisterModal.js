@@ -70,7 +70,7 @@ const RegisterModal = props => (
           <br />
           <button
             onClick={props.handleSignup}
-            className="btn sign-up-button mb-4"
+            className="btn btn-teal mb-4"
           >
             Sign Up{" "}
             {props.isLoading && (
