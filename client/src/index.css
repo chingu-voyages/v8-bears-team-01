@@ -15,7 +15,6 @@ body, html {
 
 /* Modal Styles */
 
-
 .ReactModalPortal > div {
   opacity: 0;
 }
@@ -144,6 +143,7 @@ button.policy-modal-link {
 
 .divider {
   display: flex;
+  color: black;
 }
 
 .divider:before,
@@ -233,7 +233,7 @@ button.policy-modal-link {
 	outline: none;
   border: none;
   border-radius: 5px;
-	padding: 0;
+  padding: 0;
 	width: 0;
 	height: 100%;
 	z-index: 10;
@@ -241,6 +241,11 @@ button.policy-modal-link {
 	-moz-transition-duration: 0.4s;
 	-webkit-transition-duration: 0.4s;
 	-o-transition-duration: 0.4s;
+}
+
+.search::placeholder {
+  color: #868c9f;
+  font-weight: bold;
 }
 
 .search:focus {
@@ -254,7 +259,7 @@ button.policy-modal-link {
 }
 
 .expandright:focus {
-	padding: 0 0 0 16px;
+	padding: 0 16px 0 16px;
 }
 
 /* Footer */

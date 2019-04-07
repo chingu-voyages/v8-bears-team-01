@@ -30,7 +30,7 @@ const RegisterModal = props => (
           <a className="btn facebook-btn mr-2 ml-2" href="/auth/facebook">
             <i className="fab fa-facebook modal-icon" />
           </a>
-          <p className="divider line mt-4 mb-4">or</p>
+          <p className="divider line mt-4 mb-4 text-dark">or</p>
           <input
             value={props.name}
             className="form-control"
