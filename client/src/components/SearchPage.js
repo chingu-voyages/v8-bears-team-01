@@ -22,7 +22,7 @@ class SearchPage extends Component {
             className="col-sm-12 col-md-6 col-lg-3 p-3"
             key={project._id}
           >
-            <div className="card">
+            <div className="card text-white bg-secondary m-0 mb-4">
               <Link to={"/project/:" + project._id}>
                 {" "}
                 <img
@@ -35,13 +35,8 @@ class SearchPage extends Component {
                 <h5 className="card-title">
                   {!!project.projectName && project.projectName}
                 </h5>
+                <p class="card-text">{!!project.description && project.description}</p>
               </div>
-              <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                  {!!project.description && project.description}
-                </li>
-              <li className="list-group-item">Team Leader:{!!project.ownerName && project.ownerName}</li>
-              </ul>
             </div>
           </div>
         ))}

@@ -1,5 +1,7 @@
 body, html {
   min-height: 100vh;
+  background-color: #202225;
+  color: white;
 }
 
 .page-wrapper {
@@ -11,8 +13,19 @@ body, html {
   padding-bottom: 20rem;
 }
 
-/* Modal Styles */
+/* Reusable Styles */
 
+.btn-teal {
+  color: white;
+  background-color: #5bcfc6;
+}
+
+.btn-teal:hover {
+  color: white;
+  background-color: #4fc1b8;
+}
+
+/* Modal Styles */
 
 .ReactModalPortal > div {
   opacity: 0;
@@ -120,11 +133,6 @@ body, html {
   outline: none;
 }
 
-.sign-up-button {
-  color: white;
-  background-color: #5bcfc6;
-}
-
 .policy-modal-link {
   font-size: .8rem;
   margin-top: .4rem;
@@ -142,6 +150,7 @@ button.policy-modal-link {
 
 .divider {
   display: flex;
+  color: black;
 }
 
 .divider:before,
@@ -165,18 +174,14 @@ button.policy-modal-link {
   box-shadow: 0 0.5px 0 black;
 }
 
+/* Navbar */
+
+.border-black {
+  border-bottom: solid 1px #191a1c;
+}
 
 /* Navbar search */
 
-
-.button:hover {
-	transition-duration: 0.4s;
-	-moz-transition-duration: 0.4s;
-	-webkit-transition-duration: 0.4s;
-	-o-transition-duration: 0.4s;
-	background-color: white;
-	color: black;
-}
 
 .search-container {
 	position: relative;
@@ -203,7 +208,7 @@ button.policy-modal-link {
 	padding-left: 32px;
 	padding-right: 32px;
   height: 50px;
-  color: #404040;
+  color: #f2f2f2;
 	line-height: 50px;
 	text-align: center;
 	text-decoration: none;
@@ -230,11 +235,12 @@ button.policy-modal-link {
 .search {
 	position: absolute;
 	left: 49px; /* Button width-1px (Not 50px/100% because that will sometimes show a 1px line between the search box and button) */
-	background-color: #f0f0f0;
+  background-color: #555e68;
+  color: white;
 	outline: none;
   border: none;
   border-radius: 5px;
-	padding: 0;
+  padding: 0;
 	width: 0;
 	height: 100%;
 	z-index: 10;
@@ -242,6 +248,11 @@ button.policy-modal-link {
 	-moz-transition-duration: 0.4s;
 	-webkit-transition-duration: 0.4s;
 	-o-transition-duration: 0.4s;
+}
+
+.search::placeholder {
+  color: #868c9f;
+  font-weight: bold;
 }
 
 .search:focus {
@@ -255,7 +266,7 @@ button.policy-modal-link {
 }
 
 .expandright:focus {
-	padding: 0 0 0 16px;
+	padding: 0 16px 0 16px;
 }
 
 /* Footer */
