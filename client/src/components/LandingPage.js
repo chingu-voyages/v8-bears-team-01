@@ -13,9 +13,9 @@ const Project = props => (
                     alt="Card image cap"
                 />{" "}
             </Link>
-            <div class="card-body">
-                <h5 class="card-title">{props.project.projectName}</h5>
-                <p class="card-text">{props.project.description}</p>
+            <div className="card-body">
+                <h5 className="card-title">{props.project.projectName}</h5>
+                <p className="card-text">{props.project.description}</p>
             </div>
         </div>
     </div>
@@ -58,6 +58,7 @@ export class LandingPage extends Component {
         return numArr.map(num => {
             return (
                 <li
+                    key={num}
                     style={{
                         marginRight: "8px",
                         padding: "0",
