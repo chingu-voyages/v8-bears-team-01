@@ -49,7 +49,7 @@ class ProjectPage extends Component {
 }
 
 function mapStateToProps(state) {
-    return { project: state.project };
+    return { project: state.project.project };
 }
 
 export default connect(
