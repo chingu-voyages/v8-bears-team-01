@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getProjects } from "../actions/project";
 
 const Project = props => (
     <div className="col-sm-12 col-md-6 col-lg-3 pb-3" key={props.project._id}>
         <div className="card text-white bg-secondary m-0 mb-4">
-            <Link to={"/project/:" + props.project._id}>
+            <Link to={"/project/" + props.project._id}>
                 {" "}
                 <img
                     className="card-img-top"
@@ -31,6 +33,8 @@ export class LandingPage extends Component {
     };
 
     componentDidMount() {
+        this.props.getProjects();
+
         this.setState({ isLoading: true });
         axios
             .get("/api/projects/")
@@ -47,12 +51,6 @@ export class LandingPage extends Component {
                 console.log(err);
             });
     }
-
-    //   projectList() {
-    //     return this.state.projects.map((currentProject, i) => {
-    //       return <Project project={currentProject} key={i} />;
-    //     });
-    //   }
 
     paginationNumbers = numArr => {
         return numArr.map(num => {
@@ -142,4 +140,11 @@ export class LandingPage extends Component {
     }
 }
 
-export default LandingPage;
+const mapStateToProps = function(state) {
+    return { projects: state.project.projects };
+};
+
+export default connect(
+    mapStateToProps,
+    { getProjects }
+)(LandingPage);

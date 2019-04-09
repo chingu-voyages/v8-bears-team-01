@@ -1,11 +1,13 @@
 import React from "react";
 
-const ProjectField = ({ input, label, meta: { error, touched } }) => {
+const ProjectField = ({ input, label, type, meta: { error, touched } }) => {
     return (
         <div>
             <label>{label}</label>
-            <input {...input} />
-            {touched && error}
+            <div>
+                <input {...input} type={type} />
+                {touched && error}
+            </div>
         </div>
     );
 };
