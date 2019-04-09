@@ -8,6 +8,7 @@ import Footer from "./layout/Footer";
 import SearchPage from "./SearchPage";
 import LandingPage from "./LandingPage";
 import NewProject from "./projects/NewProject";
+import ProjectPage from "./ProjectPage";
 
 class App extends Component {
     componentDidMount() {
@@ -22,6 +23,7 @@ class App extends Component {
                         <Route exact path="/" component={LandingPage} />
                         <Route path="/search" component={SearchPage} />
                         <Route path="/newproject" component={NewProject} />
+                        <Route path="/project/:id" component={ProjectPage} />
                     </div>
                     <Footer />
                 </div>

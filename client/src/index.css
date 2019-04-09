@@ -345,3 +345,15 @@ footer {
     text-align: center;
   }
 }
+
+/* Project Page */
+
+.project-page-img {
+  width: 100%;
+  max-width: 800px;
+}
+
+.project-container {
+  background-color: #42464d;
+  padding: 3rem;
+}
