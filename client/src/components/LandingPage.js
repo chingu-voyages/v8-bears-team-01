@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getProjects } from "../actions/project";
 
 const Project = props => (
     <div className="col-sm-12 col-md-6 col-lg-3 pb-3" key={props.project._id}>
@@ -31,6 +33,8 @@ export class LandingPage extends Component {
     };
 
     componentDidMount() {
+        this.props.getProjects();
+
         this.setState({ isLoading: true });
         axios
             .get("/api/projects/")
@@ -142,4 +146,11 @@ export class LandingPage extends Component {
     }
 }
 
-export default LandingPage;
+const mapStateToProps = function(state) {
+    return { projects: state.project };
+};
+
+export default connect(
+    mapStateToProps,
+    { getProjects }
+)(LandingPage);
