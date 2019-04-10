@@ -21,12 +21,12 @@ Clone this repository
 git clone git@github.com:chingu-voyages/v8-bears-team-01.git
 ```
 
-Install dependencies
+Install dependencies in the main folder & client folder.
 
 ```
 $ npm install
-$ npm install client
 ```
+
 Add dev.js file to the config folder
 
 Run the server
