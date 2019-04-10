@@ -9,6 +9,7 @@ import SearchPage from "./SearchPage";
 import LandingPage from "./LandingPage";
 import NewProject from "./projects/NewProject";
 import ProjectPage from "./ProjectPage";
+import UserProjectPage from "./UserProjectPage"
 
 class App extends Component {
     componentDidMount() {
@@ -21,9 +22,10 @@ class App extends Component {
                     <Navbar />
                     <div className="page-content">
                         <Route exact path="/" component={LandingPage} />
-                        <Route path="/search" component={SearchPage} />
-                        <Route path="/newproject" component={NewProject} />
-                        <Route path="/project/:id" component={ProjectPage} />
+                        <Route exact path="/search" component={SearchPage} />
+                        <Route exact path="/newproject" component={NewProject} />
+                        <Route exact path="/project/:id" component={ProjectPage} />
+                        <Route exact path="/project/user/projects" component={UserProjectPage}/>
                     </div>
                     <Footer />
                 </div>
