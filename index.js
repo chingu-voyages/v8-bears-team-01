@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
+const cors = require('cors');
 const passport = require("passport");
 const bodyParser = require("body-parser");
 
@@ -19,6 +20,7 @@ mongoose.connect(keys.mongoURI).catch((err) => {
 
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
 app.use(
