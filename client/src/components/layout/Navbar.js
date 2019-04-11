@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
+import axios from "axios";
+
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
-import axios from "axios";
 import { fetchUser } from "../../actions/auth";
+
+import { handleValidation } from "../../helpers/handleValidation"
 
 export class Navbar extends Component {
     state = {
@@ -52,86 +55,51 @@ export class Navbar extends Component {
         this.setState({ name: val });
     };
 
-    handleValidation = type => {
-        const { email, password, comfirmPassword, name } = this.state;
-        if (type === "signup") {
-            if (!email || !password || !name) {
-                this.setState({ errorMsg: "All fields are required" });
-                return false;
-            }
-            if (password.length < 6 || password.length > 30) {
-                this.setState({
-                    errorMsg: "Password must be between 6 and 30 characters"
-                });
-                return false;
-            }
-            if (password.includes(" ")) {
-                this.setState({ errorMsg: "Password cannot contain spaces" });
-                return false;
-            }
-            if (comfirmPassword !== password) {
-                this.setState({ errorMsg: "Passwords must match" });
-                return false;
-            }
-        }
-
-        if (type === "login") {
-            if (!email || !password) {
-                this.setState({ errorMsg: "All fields are required" });
-                return false;
-            }
-        }
-
-        if (!email.includes("@")) {
-            this.setState({ errorMsg: "Invalid email address." });
-            return false;
-        }
-
-        if (
-            email.includes("'") ||
-            email.includes('"') ||
-            password.includes("'") ||
-            password.includes('"')
-        ) {
-            this.setState({ errorMsg: "Fields cannot contain ' or \"" });
-            return false;
-        }
-    };
 
     handleLogin = () => {
-        let response = this.handleValidation("login");
-        if (response === false) return;
+       const {name,email,password,comfirmPassword} = this.state;
+       const {errorMsg,response} = handleValidation(name,email,password,comfirmPassword,"login");
+       if (response === false){
+           this.setState({errorMsg})
+           return;
+        }
         this.setState({ isLoading: true });
-        let email = this.state.email;
-        let password = this.state.password;
+        
 
         let obj = {
             email: email.trim(),
             password: password.trim()
         };
-
+        
         axios
-            .post(`/auth/login`, obj)
-            .then(resp => {
-                //   console.log(resp.data);
-                this.setState({ isLoading: false });
-                this.clearFields();
-                this.setState({ errMessage: "", loginIsActive: false });
-                window.location.assign("/");
+        .post(`/auth/login`, obj)
+        .then(resp => {
+            //   console.log(resp.data);
+            this.setState({ isLoading: false });
+            this.clearFields();
+            this.setState({ errMessage: "", loginIsActive: false });
+            localStorage.setItem('authToken', resp.data.token)
+            this.props.fetchUser().then(resp=>{
+                    
+                this.props.history.push('/project/user/projects')
             })
-            .catch(err => {
-                err.response &&
-                    this.setState({ errorMsg: err.response.data.errMessage });
-            });
+            // window.location.assign("/");
+        })
+        .catch(err => {
+            err.response &&
+            this.setState({ errorMsg: err.response.data.errMessage });
+        });
     };
-
+    
     handleSignup = () => {
-        let response = this.handleValidation("signup");
-        if (response === false) return;
+        const {name,email,password,comfirmPassword} = this.state;
+        const {errorMsg,response} = handleValidation(name,email,password,comfirmPassword,"signup");
+        if (response === false){
+            this.setState({errorMsg})
+            return;
+        }
         this.setState({ isLoading: true });
-        let email = this.state.email;
-        let password = this.state.password;
-        let name = this.state.name;
+    
         let obj = {
             email: email.trim(),
             password: password.trim(),
@@ -146,13 +114,28 @@ export class Navbar extends Component {
                 this.clearFields();
                 this.setState({ errMessage: "", registerIsActive: false });
 
-                window.location.assign("/");
+                this.props.history.push('/project/user/projects')
+              
+              //  window.location.assign("/");
             })
             .catch(err => {
                 err.response &&
                     this.setState({ errorMsg: err.response.data.errMessage });
             });
-    };
+    };  
+
+    handleLogout=()=>{
+        //send token object while logging out
+        axios.get('/api/logout')
+        .then(resp=>{
+            localStorage.removeItem('authToken');
+                this.props.history.push('/')
+             })
+             .catch(err=>{
+                 console.log(err)
+             })
+
+    }
 
     clearFields = () => {
         this.setState({
@@ -165,14 +148,14 @@ export class Navbar extends Component {
     };
 
     renderContent() {
-        if (this.props.auth) {
+        if (localStorage.getItem('authToken')) {
             return (
                 <div>
                     {" "}
                     <a href="#" className="mr-4 text-light">
                         My Profile
                     </a>
-                    <a href="/api/logout" className="text-light">
+                    <a onClick={this.handleLogout} className="text-light" style={{cursor:'pointer'}}>
                         Logout
                     </a>
                 </div>
