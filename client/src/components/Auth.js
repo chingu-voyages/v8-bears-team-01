@@ -12,8 +12,14 @@ import { get_auth_token } from "../actions/auth"
   componentDidMount(){
     this.props.get_auth_token()
         .then(()=>{
-          localStorage.setItem('authToken',this.props.token)
-          this.props.history.push("/dashboard")
+         let result = localStorage.getItem('authToken')
+          if(result){
+            this.props.history.push("/dashboard")
+          } else {
+
+            localStorage.setItem('authToken',this.props.token)
+            this.props.history.push("/dashboard")
+          }
         })
   }
 
