@@ -1,7 +1,7 @@
 export const handleValidation = (name,email,password,comfirmPassword,type )=> {
  // const { email, password, comfirmPassword, name } = this.state;
     let errorMsg = ''
-    let response = false
+    let response = true
   if (type === "signup") {
       if (!email || !password || !name) {
            errorMsg = "All fields are required";
