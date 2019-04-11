@@ -1,4 +1,5 @@
-const verifyToken = (req,res,next) =>{
+
+module.exports =(req,res,next)=> {
   const bearerHeader = req.headers['authorization'];
 
   //check of bearer is undefined
@@ -15,10 +16,4 @@ const verifyToken = (req,res,next) =>{
   } else {
     res.sendStatus(403)
   }
-
-}
-
-
-module.exports = {
-  verifyToken
 }
