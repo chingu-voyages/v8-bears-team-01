@@ -53,13 +53,13 @@ passport.use(
             profileFields: ["emails", "name", "picture.type(large)"]
         },
         (accessToken, refreshToken, profile, done) => {
-            console.log(profile);
+           
             process.nextTick(() => {
                 User.findOne({ profileID: profile.id }, (err, user) => {
                     if (err) return done(err);
                     if (user) return done(null, user);
                     else {
-                        console.log("****new facebook signup****");
+                       
                         const profileInfo = {
                             fbID: profile.id,
                             name: profile.name.givenName,
