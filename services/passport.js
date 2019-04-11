@@ -38,7 +38,6 @@ passport.use(
                 googleId: profile.id
             }).save();
 
-            console.log(user);
 
             done(null, user);
         }
