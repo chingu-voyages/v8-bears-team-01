@@ -6,7 +6,6 @@ import axios from "axios";
 
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
-import { fetchUser } from "../../actions/auth";
 
 import { handleValidation } from "../../helpers/handleValidation"
 
@@ -81,7 +80,7 @@ export class Navbar extends Component {
             localStorage.setItem('authToken', resp.data.token)
             this.props.fetchUser().then(resp=>{
                     
-                this.props.history.push('/project/user/projects')
+                this.props.history.push('/dashboard')
             })
             // window.location.assign("/");
         })
@@ -114,7 +113,7 @@ export class Navbar extends Component {
                 this.clearFields();
                 this.setState({ errMessage: "", registerIsActive: false });
 
-                this.props.history.push('/project/user/projects')
+                this.props.history.push('/dashboard')
               
               //  window.location.assign("/");
             })
@@ -126,7 +125,7 @@ export class Navbar extends Component {
 
     handleLogout=()=>{
         //send token object while logging out
-        axios.get('/api/logout')
+        axios.get('/api/logout',{headers: { Authorization: `Bearer ${localStorage.getItem('authToken')}` }})
         .then(resp=>{
             localStorage.removeItem('authToken');
                 this.props.history.push('/')
@@ -137,13 +136,18 @@ export class Navbar extends Component {
 
     }
 
+    handleProfile = () =>{
+        //do something
+    }
+
     clearFields = () => {
         this.setState({
             email: "",
             password: "",
             name: "",
             errorMsg: "",
-            comfirmPassword: ""
+            comfirmPassword: "",
+            isLoading: false
         });
     };
 
@@ -152,7 +156,7 @@ export class Navbar extends Component {
             return (
                 <div>
                     {" "}
-                    <a href="#" className="mr-4 text-light">
+                    <a onClick={this.handleProfile} className="mr-4 text-light" style={{cursor:'pointer'}}>
                         My Profile
                     </a>
                     <a onClick={this.handleLogout} className="text-light" style={{cursor:'pointer'}}>
@@ -241,15 +245,6 @@ export class Navbar extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        auth: state.auth
-    };
-}
 
-export default withRouter(
-    connect(
-        mapStateToProps,
-        { fetchUser }
-    )(Navbar)
-);
+
+export default withRouter(Navbar);
