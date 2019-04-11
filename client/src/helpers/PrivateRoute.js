@@ -2,13 +2,13 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
 
-export const PrivateRoute = ({component: Component,auth,...rest}) => (
+export const PrivateRoute = ({component: Component,...rest}) => (
   <Route 
   {...rest}
   
   render={props =>
     
-    auth ? (
+    localStorage.getItem('authToken') ? (
         <Component {...props} />
       ) : (
         <Redirect
