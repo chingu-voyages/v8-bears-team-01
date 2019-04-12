@@ -18,3 +18,8 @@ export const getProject = id => async dispatch => {
     const res = await axios.get(`/api/projects/${id}`);
     dispatch({ type: GET_PROJECT, payload: res.data });
 };
+
+export const get_user_projects = userID => async dispatch =>{
+    const res = await axios.get(`/api/${userID}/projects}`);
+    dispatch({ type: GET_USER_PROJECTS, payload: res.data });
+}

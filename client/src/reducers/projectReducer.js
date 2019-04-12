@@ -2,7 +2,8 @@ import { CREATE_PROJECT, GET_PROJECTS, GET_PROJECT } from "../actions/types";
 
 const initialState = {
     projects: [],
-    project: {}
+    project: {},
+    user_projects: []
 };
 
 export default function(state = initialState, action) {
@@ -19,6 +20,11 @@ export default function(state = initialState, action) {
                 ...state,
                 project: action.payload
             };
+        case GET_USER_PROJECTS:
+             return {
+                 ...state,
+                 user_projects: action.payload
+             }
         default:
             return state;
     }
