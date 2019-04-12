@@ -1,4 +1,6 @@
 const Project = require("../models/Projects");
+const verifyToken = require("../middlewares/verifyToken")
+
 
 module.exports = app => {
     //get all projects
@@ -7,7 +9,7 @@ module.exports = app => {
             const projects = await Project.find();
             res.json(projects);
         } catch (err) {
-            console.log("api error", err);
+           // console.log("api error", err);
             res.status(422).send(err);
         }
     });
@@ -23,7 +25,7 @@ module.exports = app => {
                 res.status(404).json("No project found with this id");
             }
         } catch (err) {
-            console.log(err);
+           // console.log(err);
             res.status(404).json({ error: err });
         }
     });
@@ -58,4 +60,17 @@ module.exports = app => {
             res.status(422).send(err);
         }
     });
+
+    //get projects that belong to a user
+
+    app.get("/api/:userID/projects", verifyToken ,async (req, res) =>{
+
+        //get the current logged in user from the session.
+        const user_id = req.params.userID
+
+        //get all project that logged in user has
+      
+        //send user's project to client
+        //res.status(200).json(user)
+    })
 };
