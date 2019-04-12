@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import axios from "axios";
 
+
+import { fetchUser } from "../../actions/auth";
+
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
 
@@ -188,7 +191,7 @@ export class Navbar extends Component {
             <div>
                 <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-black">
                     <h5 className="my-0 mr-md-auto font-weight-normal">
-                        <Link className="text-light" to="/">
+                        <Link className="text-light" to="/" style={{textDecoration: "none"}}>
                             CodeCollab
                         </Link>
                     </h5>
@@ -247,4 +250,6 @@ export class Navbar extends Component {
 
 
 
-export default withRouter(Navbar);
+export default withRouter(connect(null,{fetchUser})(Navbar))
+
+
