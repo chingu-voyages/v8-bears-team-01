@@ -9,7 +9,7 @@ module.exports =(req,res,next)=> {
     //get token from array
     const bearerToken = bearer[1]
 
-    //ser the token
+    //set the token
     req.token = bearerToken
 
     next();
