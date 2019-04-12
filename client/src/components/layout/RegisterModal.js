@@ -68,10 +68,7 @@ const RegisterModal = props => (
             </em>
           </p>
           <br />
-          <button
-            onClick={props.handleSignup}
-            className="btn btn-teal mb-4"
-          >
+          <button onClick={props.handleSignup} className="btn btn-teal mb-4">
             Sign Up{" "}
             {props.isLoading && (
               <div className="spinner-border spinner-border-sm " role="status">

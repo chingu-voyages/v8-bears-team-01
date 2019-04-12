@@ -6,7 +6,7 @@
     "axios": "^0.18.0",
     "http-proxy-middleware": "^0.19.1",
     "moment": "^2.24.0",
-    "prettier": "^1.16.4",
+    "prettier": "^1.17.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-modal": "^3.8.1",

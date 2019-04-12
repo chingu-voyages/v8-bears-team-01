@@ -5,7 +5,7 @@ import authReducer from "./authReducer";
 import projectReducer from "./projectReducer";
 
 export default combineReducers({
-    auth: authReducer,
-    form: reduxForm,
-    project: projectReducer
+  auth: authReducer,
+  form: reduxForm,
+  project: projectReducer
 });
