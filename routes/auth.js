@@ -1,6 +1,9 @@
 const passport = require("passport");
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 const User = require('../models/User')
+const verifyToken = require("../middlewares/verifyToken")
+const keys = require('../config/keys')
 
 
 module.exports = app => {
@@ -15,8 +18,12 @@ module.exports = app => {
         "/auth/google/callback",
         passport.authenticate("google"),
         (req, res) => {
-            req.session.user = req.user
-            res.redirect("/");
+            jwt.sign({resp},keys.jwtSecret,(err,token)=>{
+
+                req.session.token = token
+                req.session.user = req.user
+                res.redirect("/auth");
+            })
         }
     );
 
@@ -31,25 +38,44 @@ module.exports = app => {
       "/auth/facebook/callback", 
       passport.authenticate("facebook", { failureRedirect: "/failedLogin" }),
       (req, res) => {
+        jwt.sign({resp},keys.jwtSecret,(err,token)=>{
+
+            req.session.token = token
+            req.session.user = req.user
+     
+        })
         if (process.env.NODE_ENV === "production") {
-            req.session.user = req.user
-            return res.redirect("/");
+            
+            return res.redirect("/auth");
         } else {
-            req.session.user = req.user
-          return res.redirect("http://localhost:3000"); 
+            req.session.token = token
+  
+            res.redirect("/auth");
         }
       }
     );
 
-    app.get("/api/logout", (req, res) => {
-        delete req.session.user
+    app.get("/api/logout",verifyToken, (req, res) => {
+        jwt.verify(req.token,keys.jwtSecret,(err,authData)=>{
+            if(err){
+                res.sendStatus(403)
+            } else {
+                delete req.session.user
+                delete req.session.token
+               res.json({success:'success'})
+            }})
         
-        req.logout();
-        res.redirect("/");
+        //req.logout();
+       // res.status(200).json({status:'success'})
+        //res.redirect("/");
     });
 
     app.get("/api/current_user", (req, res) => {
         res.send(req.session.user);
+    });
+
+    app.get("/api/auth_token", (req, res) => {
+        res.send(req.session.token);
     });
 
     app.post(`/auth/login`, (req,res)=>{
@@ -65,8 +91,12 @@ module.exports = app => {
                     if(bcrypt.compareSync(password,resp.password)){
                         //save password in user details in req.user
                         req.session.user = resp
+                      
+                        jwt.sign({resp},keys.jwtSecret,(err,token)=>{
+
+                            res.status(200).json({resp,token})
+                        })
                        
-                       res.status(200).json(resp)
           
                         //redirect user to home page
                        
@@ -114,8 +144,13 @@ module.exports = app => {
     });
              newUser.save()
                     .then(resp=>{
-                        req.session.user = resp
-                        res.status(200).json(resp)
+                        jwt.sign({resp},keys.jwtSecret,(err,token)=>{
+                            req.session.user = resp
+                            req.session.token = token
+
+                            res.status(200).json({resp,token})
+                        })
+                     
                        
                     })
                     .catch(err=>{
@@ -123,7 +158,7 @@ module.exports = app => {
                     })
 
        //save user details in req.user
-       //redirect user to homepage
+       //redirect user to `homepage`
 
 
        //if error resend
