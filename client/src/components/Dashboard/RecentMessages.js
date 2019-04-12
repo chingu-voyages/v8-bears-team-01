@@ -19,12 +19,13 @@ const RecentMessages = () => {
         <i className="far fa-user fa-4x"></i>
           <div className="container">
           <p className="text-left text-wrap font-weight-normal">lorem ipsum asdfadfasdfasdfsdadfasssssssssssssss asdfadfasdfasdfsdadfasssssssssssssss  asdfadfasdfasdfsdadfassssssssssssssssssssssssssssssfsfasdf asdfasdfasdfasd</p>
-          <button className="btn btn-outline-success btn-sm" type="button">Reply</button> <button className="btn btn-outline-info btn-sm" type="button">Archive</button>
+          <button className="btn btn-outline-success btn-sm " type="button">Reply</button> <button className="btn btn-outline-info btn-sm" type="button">Archive</button>
 
           </div>
        </div>      
       </div>
-      <button className="btn btn-outline-primary btn-sm" type="button">View More</button> 
+    
+      <button className="btn btn-outline-primary btn-sm " type="button">View More</button> 
 
     </>
   )
