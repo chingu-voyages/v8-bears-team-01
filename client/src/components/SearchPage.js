@@ -16,33 +16,32 @@ class SearchPage extends Component {
       <div>
         <h3>Showing Results for: {this.state.query}</h3>
         <div className="row mb-5 justify-content-center">
-        {this.state.projects.length === 0 && <p>No results found.</p>}
-        {projects.map(project => (
-          <div
-            className="col-sm-12 col-md-6 col-lg-3 p-3"
-            key={project._id}
-          >
-            <div className="card text-white bg-secondary m-0 mb-4">
-              <Link to={"/project/:" + project._id}>
-                {" "}
-                <img
-                  className="card-img-top"
-                  src="https://via.placeholder.com/100"
-                  alt="Card image cap"
-                />{" "}
-              </Link>
-              <div className="card-body">
-                <h5 className="card-title">
-                  {!!project.projectName && project.projectName}
-                </h5>
-                <p class="card-text">{!!project.description && project.description}</p>
+          {this.state.projects.length === 0 && <p>No results found.</p>}
+          {projects.map(project => (
+            <div className="col-sm-12 col-md-6 col-lg-3 p-3" key={project._id}>
+              <div className="card text-white bg-secondary m-0 mb-4">
+                <Link to={"/project/:" + project._id}>
+                  {" "}
+                  <img
+                    className="card-img-top"
+                    src="https://via.placeholder.com/100"
+                    alt="Card image cap"
+                  />{" "}
+                </Link>
+                <div className="card-body">
+                  <h5 className="card-title">
+                    {!!project.projectName && project.projectName}
+                  </h5>
+                  <p class="card-text">
+                    {!!project.description && project.description}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  )
+    );
   }
   getResults = () => {
     fetch("/api/search" + this.props.location.search)
@@ -66,13 +65,15 @@ class SearchPage extends Component {
       <div>
         <div className="projects-list-container container">
           <div className="text-center mt-5 mb-4">
-            {this.state.isLoading &&(<div
-              className="spinner-border"
-              style={{ width: "3rem", height: "3rem" }}
-              role="status"
-            >
-              <span className="sr-only">Loading...</span>
-            </div>)}
+            {this.state.isLoading && (
+              <div
+                className="spinner-border"
+                style={{ width: "3rem", height: "3rem" }}
+                role="status"
+              >
+                <span className="sr-only">Loading...</span>
+              </div>
+            )}
             {!!this.state.query && this.state.query.length > 0 ? (
               this.renderContent()
             ) : (
