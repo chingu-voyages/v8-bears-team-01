@@ -44,16 +44,17 @@ module.exports = app => {
 
             req.session.token = token
             req.session.user = req.user
-     
-        })
-        if (process.env.NODE_ENV === "production") {
             
-            return res.redirect("/auth");
-        } else {
-            req.session.token = token
-  
-            res.redirect("/auth");
-        }
+            if (process.env.NODE_ENV === "production") {
+                
+                return res.redirect("/auth");
+            } else {
+               
+      
+                res.redirect("http://localhost:3000/auth");
+                
+            }
+        })
       }
     );
 
