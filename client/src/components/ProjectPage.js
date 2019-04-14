@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProject } from "../actions/project";
+import { Link } from "react-router-dom";
 
 class ProjectPage extends Component {
+  constructor (){
+    super()
+    this.state = {
+      success: false
+    }
+  }
   displaySuccessMesage = () => {
     return (
       <div class="alert alert-success" role="alert">
@@ -34,6 +41,7 @@ class ProjectPage extends Component {
       <div>
         <div className="py-5 text-white">
           <div className="mx-auto col-md-10">
+            {!!this.state.success && this.displaySuccessMesage()}
             <div className="project-container row">
               <div className="col-sm-8 col-md-8 col-lg-8">
                 <img
@@ -50,7 +58,21 @@ class ProjectPage extends Component {
                 <p>
                   Description: {!!project && project.description ? project.description : ""}
                 </p>
-                <button className="btn btn-teal">Apply to Project</button>
+                <button
+                onClick={this.onEditButtonClick}
+                className="btn btn-sm btn-outline-light mr-1 mb-2"
+                >
+                  edit
+                </button>
+                <button
+                  onClick={this.onDeleteButtonClick}
+                  className="btn btn-sm btn-outline-danger mb-2"
+                >
+                  delete
+                </button>
+                <button className="btn btn-teal">
+                    Apply to Project
+                </button>              
               </div>
             </div>
           </div>
