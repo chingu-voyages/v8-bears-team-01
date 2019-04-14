@@ -3,6 +3,28 @@ import { connect } from "react-redux";
 import { getProject } from "../actions/project";
 
 class ProjectPage extends Component {
+  displaySuccessMesage = () => {
+    return (
+      <div class="alert alert-success" role="alert">
+        Project successfully deleted. <Link to="/">Go home.</Link>
+      </div>
+    )
+  }
+  onDeleteButtonClick = e => {
+    const id = this.props.match.params.id;
+    if (window.confirm("Are you sure you want to delete this project?")) {
+      fetch(`/api/projects/${id}`, {
+        method: "DELETE",
+        body: JSON.stringify({ id })
+      })
+        .then(
+          response =>
+            response.status === 200 &&
+            this.setState({ success: true })
+        )
+        .catch(err => console.log(err));
+    }
+  };
   componentDidMount() {
     this.props.getProject(this.props.match.params.id);
   }
@@ -20,13 +42,13 @@ class ProjectPage extends Component {
                 />
               </div>
               <div className="col-sm-4 col-md-4 col-lg-4">
-                <h1 className="text-light">{project.projectName}</h1>
+                <h1 className="text-light">{!!project && project.projectName ? project.projectName : ""}</h1>
                 <p className="mb-4 lead text-light">
-                  Created by: {!!project.ownerName && project.ownerName}
+                  Created by: {!!project && project.ownerName ? project.ownerName : ""}
                 </p>
-                <p>Deadline: {!!project.deadline && project.deadline}</p>
+                <p>Deadline: {!!project && project.deadline ? project.deadline : ""}</p>
                 <p>
-                  Description: {!!project.description && project.description}
+                  Description: {!!project && project.description ? project.description : ""}
                 </p>
                 <button className="btn btn-teal">Apply to Project</button>
               </div>
