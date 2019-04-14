@@ -32,6 +32,9 @@ class ProjectPage extends Component {
         .catch(err => console.log(err));
     }
   };
+  onEditButtonClick = e => {
+    
+  }
   componentDidMount() {
     this.props.getProject(this.props.match.params.id);
   }
@@ -70,7 +73,7 @@ class ProjectPage extends Component {
                 >
                   delete
                 </button>
-                <button className="btn btn-teal">
+                <button className="btn btn-teal btn-block">
                     Apply to Project
                 </button>              
               </div>
