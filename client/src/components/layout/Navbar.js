@@ -126,7 +126,7 @@ export class Navbar extends Component {
 
         this.props.history.push("/dashboard");
 
-        //  window.location.assign("/");
+        
       })
       .catch(err => {
         err.response &&
@@ -155,6 +155,10 @@ export class Navbar extends Component {
     //do something
   };
 
+  handleDashboard = () =>{
+    this.props.history.push("/dashboard")
+  }
+
   clearFields = () => {
     this.setState({
       email: "",
@@ -171,6 +175,15 @@ export class Navbar extends Component {
       return (
         <div>
           {" "}
+
+          <a
+          onClick={this.handleDashboard}
+          className="mr-4 text-light"
+          style={{ cursor: "pointer" }}
+        >
+         Dashboard
+        </a>
+
           <a
             onClick={this.handleProfile}
             className="mr-4 text-light"
@@ -178,6 +191,7 @@ export class Navbar extends Component {
           >
             My Profile
           </a>
+          
           <a
             onClick={this.handleLogout}
             className="text-light"
