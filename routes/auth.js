@@ -18,8 +18,9 @@ module.exports = app => {
         "/auth/google/callback",
         passport.authenticate("google"),
         (req, res) => {
-            jwt.sign({resp},keys.jwtSecret,(err,token)=>{
-
+            let user = req.user
+            jwt.sign({user},keys.jwtSecret,(err,token)=>{
+                //console.log('google',req.user)
                 req.session.token = token
                 req.session.user = req.user
                 res.redirect("/auth");
@@ -38,7 +39,8 @@ module.exports = app => {
       "/auth/facebook/callback", 
       passport.authenticate("facebook", { failureRedirect: "/failedLogin" }),
       (req, res) => {
-        jwt.sign({resp},keys.jwtSecret,(err,token)=>{
+        let user = req.user
+        jwt.sign({user},keys.jwtSecret,(err,token)=>{
 
             req.session.token = token
             req.session.user = req.user
@@ -91,7 +93,7 @@ module.exports = app => {
                     if(bcrypt.compareSync(password,resp.password)){
                         //save password in user details in req.user
                         req.session.user = resp
-                      
+                       // console.log("normal",resp)
                         jwt.sign({resp},keys.jwtSecret,(err,token)=>{
 
                             res.status(200).json({resp,token})
