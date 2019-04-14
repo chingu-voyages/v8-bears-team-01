@@ -9,7 +9,7 @@ const projectSchema = new Schema({
     description: String,
     roles: [String],
     _user: { type: Schema.Types.ObjectId, ref: "User" },
-    img: String
+    img: Object
 });
 
 const Project = mongoose.model("projects", projectSchema);
