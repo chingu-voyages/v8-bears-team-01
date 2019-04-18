@@ -1,0 +1,15 @@
+p{
+  margin-bottom: 0;
+}
+
+.sidebar{
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  /* position : fixed; */
+  top: 0;
+  left: 0;
+  height: 100vh;
+  /* z-index: 999; */
+  background: #6DD1CC;
+}
