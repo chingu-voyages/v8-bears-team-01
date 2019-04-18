@@ -76,30 +76,24 @@ const renderDateTimePicker = ({
     </div>
 );
 
-const adaptFileEventToValue = delegate => e => {
-    console.log(e.target.files[0]);
-    delegate(e.target.files[0]);
-};
-
-const FileInput = ({
-    input: { value: omitValue, onChange, onBlur, ...inputProps },
-    meta: omitMeta,
-    ...props
-}) => (
-    <input
-        onChange={adaptFileEventToValue(onChange)}
-        onBlur={adaptFileEventToValue(onBlur)}
-        type="file"
-        accept="image/*"
-        {...inputProps}
-        {...props}
-    />
-);
-
 export class NewProject extends Component {
+    state = {
+        file: null
+    };
+
+    onFileChange = event => {
+        this.setState({
+            file: event.target.files[0]
+        });
+    };
+
     onSubmit = formValues => {
         console.log(formValues);
-        this.props.createProject(formValues, this.props.history);
+        this.props.createProject(
+            formValues,
+            this.state.file,
+            this.props.history
+        );
     };
 
     render() {
@@ -170,10 +164,11 @@ export class NewProject extends Component {
                                         />
                                     </div>
                                     <div>
-                                        <Field
-                                            name="img"
-                                            label="Upload Image"
-                                            component={FileInput}
+                                        <label>Upload Image for project</label>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={this.onFileChange}
                                         />
                                     </div>
                                     <div>
