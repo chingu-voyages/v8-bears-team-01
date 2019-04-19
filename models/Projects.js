@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const projectSchema = new Schema({
-    projectType: Object,
+    projectType: {
+        type: Object,
+        required: true
+    },
     ownerName: String,
     projectName: String,
     deadline: String,
