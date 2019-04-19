@@ -19,8 +19,9 @@ export const getProjects = () => async dispatch => {
   dispatch({ type: GET_PROJECTS, payload: res.data });
 };
 
-export const getProject = id => async dispatch => {
+export const getProject = (id, cb) => async dispatch => {
   const res = await axios.get(`/api/projects/${id}`);
+  cb( res.data );
   dispatch({ type: GET_PROJECT, payload: res.data });
 };
 

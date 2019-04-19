@@ -73,4 +73,30 @@ module.exports = app => {
         //send user's project to client
         //res.status(200).json(user)
     })
+
+      //delete a project
+
+      app.delete("/api/projects/:id", function(req, res) {
+        Project.findByIdAndRemove(req.params.id, function(err) {
+          if (err) {
+            console.log("ERROR: Unable to delete project. ", err);
+            res.status(500).json({ error: err });
+          } else {
+            res.status(200).json({ msg: "successfully deleted project." });
+          }
+        });
+      });
+
+      //edit a project
+
+      app.put("/api/projects/:id", (req, res, next) => {
+        Project.findByIdAndUpdate(req.params.id, req.body, { new: true }) 
+          .then(data => {
+            res.status(200).json(data);
+          })
+          .catch(err => {
+            res.status(500).json({ message: err.message || "some error occurred!" });
+          });
+      });
+      
 };
