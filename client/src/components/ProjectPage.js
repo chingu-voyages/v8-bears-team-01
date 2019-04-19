@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getProject } from "../actions/project";
+import { getProject, delete_project } from "../actions/project";
 import { Link } from "react-router-dom";
 import EditProject from "./projects/EditProject";
 
@@ -62,20 +62,8 @@ class ProjectPage extends Component {
             </div>
         );
     };
-    onDeleteButtonClick = e => {
-        const id = this.props.match.params.id;
-        if (window.confirm("Are you sure you want to delete this project?")) {
-            fetch(`/api/projects/${id}`, {
-                method: "DELETE",
-                body: JSON.stringify({ id })
-            })
-                .then(
-                    response =>
-                        response.status === 200 &&
-                        this.setState({ success: true })
-                )
-                .catch(err => console.log(err));
-        }
+    onDeleteButtonClick = id => {
+        this.props.delete_project(id);
     };
     componentDidMount() {
         var that = this;
@@ -134,5 +122,5 @@ function mapStateToProps(state) {
 
 export default connect(
     mapStateToProps,
-    { getProject }
+    { getProject, delete_project }
 )(ProjectPage);

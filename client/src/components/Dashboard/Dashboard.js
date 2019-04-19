@@ -11,35 +11,33 @@ import YourProjects from "./YourProjects";
 import JoinedProjects from "./JoinedProjects";
 
 class Dashboard extends Component {
-  componentDidMount() {
-    //get the current user
-    this.props
-      .fetchUser()
-      .then
-      //get user projects
-      //you can uncomment code below when the backend is hooked up
-      // this.props.get_user_projects(this.props.user._id)
-      ();
-  }
-  render() {
-    return (
-      <div className="projects-list-container container">
-        <h3 className="content-header text-center display-4">Dashboard</h3>
-        <RecentMessages />
-        <YourProjects />
-        <JoinedProjects />
-      </div>
-    );
-  }
+    async componentDidMount() {
+        await this.props.fetchUser();
+        await this.props.get_user_projects();
+    }
+    render() {
+        const { projects } = this.props;
+        return (
+            <div className="projects-list-container container">
+                <h3 className="content-header text-center display-4">
+                    Dashboard
+                </h3>
+                {/* <RecentMessages /> */}
+                <YourProjects project={projects} />
+                <JoinedProjects />
+            </div>
+        );
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    user: state.auth.user
-  };
+    return {
+        user: state.auth.user,
+        projects: state.project.user_projects
+    };
 }
 
 export default connect(
-  mapStateToProps,
-  { fetchUser, get_user_projects }
+    mapStateToProps,
+    { fetchUser, get_user_projects }
 )(Dashboard);
