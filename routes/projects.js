@@ -38,7 +38,7 @@ module.exports = app => {
             deadline,
             description,
             roles,
-            img
+            imageUrl
         } = req.body;
 
         const project = new Project({
@@ -48,7 +48,7 @@ module.exports = app => {
             deadline,
             description,
             roles,
-            img,
+            imageUrl,
             user: req.user._id
         });
 
@@ -75,18 +75,18 @@ module.exports = app => {
     //delete a project
 
     app.delete("/api/projects/:id", async (req, res) => {
-        const project = await Project.findById(req.user.id);
-        console.log(req.user._id);
-        console.log(project.user);
+        console.log(req.params.id);
+        //console.log(project);
+        console.log(req.user);
 
         try {
-            if (project.user !== req.user.id) {
+            /* if (project.user.toString() !== req.params.id.toString()) {
                 return res
                     .status(401)
                     .json({ notauthorized: "User not authorized" });
-            }
+            } */
 
-            await project.remove();
+            await Project.findByIdAndRemove(req.params.id);
             res.json({ msg: true });
         } catch (err) {
             res.status(404).json({ error: "no project found" });

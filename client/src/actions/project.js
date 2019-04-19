@@ -8,20 +8,18 @@ import {
 } from "./types";
 
 export const createProject = (values, file, history) => async dispatch => {
-    /* const uploadConfig = await axios.get("/api/upload", { file: file.name });
+    const uploadConfig = await axios.get("/api/upload");
 
-    delete axios.defaults.headers.common["Authorization"];
-
-    await axios.put(uploadConfig.data.url, file, {
+    const upload = await axios.put(uploadConfig.data.url, file, {
         headers: {
             "Content-Type": file.type
         }
     });
 
-    const token = localStorage.getItem("jwtToken");
-    axios.defaults.headers.common["Authorization"] = token; */
-
-    const res = await axios.post("/api/projects", values);
+    const res = await axios.post("/api/projects", {
+        ...values,
+        imageUrl: uploadConfig.data.key
+    });
 
     dispatch({ type: CREATE_PROJECT, payload: res.data });
     history.push("/");
@@ -46,8 +44,9 @@ export const get_user_projects = () => async dispatch => {
 
 export const delete_project = id => async dispatch => {
     const res = await axios.delete(`/api/projects/${id}`);
+    console.log(res);
     try {
-        dispatch({ type: DELETE_PROJECT, payload: res.data });
+        dispatch({ type: DELETE_PROJECT, payload: res });
     } catch (err) {
         console.log(err);
     }

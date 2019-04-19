@@ -19,51 +19,68 @@ class YourProjects extends Component {
                         <button className="btn btn-teal">Create project</button>
                     </Link>
                 </div>
-                {this.props.project.map((project, key) => {
-                    return (
-                        <div
-                            className="col-sm-12 col-md-6 col-lg-3 pb-3"
-                            key={project._id}
-                        >
-                            <div className="card text-white bg-secondary m-0 mb-4">
-                                <Link
-                                    to={`/${
-                                        this.props.project.ownerName
-                                    }/project/${this.props.project._id}`}
-                                >
-                                    {" "}
-                                    <img
-                                        className="card-img-top"
-                                        src="https://via.placeholder.com/100"
-                                        alt="Card image cap"
-                                    />{" "}
-                                </Link>
-                                <div className="card-body">
-                                    <h5 className="card-title">
-                                        {project.projectName}
-                                    </h5>
-                                    <p className="card-text">
-                                        {project.description}
-                                    </p>
-                                    <div className="float-right">
-                                        <a href="#" className="btn btn-primary">
-                                            <i className="fas fa-pen" />
-                                        </a>
-                                        {"  "}
-                                        <button
-                                            className="btn btn-danger"
-                                            onClick={id =>
-                                                this.props.delete_project(id)
-                                            }
-                                        >
-                                            <i className="fas fa-trash" />
-                                        </button>
+                {this.props.project ? (
+                    this.props.project.map((project, key) => {
+                        return (
+                            <div
+                                className="col-sm-12 col-md-6 col-lg-3 pb-3"
+                                key={project._id}
+                            >
+                                <div className="card text-white bg-secondary m-0 mb-4">
+                                    <Link
+                                        to={`/${project.ownerName}/project/${
+                                            project._id
+                                        }`}
+                                    >
+                                        {" "}
+                                        <img
+                                            className="card-img-top"
+                                            src={`https://s3.us-east-2.amazonaws.com/code-collab-image/${
+                                                project.imageUrl
+                                            }`}
+                                            alt="Card image cap"
+                                        />{" "}
+                                    </Link>
+                                    <div className="card-body">
+                                        <h5 className="card-title">
+                                            {project.projectName}
+                                        </h5>
+                                        <p className="card-text">
+                                            {project.description}
+                                        </p>
+                                        <div className="float-right">
+                                            <a
+                                                href="#"
+                                                className="btn btn-primary"
+                                            >
+                                                <i className="fas fa-pen" />
+                                            </a>
+                                            {"  "}
+                                            <button
+                                                className="btn btn-danger"
+                                                onClick={id =>
+                                                    this.props.delete_project(
+                                                        id
+                                                    )
+                                                }
+                                            >
+                                                <i className="fas fa-trash" />
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })
+                ) : (
+                    <div
+                        className="spinner-border spinner-border-sm"
+                        style={{ width: "2rem", height: "2rem" }}
+                        role="status"
+                    >
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                )}
             </>
         );
     }
