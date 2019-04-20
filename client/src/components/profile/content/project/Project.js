@@ -4,14 +4,12 @@ import {Link, Switch, Route, withRouter} from 'react-router-dom';
 import Allproject from './Allproject';
 import Currentproject from './Currentproject';
 import Completedproject from './Completedproject';
-import Schedule from './Schedule';
 
 class Project extends Component {
   state = {
     allProjects: true,
     currentProjects: false,
     completedProjects: false,
-    schedule: false,
     currentInput: 'allProjects',
   };
 
@@ -54,13 +52,6 @@ class Project extends Component {
               to="/profile/uu/myprojects/completedprojects">
               Completed Peojects
             </Link>
-
-            <Link
-              className={this.state.schedule ? 'active' : undefined}
-              onClick={() => this.updateSelected('schedule')}
-              to="/profile/uu/myprojects/schedule">
-              Schedule
-            </Link>
           </div>
         </div>
 
@@ -77,7 +68,6 @@ class Project extends Component {
             path="/profile/uu/myprojects/completedprojects"
             component={Completedproject}
           />
-          <Route path="/profile/uu/myprojects/schedule" component={Schedule} />
         </Switch>
       </>
     );
