@@ -1,11 +1,12 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import "./profile.css"
 
-const SideBar = () => {
+const SideBar = (props) => {
   return (
-    <div className="wrapper">
+    <>
       <nav className="sidebar ">
-       <div className="d-flex flex-column text-center">
+       <div className="d-flex flex-column text-center"> 
         <div className="sidebar-picture">
          <i className="fas fa-user-circle fa-7x"></i>
         </div>
@@ -16,29 +17,24 @@ const SideBar = () => {
         </div>
 
 
-        <ul className="list-unstyled components">
-          
+        <div className="components">
+              
         
-          <li className="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-            
-          </li>
-          <li>
-            <a href="#">About</a>
-          </li>
-          <li>
-            <a href="#">My Projects</a>
-          </li>
-          <li>
-            <a href="#">Collaborators</a>
-          </li> 
-          <li>
-            <a href="#">My Contacts</a>
-          </li>               
-        </ul>
+            <Link className={props.about ?'active': undefined} onClick={()=>props.updateState('about')} to="/profile/uu/about">About</Link>
+        
+        
+            <Link className={props.myProject ?'active':undefined} onClick={()=>props.updateState('myProject')} to="/profile/uu/myprojects">My Projects</Link>
+        
+       
+            <Link className={props.collaborators ?'active':undefined} onClick={()=>props.updateState('collaborators')} to="/profile/uu/collaborators">Collaborators</Link>
+         
+         
+            <Link className={props.myContacts ? 'active':undefined} onClick={()=>props.updateState('myContacts')} to="/profile/uu/contact">My Contacts</Link>
+                       
+        </div>
       
       </nav>
-    </div>
+    </>
   )
 }
 
