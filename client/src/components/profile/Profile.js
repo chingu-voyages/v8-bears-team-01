@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense} from 'react';
 import { withRouter } from 'react-router-dom'
 
 import Sidebar from './Sidebar';
-import Content from './Content';
+// import Content from './Content';
+const Content = React.lazy(()=>import('./Content.js'))
 
 class Profile extends Component {
   state = {
@@ -32,9 +33,13 @@ class Profile extends Component {
       <div>
         <Sidebar
           {...this.state}
-          updateState={this.updateState}
+          updateState={this.updateState}                                                                                  
         />
+        <Suspense fallback={<div>Loading...</div>}>
+
         <Content />
+
+        </Suspense>
       </div>
     );
   }
