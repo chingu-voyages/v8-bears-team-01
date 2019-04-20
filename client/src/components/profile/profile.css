@@ -6,10 +6,34 @@ p{
   display: flex;
   flex-direction: column;
   width: 250px;
-  /* position : fixed; */
-  top: 0;
+  top: 90px;
   left: 0;
   height: 100vh;
-  /* z-index: 999; */
-  background: #6DD1CC;
+  background: #343A40;
+  position: absolute;
+}
+
+.sidebar li>a {
+  text-decoration: none !important;
+  color: white;
+}
+
+.sidebar ul li a{
+  margin-left: 5px;
+}
+
+
+.sidebar ul li{
+  padding: 10px 0;
+  border-bottom: 1px solid #47748b;
+  font-size: 1.1rem;
+  cursor: pointer; 
+}
+
+.sidebar ul li.active{
+  background: rgb(65, 72, 79);
+}
+
+.sidebar ul li:hover{
+  background: rgb(65, 72, 79);
 }
