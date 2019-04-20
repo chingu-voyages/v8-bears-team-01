@@ -1,36 +1,43 @@
-import React, { Component } from 'react'
-import Sidebar from './Sidebar'
-import Content from './Content'
+import React, {Component} from 'react';
+import { withRouter } from 'react-router-dom'
+
+import Sidebar from './Sidebar';
+import Content from './Content';
 
 class Profile extends Component {
-    state = {
-      about: true,
-      myProject: false,
-      collaborators: false,
-      myContacts: false,
-      currentInput : 'about'
-    }
+  state = {
+    about: true,
+    myProject: false,
+    collaborators: false,
+    myContacts: false,
+    currentInput: 'about',
+  };
 
-    updateState = (name) =>{
-      let currentInput = this.state.currentInput
-      this.setState(prevState=>({[currentInput]:!prevState[currentInput]}))
-   
-      this.setState(prevState=>({[name]: !prevState[name],
-      
-                                currentInput: name
-                              }))
-    }
+  componentDidMount(){
+   this.props.history.push('/profile/uu/about')
+  }
 
-    
+  updateState = name => {
+    let currentInput = this.state.currentInput;
+    this.setState (prevState => ({[currentInput]: !prevState[currentInput]}));
 
-  render() {
+    this.setState (prevState => ({
+      [name]: !prevState[name],
+      currentInput: name,
+    }));
+  };
+
+  render () {
     return (
       <div>
-        <Sidebar {...this.state} updateState={this.updateState} updateInput={this.updateCurrentInput}/>
+        <Sidebar
+          {...this.state}
+          updateState={this.updateState}
+        />
         <Content />
       </div>
-    )
+    );
   }
 }
 
-export default Profile;
+export default withRouter(Profile);
