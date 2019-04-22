@@ -36,9 +36,7 @@ class Profile extends Component {
           updateState={this.updateState}                                                                                  
         />
         <Suspense fallback={<div>Loading...</div>}>
-
         <Content />
-
         </Suspense>
       </div>
     );

@@ -6,7 +6,9 @@ const Allproject = () => {
     <div className="allproject-wrapper">
       <div className="allproject-items ">
         {arr.map ((elem, index) => (
-          <div key={index} className="allproject-item" />
+          <div key={index} className="allproject-item">
+            <p>Revelations Destination</p>
+          </div>
         ))}
       </div>
     </div>
