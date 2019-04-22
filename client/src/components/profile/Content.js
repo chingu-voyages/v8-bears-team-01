@@ -2,7 +2,7 @@ import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import About from './content/About';
 import Project from './content/project/Project';
-import Collaborators from './content/Collaborators';
+import Collaborators from './content/collaborators/Collaborators';
 import Contact from './content/Contact';
 
 const Content = () => {
