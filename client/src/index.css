@@ -358,3 +358,16 @@ footer {
   background-color: #42464d;
   padding: 3rem;
 }
+
+.navbar-items > a.active{
+  border-bottom: 2px solid #6DD1CC
+}
+
+.navbar-items > a {
+  text-decoration: none;
+}
+
+.navbar-items > a:hover{
+  border-bottom: 2px solid #6DD1CC
+}
+
