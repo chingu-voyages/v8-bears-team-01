@@ -33,8 +33,7 @@ export default function(state = initialState, action) {
             };
         case DELETE_PROJECT:
             return {
-                ...state,
-                projects: state.user_projects.filter(
+                user_projects: state.user_projects.filter(
                     project => project._id !== action.payload
                 )
             };

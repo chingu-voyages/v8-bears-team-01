@@ -10,19 +10,26 @@ import {
 export const createProject = (values, file, history) => async dispatch => {
     const uploadConfig = await axios.get("/api/upload");
 
-    const upload = await axios.put(uploadConfig.data.url, file, {
-        headers: {
-            "Content-Type": file.type
-        }
-    });
+    if (file) {
+        await axios.put(uploadConfig.data.url, file, {
+            headers: {
+                "Content-Type": file.type
+            }
+        });
 
-    const res = await axios.post("/api/projects", {
-        ...values,
-        imageUrl: uploadConfig.data.key
-    });
+        const res = await axios.post("/api/projects", {
+            ...values,
+            imageUrl: uploadConfig.data.key
+        });
+
+        dispatch({ type: CREATE_PROJECT, payload: res.data });
+    }
+
+    const res = await axios.post("/api/projects", values);
 
     dispatch({ type: CREATE_PROJECT, payload: res.data });
-    history.push("/");
+
+    history.push("/dashboard");
 };
 
 export const getProjects = () => async dispatch => {
@@ -43,10 +50,9 @@ export const get_user_projects = () => async dispatch => {
 };
 
 export const delete_project = id => async dispatch => {
-    const res = await axios.delete(`/api/projects/${id}`);
-    console.log(res);
     try {
-        dispatch({ type: DELETE_PROJECT, payload: res });
+        await axios.delete(`/api/projects/${id}`);
+        dispatch({ type: DELETE_PROJECT, payload: id });
     } catch (err) {
         console.log(err);
     }

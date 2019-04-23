@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { fetchUser } from "../../actions/auth";
-import { get_user_projects } from "../../actions/project";
+import { get_user_projects, delete_project } from "../../actions/project";
 // import { get_auth_token } from "../../actions/auth"
 
 import RecentMessages from "./RecentMessages";
@@ -11,10 +11,15 @@ import YourProjects from "./YourProjects";
 import JoinedProjects from "./JoinedProjects";
 
 class Dashboard extends Component {
-    async componentDidMount() {
-        await this.props.fetchUser();
-        await this.props.get_user_projects();
+    componentDidMount() {
+        this.props.fetchUser();
+        this.props.get_user_projects();
     }
+
+    onDeleteClick(id) {
+        this.props.delete_project(id);
+    }
+
     render() {
         const { projects } = this.props;
         return (
@@ -23,7 +28,25 @@ class Dashboard extends Component {
                     Dashboard
                 </h3>
                 {/* <RecentMessages /> */}
-                <YourProjects project={projects} />
+                <div className="projects-list-container container">
+                    <h4
+                        className="content-header"
+                        style={{ marginTop: "50px" }}
+                    >
+                        Your Projects
+                    </h4>
+
+                    <Link to="/newproject">
+                        <button className="btn btn-teal">Create project</button>
+                    </Link>
+                </div>
+                {projects && (
+                    <YourProjects
+                        project={projects}
+                        handleDeleteClick={this.onDeleteClick}
+                    />
+                )}
+
                 <JoinedProjects />
             </div>
         );
@@ -39,5 +62,5 @@ function mapStateToProps(state) {
 
 export default connect(
     mapStateToProps,
-    { fetchUser, get_user_projects }
+    { fetchUser, get_user_projects, delete_project }
 )(Dashboard);

@@ -75,21 +75,13 @@ module.exports = app => {
     //delete a project
 
     app.delete("/api/projects/:id", async (req, res) => {
-        console.log(req.params.id);
-        //console.log(project);
-        console.log(req.user);
+        await Project.findByIdAndRemove(req.params.id);
 
         try {
-            /* if (project.user.toString() !== req.params.id.toString()) {
-                return res
-                    .status(401)
-                    .json({ notauthorized: "User not authorized" });
-            } */
-
-            await Project.findByIdAndRemove(req.params.id);
-            res.json({ msg: true });
+            res.status(200).json({ msg: "successfully deleted project." });
         } catch (err) {
-            res.status(404).json({ error: "no project found" });
+            console.log("ERROR: Unable to delete project. ", err);
+            res.status(500).json({ error: err });
         }
     });
 
