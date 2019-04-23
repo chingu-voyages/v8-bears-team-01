@@ -62,9 +62,6 @@ class ProjectPage extends Component {
             </div>
         );
     };
-    onDeleteButtonClick = id => {
-        this.props.delete_project(id);
-    };
     componentDidMount() {
         var that = this;
         this.props.getProject(this.props.match.params.id, function(data) {
@@ -98,12 +95,6 @@ class ProjectPage extends Component {
                                         : ""}
                                 </p>
                                 {this.renderEdit()}
-                                <button
-                                    onClick={this.onDeleteButtonClick}
-                                    className="btn btn-sm btn-outline-danger mb-2"
-                                >
-                                    delete project
-                                </button>
                                 <button className="btn btn-teal btn-block">
                                     Apply to Project
                                 </button>
