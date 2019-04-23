@@ -8,8 +8,8 @@ const projectSchema = new Schema({
     deadline: String,
     description: String,
     roles: [String],
-    _user: { type: Schema.Types.ObjectId, ref: "User" },
-    img: String
+    user: { type: Schema.Types.ObjectId, ref: "user" },
+    imageUrl: String
 });
 
 const Project = mongoose.model("projects", projectSchema);

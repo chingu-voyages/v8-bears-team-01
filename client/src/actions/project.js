@@ -1,33 +1,59 @@
 import axios from "axios";
 import {
-  CREATE_PROJECT,
-  GET_PROJECTS,
-  GET_PROJECT,
-  GET_USER_PROJECTS
+    CREATE_PROJECT,
+    GET_PROJECTS,
+    GET_PROJECT,
+    GET_USER_PROJECTS,
+    DELETE_PROJECT
 } from "./types";
 
-export const createProject = (values, history) => async dispatch => {
-  const res = await axios.post("/api/projects", values);
+export const createProject = (values, file, history) => async dispatch => {
+    const uploadConfig = await axios.get("/api/upload");
 
-  dispatch({ type: CREATE_PROJECT, payload: res.data });
-  history.push("/");
+    if (file) {
+        await axios.put(uploadConfig.data.url, file, {
+            headers: {
+                "Content-Type": file.type
+            }
+        });
+
+        const res = await axios.post("/api/projects", {
+            ...values,
+            imageUrl: uploadConfig.data.key
+        });
+
+        dispatch({ type: CREATE_PROJECT, payload: res.data });
+    }
+
+    const res = await axios.post("/api/projects", values);
+
+    dispatch({ type: CREATE_PROJECT, payload: res.data });
+
+    history.push("/dashboard");
 };
 
 export const getProjects = () => async dispatch => {
-  const res = await axios.get("/api/projects");
+    const res = await axios.get("/api/projects");
 
-  dispatch({ type: GET_PROJECTS, payload: res.data });
+    dispatch({ type: GET_PROJECTS, payload: res.data });
 };
 
-export const getProject = (id, cb) => async dispatch => {
-  const res = await axios.get(`/api/projects/${id}`);
-  cb( res.data );
-  dispatch({ type: GET_PROJECT, payload: res.data });
+export const getProject = id => async dispatch => {
+    const res = await axios.get(`/api/projects/${id}`);
+    dispatch({ type: GET_PROJECT, payload: res.data });
 };
 
-export const get_user_projects = userID => async dispatch => {
-  const res = await axios.get(`/api/${userID}/projects`, {
-    headers: { Authorization: `Bearer ${localStorage.getItem("authToken")}` }
-  });
-  dispatch({ type: GET_USER_PROJECTS, payload: res.data });
+export const get_user_projects = () => async dispatch => {
+    const res = await axios.get("/api/user_projects");
+
+    dispatch({ type: GET_USER_PROJECTS, payload: res.data });
+};
+
+export const delete_project = id => async dispatch => {
+    try {
+        await axios.delete(`/api/projects/${id}`);
+        dispatch({ type: DELETE_PROJECT, payload: id });
+    } catch (err) {
+        console.log(err);
+    }
 };

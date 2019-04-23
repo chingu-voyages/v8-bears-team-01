@@ -1,6 +1,5 @@
 const Project = require("../models/Projects");
-const verifyToken = require("../middlewares/verifyToken")
-
+const verifyToken = require("../middlewares/verifyToken");
 
 module.exports = app => {
     //get all projects
@@ -9,7 +8,7 @@ module.exports = app => {
             const projects = await Project.find();
             res.json(projects);
         } catch (err) {
-           // console.log("api error", err);
+            // console.log("api error", err);
             res.status(422).send(err);
         }
     });
@@ -25,7 +24,7 @@ module.exports = app => {
                 res.status(404).json("No project found with this id");
             }
         } catch (err) {
-           // console.log(err);
+            // console.log(err);
             res.status(404).json({ error: err });
         }
     });
@@ -39,7 +38,7 @@ module.exports = app => {
             deadline,
             description,
             roles,
-            img
+            imageUrl
         } = req.body;
 
         const project = new Project({
@@ -49,8 +48,8 @@ module.exports = app => {
             deadline,
             description,
             roles,
-            img
-            // _user: req.user.id
+            imageUrl,
+            user: req.user._id
         });
 
         try {
@@ -63,40 +62,40 @@ module.exports = app => {
 
     //get projects that belong to a user
 
-    app.get("/api/:userID/projects", verifyToken ,async (req, res) =>{
+    app.get("/api/user_projects", async (req, res) => {
+        const projects = await Project.find({ user: req.user._id });
 
-        //get the current logged in user from the session.
-        const user_id = req.params.userID
+        try {
+            res.json(projects);
+        } catch (err) {
+            res.json(err);
+        }
+    });
 
-        //get all project that logged in user has
-      
-        //send user's project to client
-        //res.status(200).json(user)
-    })
+    //delete a project
 
-      //delete a project
+    app.delete("/api/projects/:id", async (req, res) => {
+        await Project.findByIdAndRemove(req.params.id);
 
-      app.delete("/api/projects/:id", function(req, res) {
-        Project.findByIdAndRemove(req.params.id, function(err) {
-          if (err) {
+        try {
+            res.status(200).json({ msg: "successfully deleted project." });
+        } catch (err) {
             console.log("ERROR: Unable to delete project. ", err);
             res.status(500).json({ error: err });
-          } else {
-            res.status(200).json({ msg: "successfully deleted project." });
-          }
-        });
-      });
+        }
+    });
 
-      //edit a project
+    //edit a project
 
-      app.put("/api/projects/:id", (req, res, next) => {
-        Project.findByIdAndUpdate(req.params.id, req.body, { new: true }) 
-          .then(data => {
-            res.status(200).json(data);
-          })
-          .catch(err => {
-            res.status(500).json({ message: err.message || "some error occurred!" });
-          });
-      });
-      
+    app.put("/api/projects/:id", (req, res, next) => {
+        Project.findByIdAndUpdate(req.params.id, req.body, { new: true })
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => {
+                res.status(500).json({
+                    message: err.message || "some error occurred!"
+                });
+            });
+    });
 };
