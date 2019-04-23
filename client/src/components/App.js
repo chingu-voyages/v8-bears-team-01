@@ -12,6 +12,7 @@ import ProjectPage from "./ProjectPage";
 import PrivacyPage from "./PrivacyPage";
 import Dashboard from "./Dashboard/Dashboard";
 import Auth from "./Auth";
+import Profile from "./profile/Profile"
 
 class App extends Component {
   render() {
@@ -28,6 +29,7 @@ class App extends Component {
               path="/:username/project/:id"
               component={ProjectPage}
             />
+            <Route path="/profile/:username" component={Profile}/>
             <Route exact path="/auth" component={Auth} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
             <PrivateRoute exact path="/newproject" component={NewProject} />
