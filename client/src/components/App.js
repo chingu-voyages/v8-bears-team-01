@@ -9,6 +9,7 @@ import SearchPage from "./SearchPage";
 import LandingPage from "./LandingPage";
 import NewProject from "./projects/NewProject";
 import ProjectPage from "./ProjectPage";
+import PrivacyPage from "./PrivacyPage";
 import Dashboard from "./Dashboard/Dashboard";
 import Auth from "./Auth";
 
@@ -21,6 +22,7 @@ class App extends Component {
           <div className="page-content">
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/search" component={SearchPage} />
+            <Route exact path="/privacy" component={PrivacyPage} />
             <Route
               exact
               path="/:username/project/:id"

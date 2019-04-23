@@ -15,6 +15,10 @@ body, html {
 
 /* Reusable Styles */
 
+.teal {
+  color: #5bcfc6
+}
+
 .btn-teal {
   color: white;
   background-color: #5bcfc6;
