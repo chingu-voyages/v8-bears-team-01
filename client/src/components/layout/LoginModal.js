@@ -1,5 +1,5 @@
-import React from "react";
-import ReactModal from "react-modal";
+import React from 'react';
+import ReactModal from 'react-modal';
 
 const LoginModal = props => (
   <div className="container">
@@ -33,7 +33,7 @@ const LoginModal = props => (
           value={props.email}
           type="email"
           className="form-control"
-          onChange={e => props.updateEmail(e.target.value)}
+          onChange={e => props.updateField ('email', e.target.value)}
           placeholder="Email"
         />
         <br />
@@ -41,23 +41,22 @@ const LoginModal = props => (
           value={props.password}
           type="password"
           className="form-control"
-          onChange={e => props.updatePassword(e.target.value)}
+          onChange={e => props.updateField ('password', e.target.value)}
           placeholder="Password"
         />
 
-        <p style={{ color: "red" }}>
+        <p style={{color: 'red'}}>
           <em>
             <small>{props.errorMsg}</small>
           </em>
         </p>
         <br />
         <button onClick={props.handleLogin} className="btn btn-teal mb-4">
-          Log in{" "}
-          {props.isLoading && (
+          Log in{' '}
+          {props.isLoading &&
             <div className="spinner-border spinner-border-sm " role="status">
               <span className="sr-only">Loading...</span>
-            </div>
-          )}
+            </div>}
         </button>
       </div>
     </ReactModal>

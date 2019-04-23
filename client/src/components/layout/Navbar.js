@@ -1,201 +1,200 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
-import axios from "axios";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router';
+import axios from 'axios';
 
-import { fetchUser } from "../../actions/auth";
+import {fetchUser} from '../../actions/auth';
 
-import RegisterModal from "./RegisterModal";
-import LoginModal from "./LoginModal";
+import RegisterModal from './RegisterModal';
+import LoginModal from './LoginModal';
 
-import { handleValidation } from "../../helpers/handleValidation";
+import {handleValidation} from '../../helpers/handleValidation';
 
 export class Navbar extends Component {
   state = {
     registerIsActive: false,
     loginIsActive: false,
-    email: "",
-    password: "",
-    comfirmPassword: "",
-    name: "",
-    errorMsg: "",
-    isLoading: false
+    email: '',
+    password: '',
+    comfirmPassword: '',
+    name: '',
+    errorMsg: '',
+    isLoading: false,
+    dashboard: true,
+    profile: false,
+    currentInput: 'dashboard',
   };
   handleRegisterToggle = () => {
-    this.clearFields();
-    this.setState(() => ({
-      registerIsActive: !this.state.registerIsActive
+    this.clearFields ();
+    this.setState (() => ({
+      registerIsActive: !this.state.registerIsActive,
     }));
   };
   handleLoginToggle = () => {
-    this.clearFields();
-    this.setState(() => ({ loginIsActive: !this.state.loginIsActive }));
+    this.clearFields ();
+    this.setState (() => ({loginIsActive: !this.state.loginIsActive}));
   };
   handleRequestClose = () => {
-    this.clearFields();
-    this.setState(() => ({
+    this.clearFields ();
+    this.setState (() => ({
       registerIsActive: false,
-      loginIsActive: false
+      loginIsActive: false,
     }));
   };
 
-  updateEmail = val => {
-    this.setState({ email: val });
+  updateSelected = name => {
+    let currentInput = this.state.currentInput;
+    this.setState (prevState => ({[currentInput]: !prevState[currentInput]}));
+
+    this.setState (prevState => ({
+      [name]: !prevState[name],
+      currentInput: name,
+    }));
   };
 
-  updatePassword = val => {
-    this.setState({ password: val });
-  };
-
-  updateConfirmPassword = val => {
-    this.setState({ comfirmPassword: val });
-  };
-
-  updateName = val => {
-    this.setState({ name: val });
+  updateField = (name, val) => {
+    this.setState ({[name]: val});
   };
 
   handleLogin = () => {
-    const { name, email, password, comfirmPassword } = this.state;
-    const { errorMsg, response } = handleValidation(
+    const {name, email, password, comfirmPassword} = this.state;
+    const {errorMsg, response} = handleValidation (
       name,
       email,
       password,
       comfirmPassword,
-      "login"
+      'login'
     );
     if (response === false) {
-      this.setState({ errorMsg });
+      this.setState ({errorMsg});
       return;
     }
-    this.setState({ isLoading: true });
+    this.setState ({isLoading: true});
 
     let obj = {
-      email: email.trim(),
-      password: password.trim()
+      email: email.trim (),
+      password: password.trim (),
     };
 
     axios
-      .post(`/auth/login`, obj)
-      .then(resp => {
+      .post (`/auth/login`, obj)
+      .then (resp => {
         //   console.log(resp.data);
-        this.setState({ isLoading: false });
-        this.clearFields();
-        this.setState({ errMessage: "", loginIsActive: false });
-        localStorage.setItem("authToken", resp.data.token);
-        this.props.fetchUser().then(resp => {
-          this.props.history.push("/dashboard");
+        this.setState ({isLoading: false});
+        this.clearFields ();
+        this.setState ({errMessage: '', loginIsActive: false});
+        localStorage.setItem ('authToken', resp.data.token);
+        this.props.fetchUser ().then (resp => {
+          this.props.history.push ('/dashboard');
         });
         // window.location.assign("/");
       })
-      .catch(err => {
+      .catch (err => {
         err.response &&
-          this.setState({ errorMsg: err.response.data.errMessage });
+          this.setState ({errorMsg: err.response.data.errMessage});
       });
   };
 
   handleSignup = () => {
-    const { name, email, password, comfirmPassword } = this.state;
-    const { errorMsg, response } = handleValidation(
+    const {name, email, password, comfirmPassword} = this.state;
+    const {errorMsg, response} = handleValidation (
       name,
       email,
       password,
       comfirmPassword,
-      "signup"
+      'signup'
     );
     if (response === false) {
-      this.setState({ errorMsg });
+      this.setState ({errorMsg});
       return;
     }
-    this.setState({ isLoading: true });
+    this.setState ({isLoading: true});
 
     let obj = {
-      email: email.trim(),
-      password: password.trim(),
-      name: name.trim()
+      email: email.trim (),
+      password: password.trim (),
+      name: name.trim (),
     };
 
     axios
-      .post(`/auth/signup`, obj)
-      .then(resp => {
-        this.setState({ isLoading: false });
+      .post (`/auth/signup`, obj)
+      .then (resp => {
+        this.setState ({isLoading: false});
         //console.log(resp.data);
-        this.clearFields();
-        this.setState({ errMessage: "", registerIsActive: false });
+        this.clearFields ();
+        this.setState ({errMessage: '', registerIsActive: false});
 
-        this.props.history.push("/dashboard");
-
-        
+        this.props.history.push ('/dashboard');
       })
-      .catch(err => {
+      .catch (err => {
         err.response &&
-          this.setState({ errorMsg: err.response.data.errMessage });
+          this.setState ({errorMsg: err.response.data.errMessage});
       });
   };
 
   handleLogout = () => {
     //send token object while logging out
     axios
-      .get("/api/logout", {
+      .get ('/api/logout', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("authToken")}`
-        }
+          Authorization: `Bearer ${localStorage.getItem ('authToken')}`,
+        },
       })
-      .then(resp => {
-        localStorage.removeItem("authToken");
-        this.props.history.push("/");
+      .then (resp => {
+        localStorage.removeItem ('authToken');
+        this.props.history.push ('/');
       })
-      .catch(err => {
-        console.log(err);
+      .catch (err => {
+        console.log (err);
       });
   };
 
-  handleProfile = () => {
-    //do something
-  };
-
-  handleDashboard = () =>{
-    this.props.history.push("/dashboard")
-  }
-
   clearFields = () => {
-    this.setState({
-      email: "",
-      password: "",
-      name: "",
-      errorMsg: "",
-      comfirmPassword: "",
-      isLoading: false
+    this.setState ({
+      email: '',
+      password: '',
+      name: '',
+      errorMsg: '',
+      comfirmPassword: '',
+      isLoading: false,
     });
   };
 
-  renderContent() {
-    if (localStorage.getItem("authToken")) {
+  renderContent () {
+    if (localStorage.getItem ('authToken')) {
       return (
-        <div>
-          {" "}
+        <div className="navbar-items">
+          {' '}
 
-          <a
-          onClick={this.handleDashboard}
-          className="mr-4 text-light"
-          style={{ cursor: "pointer" }}
-        >
-         Dashboard
-        </a>
+          <Link
+            className={
+              this.state.dashboard
+                ? 'active mr-4 text-light'
+                : 'mr-4 text-light'
+            }
+            onClick={() => this.updateSelected ('dashboard')}
+            style={{cursor: 'pointer'}}
+            to="/dashboard"
+          >
+            Dashboard
+          </Link>
 
-          <a
-            onClick={this.handleProfile}
-            className="mr-4 text-light"
-            style={{ cursor: "pointer" }}
+          <Link
+            className={
+              this.state.profile ? 'active mr-4 text-light' : 'mr-4 text-light'
+            }
+            style={{cursor: 'pointer'}}
+            to="/profile/uu"
+            onClick={() => this.updateSelected ('profile')}
           >
             My Profile
-          </a>
-          
+          </Link>
+
           <a
             onClick={this.handleLogout}
             className="text-light"
-            style={{ cursor: "pointer" }}
+            style={{cursor: 'pointer'}}
           >
             Logout
           </a>
@@ -220,15 +219,15 @@ export class Navbar extends Component {
       );
     }
   }
-  render() {
+  render () {
     return (
       <div>
-        <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark border-black">
+        <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4  bg-dark ">
           <h5 className="my-0 mr-md-auto font-weight-normal">
             <Link
               className="text-light"
               to="/"
-              style={{ textDecoration: "none" }}
+              style={{textDecoration: 'none'}}
             >
               CodeCollab
             </Link>
@@ -247,7 +246,7 @@ export class Navbar extends Component {
               </label>
             </form>
           </div>
-          <nav className="my-2 my-md-0 mr-md-3">{this.renderContent()}</nav>
+          <nav className="my-2 my-md-0 mr-md-3">{this.renderContent ()}</nav>
         </div>
         <RegisterModal
           email={this.state.email}
@@ -256,13 +255,10 @@ export class Navbar extends Component {
           confirmPassword={this.state.comfirmPassword}
           isOpen={this.state.registerIsActive}
           handleRequestClose={this.handleRequestClose}
-          updateEmail={this.updateEmail}
-          updatePassword={this.updatePassword}
           handleSignup={this.handleSignup}
-          updateName={this.updateName}
           errorMsg={this.state.errorMsg}
-          updateConfirmPassword={this.updateConfirmPassword}
           isLoading={this.state.isLoading}
+          updateField={this.updateField}
         />
         <LoginModal
           email={this.state.email}
@@ -270,20 +266,14 @@ export class Navbar extends Component {
           password={this.state.password}
           isOpen={this.state.loginIsActive}
           handleRequestClose={this.handleRequestClose}
-          updateEmail={this.updateEmail}
-          updatePassword={this.updatePassword}
           handleLogin={this.handleLogin}
           errorMsg={this.state.errorMsg}
           isLoading={this.state.isLoading}
+          updateField={this.updateField}
         />
       </div>
     );
   }
 }
 
-export default withRouter(
-  connect(
-    null,
-    { fetchUser }
-  )(Navbar)
-);
+export default withRouter (connect (null, {fetchUser}) (Navbar));

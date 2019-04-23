@@ -1,6 +1,6 @@
-import React from "react";
-import ReactModal from "react-modal";
-import { Link } from "react-router-dom";
+import React from 'react';
+import ReactModal from 'react-modal';
+import {Link} from 'react-router-dom';
 
 const RegisterModal = props => (
   <div>
@@ -34,14 +34,14 @@ const RegisterModal = props => (
           <input
             value={props.name}
             className="form-control"
-            onChange={e => props.updateName(e.target.value)}
+            onChange={e => props.updateField ('name', e.target.value)}
             placeholder="Name"
           />
           <br />
           <input
             value={props.email}
             className="form-control"
-            onChange={e => props.updateEmail(e.target.value)}
+            onChange={e => props.updateField ('email', e.target.value)}
             placeholder="Email"
           />
           <br />
@@ -50,7 +50,7 @@ const RegisterModal = props => (
               value={props.password}
               type="password"
               className="form-control mr-1"
-              onChange={e => props.updatePassword(e.target.value)}
+              onChange={e => props.updateField ('password', e.target.value)}
               placeholder="Password"
             />
             <br />
@@ -58,23 +58,23 @@ const RegisterModal = props => (
               value={props.comfirmPassowrd}
               type="password"
               className="form-control ml-1"
-              onChange={e => props.updateConfirmPassword(e.target.value)}
+              onChange={e =>
+                props.updateField ('comfirmPassword', e.target.value)}
               placeholder="Comfirm Password"
             />
           </div>
-          <p style={{ color: "red" }}>
+          <p style={{color: 'red'}}>
             <em>
               <small>{props.errorMsg}</small>
             </em>
           </p>
           <br />
           <button onClick={props.handleSignup} className="btn btn-teal mb-4">
-            Sign Up{" "}
-            {props.isLoading && (
+            Sign Up{' '}
+            {props.isLoading &&
               <div className="spinner-border spinner-border-sm " role="status">
                 <span className="sr-only">Loading...</span>
-              </div>
-            )}
+              </div>}
           </button>
           <p className="policy-modal-link text-secondary">
             <span>Read our </span>
