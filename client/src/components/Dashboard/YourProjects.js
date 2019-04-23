@@ -44,9 +44,15 @@ class YourProjects extends Component {
                                         {project.description}
                                     </p>
                                     <div className="float-right">
-                                        <a href="#" className="btn btn-primary">
-                                            <i className="fas fa-pen" />
-                                        </a>
+                                        <button className="btn btn-primary">
+                                            <Link
+                                                to={`/${
+                                                    project.ownerName
+                                                }/project/${project._id}`}
+                                            >
+                                                <i className="fas fa-pen" />
+                                            </Link>
+                                        </button>
                                         {"  "}
                                         <button
                                             className="btn btn-danger"
