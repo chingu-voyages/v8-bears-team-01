@@ -9,28 +9,9 @@ class ProjectPage extends Component {
         super();
         this.state = {
             success: false,
-            editIsActive: false,
             project: {}
         };
     }
-    handleEditToggle = () => {
-        this.setState(() => ({
-            editIsActive: !this.state.editIsActive
-        }));
-    };
-    handleSaveProject = (deadline, description) => {
-        const id = this.props.match.params.id;
-        fetch(`/api/projects/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ description, deadline })
-        }).then(() => {
-            this.setState(() => ({
-                project: { deadline, description },
-                editIsActive: !this.state.editIsActive
-            }));
-        });
-    };
     displaySuccessMesage = () => {
         return (
             <div class="alert alert-success" role="alert">

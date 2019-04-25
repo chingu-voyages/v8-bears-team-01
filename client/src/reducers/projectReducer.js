@@ -3,7 +3,8 @@ import {
     GET_PROJECTS,
     GET_PROJECT,
     GET_USER_PROJECTS,
-    DELETE_PROJECT
+    DELETE_PROJECT,
+    EDIT_PROJECT
 } from "../actions/types";
 
 const initialState = {
@@ -33,10 +34,19 @@ export default function(state = initialState, action) {
             };
         case DELETE_PROJECT:
             return {
+                ...state,
                 user_projects: state.user_projects.filter(
                     project => project._id !== action.payload
                 )
             };
+        case EDIT_PROJECT:
+            return state.user_projects.map(project => {
+                if (project._id === action.payload.id) {
+                    return action.payload;
+                } else {
+                    return project;
+                }
+            });
         default:
             return state;
     }
