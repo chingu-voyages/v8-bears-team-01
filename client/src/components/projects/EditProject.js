@@ -77,22 +77,10 @@ const renderDateTimePicker = ({
 );
 
 export class NewProject extends Component {
-    state = {
-        file: null
-    };
-
-    onFileChange = event => {
-        this.setState({
-            file: event.target.files[0]
-        });
-    };
-
     onSubmit = formValues => {
-        console.log(formValues);
         this.props.editProject(
             this.props.match.params.id,
             formValues,
-            this.state.file,
             this.props.history
         );
     };
@@ -162,14 +150,6 @@ export class NewProject extends Component {
                                             label="Project Description"
                                             type="textarea"
                                             component={ProjectField}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label>Upload Image for project</label>
-                                        <input
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={this.onFileChange}
                                         />
                                     </div>
                                     <div>
