@@ -4,6 +4,7 @@ import {
     GET_PROJECTS,
     GET_PROJECT,
     GET_USER_PROJECTS,
+    EDIT_PROJECT,
     DELETE_PROJECT
 } from "./types";
 
@@ -23,11 +24,11 @@ export const createProject = (values, file, history) => async dispatch => {
         });
 
         dispatch({ type: CREATE_PROJECT, payload: res.data });
+    } else {
+        const res = await axios.post("/api/projects", values);
+
+        dispatch({ type: CREATE_PROJECT, payload: res.data });
     }
-
-    const res = await axios.post("/api/projects", values);
-
-    dispatch({ type: CREATE_PROJECT, payload: res.data });
 
     history.push("/dashboard");
 };
@@ -47,6 +48,14 @@ export const get_user_projects = () => async dispatch => {
     const res = await axios.get("/api/user_projects");
 
     dispatch({ type: GET_USER_PROJECTS, payload: res.data });
+};
+
+export const editProject = (id, values, history) => async dispatch => {
+    const res = await axios.put(`/api/projects/${id}`, values);
+
+    dispatch({ type: EDIT_PROJECT, payload: res.data });
+
+    history.push("/dashboard");
 };
 
 export const delete_project = id => async dispatch => {

@@ -3,6 +3,7 @@ const uuid = require("uuid/v1");
 const mime = require("mime-types");
 const requireLogin = require("../middlewares/requireLogin");
 const keys = require("../config/keys");
+const Project = require("../models/Projects");
 
 const s3 = new AWS.S3({
     accessKeyId: keys.accessKeyId,
