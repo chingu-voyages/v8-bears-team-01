@@ -4,6 +4,7 @@
     "main": "index.js",
     "engines": {
         "node": "10.13.0",
+        "npm": "6.5.0",
         "yarn": "1.12.3"
     },
     "scripts": {
@@ -13,7 +14,7 @@
         "dev": "concurrently --k \"yarn run server\" \"yarn run client\""
     },
     "repository": "git@github.com:Dan-Y-Ko/v8-bears-team-01.git",
-    "author": "Daniel Ko <danko56666@gmail.com>",
+    "author": "Daniel Ko",
     "license": "MIT",
     "dependencies": {
         "aws-sdk": "^2.440.0",
