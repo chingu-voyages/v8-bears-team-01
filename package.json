@@ -30,6 +30,7 @@
         "passport": "^0.4.0",
         "passport-facebook": "^3.0.0",
         "passport-google-oauth20": "2",
+        "react-select-us-states": "^0.1.2",
         "uuid": "^3.3.2"
     },
     "devDependencies": {
