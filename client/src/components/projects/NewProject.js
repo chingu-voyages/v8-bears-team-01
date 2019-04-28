@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { reduxForm, Field, formValueSelector, formValues } from "redux-form";
+import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ProjectField from "./ProjectField";
@@ -29,7 +29,6 @@ const renderDropdownList = ({
     <div>
         <DropdownList
             {...input}
-            defaultValue={data[0].value}
             data={data}
             valueField={valueField}
             textField={textField}
@@ -97,7 +96,6 @@ export class NewProject extends Component {
     };
 
     onSubmit = formValues => {
-        console.log(formValues);
         this.props.createProject(
             formValues,
             this.state.file,
