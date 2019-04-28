@@ -78,7 +78,8 @@ const renderDateTimePicker = ({
 
 export class NewProject extends Component {
     state = {
-        file: null
+        file: null,
+        type: null
     };
 
     onFileChange = event => {
