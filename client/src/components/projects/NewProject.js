@@ -29,14 +29,12 @@ const renderDropdownList = ({
     <div>
         <DropdownList
             {...input}
-            defaultValue={data[0].value}
             data={data}
             valueField={valueField}
             textField={textField}
             onChange={input.onChange}
         />
         {touched && error}
-        {console.log(data[0])}
     </div>
 );
 
@@ -78,8 +76,18 @@ const renderDateTimePicker = ({
 
 export class NewProject extends Component {
     state = {
-        file: null
+        file: null,
+        type: null
     };
+
+    componentWillReceiveProps(nextProps, nextState) {
+        const { values } = nextProps.type;
+        if (values) {
+            this.setState({
+                type: values
+            });
+        }
+    }
 
     onFileChange = event => {
         this.setState({
@@ -88,7 +96,6 @@ export class NewProject extends Component {
     };
 
     onSubmit = formValues => {
-        console.log(formValues);
         this.props.createProject(
             formValues,
             this.state.file,
@@ -98,6 +105,18 @@ export class NewProject extends Component {
 
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
+
+        const data =
+            this.state.type &&
+            this.state.type.projectType.type === "Game Development"
+                ? ["Animators", "Story Writers", "Programmers", "3d Modelers"]
+                : [
+                      "Front End Developer",
+                      "Back End Developer",
+                      "Full Stack Developer",
+                      "UI/UX Designer"
+                  ];
+
         return (
             <div>
                 <div className="py-5 text-center text-white">
@@ -125,12 +144,7 @@ export class NewProject extends Component {
                                         <Field
                                             name="roles"
                                             component={renderMultiselect}
-                                            data={[
-                                                "Animators",
-                                                "Story Writers",
-                                                "Programmers",
-                                                "3d Modelers"
-                                            ]}
+                                            data={data}
                                         />
                                     </div>
                                     <div>
@@ -226,8 +240,14 @@ function validate(values) {
     return errors;
 }
 
+const mapStateToProps = state => {
+    return {
+        type: state.form.projectForm
+    };
+};
+
 export default connect(
-    null,
+    mapStateToProps,
     { createProject }
 )(
     reduxForm({
