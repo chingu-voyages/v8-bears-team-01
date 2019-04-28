@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { reduxForm, Field } from "redux-form";
+import { reduxForm, Field, formValueSelector, formValues } from "redux-form";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ProjectField from "./ProjectField";
@@ -36,7 +36,6 @@ const renderDropdownList = ({
             onChange={input.onChange}
         />
         {touched && error}
-        {console.log(data[0])}
     </div>
 );
 
@@ -83,8 +82,14 @@ export class NewProject extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextState) {
+        const { values } = nextProps.type;
         if (values) {
+            this.setState({
+                type: values
             });
+        }
+    }
+
     onFileChange = event => {
         this.setState({
             file: event.target.files[0]
@@ -102,7 +107,18 @@ export class NewProject extends Component {
 
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
+
+        const data =
+            this.state.type &&
+            this.state.type.projectType.type === "Game Development"
                 ? ["Animators", "Story Writers", "Programmers", "3d Modelers"]
+                : [
+                      "Front End Developer",
+                      "Back End Developer",
+                      "Full Stack Developer",
+                      "UI/UX Designer"
+                  ];
+
         return (
             <div>
                 <div className="py-5 text-center text-white">
@@ -130,12 +146,7 @@ export class NewProject extends Component {
                                         <Field
                                             name="roles"
                                             component={renderMultiselect}
-                                            data={[
-                                                "Animators",
-                                                "Story Writers",
-                                                "Programmers",
-                                                "3d Modelers"
-                                            ]}
+                                            data={data}
                                         />
                                     </div>
                                     <div>
@@ -231,8 +242,14 @@ function validate(values) {
     return errors;
 }
 
+const mapStateToProps = state => {
+    return {
+        type: state.form.projectForm
+    };
+};
+
 export default connect(
-    null,
+    mapStateToProps,
     { createProject }
 )(
     reduxForm({
