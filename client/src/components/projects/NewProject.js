@@ -83,6 +83,8 @@ export class NewProject extends Component {
     };
 
     componentWillReceiveProps(nextProps, nextState) {
+        if (values) {
+            });
     onFileChange = event => {
         this.setState({
             file: event.target.files[0]
