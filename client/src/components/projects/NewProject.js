@@ -100,6 +100,7 @@ export class NewProject extends Component {
 
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
+                ? ["Animators", "Story Writers", "Programmers", "3d Modelers"]
         return (
             <div>
                 <div className="py-5 text-center text-white">
