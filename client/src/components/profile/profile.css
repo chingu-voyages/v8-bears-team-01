@@ -215,7 +215,6 @@
   margin-left: 5px;
 }
 
-.profile-pricture {}
 
 .profile-upload-button {
   background-color: #6DD1CC;
@@ -229,4 +228,10 @@
   align-items: center;
   position: absolute;
   right: 170px;
+}
+
+.profile-pricture {
+  max-width: 108.5px;
+  max-height: 112px;
+  border-radius: 100%
 }
