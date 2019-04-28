@@ -1,15 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProject, delete_project } from "../actions/project";
+import ContactModal from "./layout/ContactModal";
+
 
 class ProjectPage extends Component {
     constructor() {
         super();
         this.state = {
             success: false,
-            project: {}
+            project: {},
+            contactModalIsActive: false
         };
     }
+
+    handleModalToggle = () => {
+      this.setState (() => ({contactModalIsActive: !this.state.contactModalIsActive}));
+    };
+
+    handleRequestClose = () => {
+      this.setState (() => ({
+        contactModalIsActive: false
+      }));
+    };
 
     componentDidMount() {
         var that = this;
@@ -43,13 +56,19 @@ class ProjectPage extends Component {
                                         ? project.ownerName
                                         : ""}
                                 </p>
-                                <button className="btn btn-teal btn-block">
+                                <button 
+                                  onClick={this.handleModalToggle}
+                                  className="btn btn-teal btn-block">
                                     Apply to Project
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <ContactModal
+                  isOpen={this.state.contactModalIsActive}
+                  handleRequestClose={this.handleRequestClose}
+                />
             </div>
         );
     }
