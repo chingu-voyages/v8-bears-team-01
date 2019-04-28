@@ -10,10 +10,52 @@ class ProjectPage extends Component {
         this.state = {
             success: false,
             project: {},
-            contactModalIsActive: false
+            messageBody: '',
+            contactModalIsActive: false,
+            status: '',
+            role: 'developer'
         };
     }
 
+    handleUpdateMessageBody = (e) => {
+      if(e && e.target && e.target.value){
+        const messageBody = e.target.value
+        this.setState (() => ({messageBody: messageBody}));
+        console.log(this.props.project)
+      }
+    }
+
+    handleUpdateRoles = (e) => {
+      const projectRoles = [];
+      // TODO: Get project roles from e.target.value.
+      this.setState (() => ({
+        projectRoles: projectRoles
+      }));
+    }
+
+    handleSubmitMessage = () => {
+      const { project } = this.props;
+      const data = {
+        project,
+        messageBody: this.state.messageBody,
+
+      }
+      if(this.state.messageBody.length >= 5){
+        fetch('/api/messages/', {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+          credentials: "include" // include session cookie
+        })
+        .then(res => res.json())
+        .then(alert('message sent'))
+        .catch(e => console.error("message error", e));
+      } else {
+        this.setState({
+          status: "Your message must be at least 5 characters long."
+        });
+      }
+    }
     handleModalToggle = () => {
       this.setState (() => ({contactModalIsActive: !this.state.contactModalIsActive}));
     };
@@ -22,16 +64,17 @@ class ProjectPage extends Component {
       this.setState (() => ({
         contactModalIsActive: false
       }));
-    };
+    }; 
 
     componentDidMount() {
         var that = this;
         this.props.getProject(this.props.match.params.id, function(data) {
             that.setState({ project: data });
-        });
+        })
     }
     render() {
         const { project } = this.props;
+        console.log(this.state)
         return (
             <div>
                 <div className="py-5 text-white">
@@ -68,6 +111,8 @@ class ProjectPage extends Component {
                 <ContactModal
                   isOpen={this.state.contactModalIsActive}
                   handleRequestClose={this.handleRequestClose}
+                  handleSubmitMessage={this.handleSubmitMessage}
+                  handleUpdateMessageBody={this.handleUpdateMessageBody}
                 />
             </div>
         );

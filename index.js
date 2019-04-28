@@ -10,6 +10,7 @@ const authRoute = require("./routes/auth");
 const projectRoute = require("./routes/projects");
 const searchRoute = require("./routes/search");
 const imageRoute = require("./routes/image");
+const messageRoute = require("./routes/messages");
 
 require("./models/User");
 require("./models/Projects");
@@ -37,6 +38,7 @@ authRoute(app);
 projectRoute(app);
 searchRoute(app);
 imageRoute(app);
+messageRoute(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

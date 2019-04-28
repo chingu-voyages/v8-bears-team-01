@@ -31,12 +31,16 @@ const ContactModal = props => (
           <br />
           <textarea
             className="form-control"
-            placeholder="Your Message">
+            placeholder="Your Message"
+            onChange={props.handleUpdateMessageBody}            
+          >
           </textarea>
           <br />
-          <button className="btn btn-teal mb-4">
+          <button 
+            onClick={props.handleSubmitMessage}
+            className="btn btn-teal mb-4">
             Apply{" "}
-          </button>2
+          </button>
         </div>
       </ReactModal>
     </div>
