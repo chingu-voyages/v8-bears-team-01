@@ -5,7 +5,7 @@ const messageSchema = new Schema({
     messageBody: String,
     role: String,
     senderId: { type: Schema.Types.ObjectId, ref: "user" },
-    recepientId: { type: Schema.Types.ObjectId, ref: "user" }
+    recipientId: { type: Schema.Types.ObjectId, ref: "user" }
 });
 
 const Message = mongoose.model("messages", messageSchema);

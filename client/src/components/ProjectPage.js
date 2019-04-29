@@ -36,10 +36,12 @@ class ProjectPage extends Component {
     handleSubmitMessage = () => {
       const { project } = this.props;
       const data = {
-        project,
-        messageBody: this.state.messageBody,
-
+        recipientId: project.user,
+        projectId: project._id,
+        role: this.state.role,
+        messageBody: this.state.messageBody
       }
+      console.log("data", data);
       if(this.state.messageBody.length >= 5){
         fetch('/api/messages/', {
           method: "POST",

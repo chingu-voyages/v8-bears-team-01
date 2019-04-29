@@ -3,20 +3,20 @@ const Message = require ('../models/Message');
 module.exports = app => {
 
   app.post("/api/messages", async (req, res) => {
-    if (req.user){
-      const senderId = req.user.id;
-      console.log('message route')
+    if (req.session && req.session.user){
+      const senderId = req.session.user._id;
       const message = await new Message({
         messageBody : req.body.messageBody,
         role: req.body.role,
         senderId: senderId,
-        recipientId: req.body.user,
-        projectId: req.body._id
+        recipientId: req.body.recipientId,
+        projectId: req.body.projectId
       }).save();
     }
   });
 
-  //get all messages
+  //get all messages in database
+  //DEVELOPMENT ONLY
   app.get ('/api/messages', async (req, res) => {
     try {
       const messages = await Message.find ();
@@ -26,5 +26,21 @@ module.exports = app => {
       res.status (422).send (err);
     }
   });
+
+  // Get the logged in user's sent messages
+  app.get("/api/messages/sent", async (req, res) => {
+    const id = req.session.user._id;
+    const messages = await Message.find({ "senderId": id });
+    res.json(messages);
+    //res.send({ messages });
+  });
+
+    // Get the logged in user's received messages
+    app.get("/api/messages/received", async (req, res) => {
+      const id = req.session.user._id;
+      const messages = await Message.find({ "recipientId": id });
+      res.json(messages);
+      //res.send({ messages });
+    });
 
 };
