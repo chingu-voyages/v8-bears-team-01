@@ -8,6 +8,7 @@ import {fetchUser} from '../../actions/auth';
 
 import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
+import Inbox from './Inbox';
 
 import {handleValidation} from '../../helpers/handleValidation';
 
@@ -165,10 +166,7 @@ export class Navbar extends Component {
   renderInbox() {
     return (
       <div className="dropdown-menu dropdown-menu-right">
-        <h4 className="dropdown-item">Inbox</h4>
-        <div className="dropdown-divider"></div>
-        <div className="dropdown-item" href="#">
-        </div>
+        <Inbox />
       </div>
     )
   }
