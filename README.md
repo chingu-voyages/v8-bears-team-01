@@ -1,5 +1,5 @@
 # v8-bears-team-01
-Code Collab https://damp-ocean-88180.herokuapp.com/
+Code Collab https://damp-ocean-88180.herokuapp.com/  
 A platform where users can search for projects to contribute to and/or post their own projects that they need help with.
 
 **Team**  
