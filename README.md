@@ -1,5 +1,18 @@
 # v8-bears-team-01
-Developer Collaboration Site | Voyage-8 | https://chingu.io/
+Code Collab https://damp-ocean-88180.herokuapp.com/
+A platform where users can search for projects to contribute to and/or post their own projects that they need help with.
+
+**Team**  
+Dan:
+* Github: https://github.com/Dan-Y-Ko  
+* Linkedin: https://www.linkedin.com/in/danielko56666/
+
+Owen:  
+* Github: https://github.com/EkhatorOwen  
+* Linkedin: https://www.linkedin.com/in/owenekhator/  
+
+Crystal:  
+* Github: https://github.com/crystalbohacek
 
 ## Getting Started
 
