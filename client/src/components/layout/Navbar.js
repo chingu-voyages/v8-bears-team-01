@@ -161,6 +161,16 @@ export class Navbar extends Component {
     });
   };
 
+  renderInbox() {
+    return (
+      <div className="dropdown-menu dropdown-menu-right">
+        <h4 className="dropdown-item">Inbox</h4>
+        <div className="dropdown-divider"></div>
+        <div className="dropdown-item" href="#">Separated link</div>
+      </div>
+    )
+  }
+
   renderContent () {
     if (localStorage.getItem ('authToken')) {
       return (
@@ -246,6 +256,15 @@ export class Navbar extends Component {
               </label>
             </form>
           </div>
+            <button 
+              className="mr-3 btn btn-sm"
+              data-toggle="dropdown" 
+              aria-haspopup="true" 
+              aria-expanded="false"
+            >
+              <i className="text-light fas fa-envelope"></i>
+            </button>
+          {this.renderInbox()}
           <nav className="my-2 my-md-0 mr-md-3">{this.renderContent ()}</nav>
         </div>
         <RegisterModal
