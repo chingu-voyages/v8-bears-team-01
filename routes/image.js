@@ -12,14 +12,20 @@ const s3 = new AWS.S3({
     region: "us-east-2"
 });
 
+if (process.env.NODE_ENV === "production") {
+    Bucket = "code-collab-prod";
+} else {
+    Bucket = "code-collab-image";
+}
+
 module.exports = app => {
     app.get("/api/upload", requireLogin, (req, res) => {
-        const key = `${req.user.id}/${uuid()}.jpeg`;
+        const key = `${req.session.user._id}/${uuid()}.jpeg`;
 
         s3.getSignedUrl(
             "putObject",
             {
-                Bucket: "code-collab-image",
+                Bucket,
                 ContentType: "image/jpeg",
                 Key: key
             },
