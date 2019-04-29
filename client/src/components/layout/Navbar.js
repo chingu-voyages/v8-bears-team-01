@@ -11,6 +11,7 @@ import LoginModal from './LoginModal';
 
 import {handleValidation} from '../../helpers/handleValidation';
 
+
 export class Navbar extends Component {
   state = {
     registerIsActive: false,
@@ -166,7 +167,8 @@ export class Navbar extends Component {
       <div className="dropdown-menu dropdown-menu-right">
         <h4 className="dropdown-item">Inbox</h4>
         <div className="dropdown-divider"></div>
-        <div className="dropdown-item" href="#">Separated link</div>
+        <div className="dropdown-item" href="#">
+        </div>
       </div>
     )
   }
@@ -264,7 +266,7 @@ export class Navbar extends Component {
             >
               <i className="text-light fas fa-envelope"></i>
             </button>
-          {this.renderInbox()}
+            {this.renderInbox()}
           <nav className="my-2 my-md-0 mr-md-3">{this.renderContent ()}</nav>
         </div>
         <RegisterModal
