@@ -21,6 +21,9 @@ export class Inbox extends Component {
       .then(json => this.setState({ sentMessages: json }))
       .catch(err => console.log(err));
   }
+  handleDeleteMessage = () => {
+    //delete message functionality
+  }
   componentDidMount() {
     this.getReceivedMessages();
     this.getSentMessages();
@@ -33,22 +36,24 @@ export class Inbox extends Component {
       messages = this.state.receivedMessages
     }
     return (
-      <section className="inbox-container">
+      <div className="inbox-container">
       <div className="inbox-header bg-dark">
           <p className="text-light font-weight-bold">Inbox</p>
         <ul className="nav">
-          <li className="nav-item">
+          <div className="nav-item">
             <button className="btn inbox-btn text-light active">Received</button>
-          </li>
-          <li className="nav-item">
+          </div>
+          <div className="nav-item">
             <button className="btn inbox-btn text-light disabled">Sent</button>
-          </li>
+          </div>
         </ul>
       </div>
       <div className="messages-container">
         {messages.map(message => (
           <div className="message-wrapper">
-            <div className="row message-row text-light mb-2 mt-2" key={message._id}>
+            <div 
+              className="row message-row text-light mb-2 mt-2" 
+              key={message._id}>
               <div className="col-md-3">
                 <label>
                   <span className="user-name">UserName</span>
@@ -64,7 +69,7 @@ export class Inbox extends Component {
           </div>
         ))}
       </div>
-    </section>
+    </div>
     )
   }
 }

@@ -8,6 +8,7 @@ import {fetchUser} from '../../actions/auth';
 
 import RegisterModal from './RegisterModal';
 import LoginModal from './LoginModal';
+
 import Inbox from './Inbox';
 
 import {handleValidation} from '../../helpers/handleValidation';
@@ -151,7 +152,6 @@ export class Navbar extends Component {
         console.log (err);
       });
   };
-
   clearFields = () => {
     this.setState ({
       email: '',
@@ -165,9 +165,17 @@ export class Navbar extends Component {
 
   renderInbox() {
     return (
-      <div className="dropdown-menu dropdown-menu-right bg-dark">
-        <Inbox />
-      </div>
+      <div>
+        <div class="row inbox">
+          <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapse">
+              <div class="card card-body bg-dark">
+                <Inbox />
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
     )
   }
 
@@ -256,15 +264,18 @@ export class Navbar extends Component {
               </label>
             </form>
           </div>
-            <button 
-              className="mr-3 btn btn-sm"
-              data-toggle="dropdown" 
-              aria-haspopup="true" 
-              aria-expanded="false"
-            >
+          <button 
+            class="mr-3 btn btn-sm" 
+            data-toggle="collapse" 
+            href="#multiCollapse" 
+            role="button" 
+            aria-expanded="false" 
+            aria-controls="multiCollapse">
               <i className="text-light fas fa-envelope"></i>
             </button>
+
             {this.renderInbox()}
+
           <nav className="my-2 my-md-0 mr-md-3">{this.renderContent ()}</nav>
         </div>
         <RegisterModal

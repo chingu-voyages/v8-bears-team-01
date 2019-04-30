@@ -378,13 +378,20 @@ footer {
 
 /* Inbox Styles */
 
+.inbox {
+  position: absolute;
+  z-index: 100;
+  right: 1px;
+  top: 90px;
+}
+
 .inbox-container {
   min-width: 20rem;
-  max-width: 30rem;
+  max-width: 25rem;
   width: 100%;
   min-height: 20rem;
   box-sizing: border-box;
-  background-color: #282a2e;
+  background-color: #2b2d31;
 }
 
 .inbox-header {
@@ -393,18 +400,24 @@ footer {
 }
 
 .messages-container {
-  padding: 10px;
+  padding: 12px 10px 10px 10px;
 }
 
 .message-wrapper {
   background-color: #343a40!important;
   padding: 2px 4px 0 6px;
   margin-bottom: 2px;
+  border: 1px solid #212225;
+
+}
+
+.message-wrapper:hover {
+  background-color: #3f464d!important;
 }
 
 .message {
   display: block;
-  width: 100%;
+  width: 95%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -435,5 +448,5 @@ footer {
   margin-right: 2px;
   position:absolute;
   top:0;
-  right: 10px;
+  right: 15px;
 }
