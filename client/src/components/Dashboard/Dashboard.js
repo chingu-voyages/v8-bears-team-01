@@ -29,15 +29,17 @@ class Dashboard extends Component {
                 </h3>
                 {/* <RecentMessages /> */}
                 <div className="projects-list-container container">
-                    <h4
-                        className="content-header"
-                        style={{ marginTop: "50px" }}
-                    >
+                    <h4 className="content-header" style={{ margin: "2rem 0" }}>
                         Your Projects
                     </h4>
 
                     <Link to="/newproject">
-                        <button className="btn btn-teal">Create project</button>
+                        <button
+                            className="btn btn-teal"
+                            style={{ margin: "0 0 2rem 0" }}
+                        >
+                            Create project
+                        </button>
                     </Link>
                 </div>
                 {projects && (
