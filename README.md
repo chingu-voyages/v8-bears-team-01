@@ -14,6 +14,11 @@ Owen:
 Crystal:  
 * Github: https://github.com/crystalbohacek
 
+**Tech Stack**
+* Frontend: React / Redux
+* Backend: Nodejs (Express)
+* Database: Mongodb (Mongoose)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
@@ -34,10 +39,10 @@ Clone this repository
 git clone git@github.com:chingu-voyages/v8-bears-team-01.git
 ```
 
-Install dependencies in the main folder & client folder.
+Install dependencies.
 
 ```
-$ npm install / yarn
+$ yarn install-all
 ```
 
 Add dev.js file to the config folder
