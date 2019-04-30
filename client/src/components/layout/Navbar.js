@@ -165,7 +165,7 @@ export class Navbar extends Component {
 
   renderInbox() {
     return (
-      <div className="dropdown-menu dropdown-menu-right">
+      <div className="dropdown-menu dropdown-menu-right bg-dark">
         <Inbox />
       </div>
     )

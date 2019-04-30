@@ -6,7 +6,7 @@ export class Inbox extends Component {
     this.state = {
       receivedMessages: [],
       sentMessages: [],
-      toggleSent: true
+      toggleSent: false
     };
   }
   getReceivedMessages = () => {
@@ -33,23 +33,37 @@ export class Inbox extends Component {
       messages = this.state.receivedMessages
     }
     return (
-      <section>
-      <h4 className="dropdown-item">Inbox</h4>
-        <div className="dropdown-divider"></div>
-        <div className="inbox-container dropdown-item">
-          {messages.map(message => (
-            <div className="row message-row" key={message._id}>
-              <div className="col-md-4">
+      <section className="inbox-container">
+      <div className="inbox-header bg-dark">
+          <p className="text-light font-weight-bold">Inbox</p>
+        <ul className="nav">
+          <li className="nav-item">
+            <button className="btn inbox-btn text-light active">Received</button>
+          </li>
+          <li className="nav-item">
+            <button className="btn inbox-btn text-light disabled">Sent</button>
+          </li>
+        </ul>
+      </div>
+      <div className="messages-container">
+        {messages.map(message => (
+          <div className="message-wrapper">
+            <div className="row message-row text-light mb-2 mt-2" key={message._id}>
+              <div className="col-md-3">
                 <label>
-                  <span className="user-name">User Name</span>
+                  <span className="user-name">UserName</span>
                 </label>
               </div>
-              <div className="col-md-8">
-                <p>{message.messageBody}</p>
+              <div className="col-md-9 text-left">
+                <p className="message">{message.messageBody}</p>
+                <button className="btn delete-message-btn">
+                  <i class="text-light fas fa-times-circle"></i>
+                </button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
     </section>
     )
   }
