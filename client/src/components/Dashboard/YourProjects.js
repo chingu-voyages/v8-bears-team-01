@@ -50,7 +50,7 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                 <p className="card-text">
                                     {project.description}
                                 </p>
-                                <div className="float-right">
+                                <div className="d-flex flex-row justify-content-start">
                                     <Link
                                         className="btn btn-primary"
                                         to={`/${project.ownerName}/project/${
