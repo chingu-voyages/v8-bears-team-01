@@ -23,7 +23,7 @@ These instructions will get you a copy of the project up and running on your loc
 What you need to install the software 
 
 ```
-npm
+npm / yarn
 ```
 
 ### Installing
@@ -37,7 +37,7 @@ git clone git@github.com:chingu-voyages/v8-bears-team-01.git
 Install dependencies in the main folder & client folder.
 
 ```
-$ npm install
+$ npm install / yarn
 ```
 
 Add dev.js file to the config folder
@@ -45,5 +45,5 @@ Add dev.js file to the config folder
 Run the server
 
 ```
-$ npm run dev
+$ npm run dev / yarn run dev
 ```
