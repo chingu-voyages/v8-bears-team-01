@@ -108,6 +108,8 @@ export class NewProject extends Component {
 
         const data =
             this.state.type &&
+            pristine &&
+            !reset &&
             this.state.type.projectType.type === "Game Development"
                 ? ["Animators", "Story Writers", "Programmers", "3d Modelers"]
                 : [
