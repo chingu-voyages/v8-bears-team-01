@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getProject, delete_project } from "../actions/project";
+import { getProject } from "../actions/project";
 
 class ProjectPage extends Component {
     constructor() {
@@ -29,6 +29,7 @@ class ProjectPage extends Component {
                                 <img
                                     className="project-page-img"
                                     src="https://i.imgur.com/nZ22mf9.jpg"
+                                    alt=""
                                 />
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4">
