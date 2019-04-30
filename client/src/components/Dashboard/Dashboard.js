@@ -43,12 +43,13 @@ class Dashboard extends Component {
                     </Link>
                 </div>
                 {projects && (
-                    <YourProjects
-                        project={projects}
-                        handleDeleteClick={this.onDeleteClick}
-                    />
+                    <div className="d-flex flex-row">
+                        <YourProjects
+                            project={projects}
+                            handleDeleteClick={this.onDeleteClick}
+                        />
+                    </div>
                 )}
-
                 <JoinedProjects />
             </div>
         );
