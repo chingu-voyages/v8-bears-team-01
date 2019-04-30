@@ -24,6 +24,8 @@ export class Navbar extends Component {
     dashboard: true,
     profile: false,
     currentInput: 'dashboard',
+    location: '',
+    jobTitle: ''
   };
   handleRegisterToggle = () => {
     this.clearFields ();
@@ -251,6 +253,8 @@ export class Navbar extends Component {
         <RegisterModal
           email={this.state.email}
           name={this.state.name}
+          jobTitle={this.state.jobTitle}
+          location={this.state.location}
           password={this.state.password}
           confirmPassword={this.state.comfirmPassword}
           isOpen={this.state.registerIsActive}

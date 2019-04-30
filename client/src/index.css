@@ -1,4 +1,5 @@
-body, html {
+body,
+html {
   min-height: 100vh;
   background-color: #202225;
   color: white;
@@ -31,7 +32,7 @@ body, html {
 
 /* Modal Styles */
 
-.ReactModalPortal > div {
+.ReactModalPortal>div {
   opacity: 0;
 }
 
@@ -42,6 +43,29 @@ body, html {
   outline: none;
   text-align: center;
   background-color: #e9e9e9;
+}
+
+.register-modal {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  height: 35rem !important;
+}
+
+
+.register-modal::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+
+.register-modal::-webkit-scrollbar-thumb {
+  background-color: #202225;
+  border-radius: 10px;
+}
+
+.register-modal::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: white;
 }
 
 .modal-header-section {
@@ -81,13 +105,13 @@ body, html {
   transition: opacity 50ms ease-in;
 }
 
-.ReactModal__Content{
+.ReactModal__Content {
   opacity: 0;
   transform: translateY(-80px);
   transition: transform 350ms ease-out, opacity 600ms;
 }
 
-.ReactModal__Content.ReactModal__Content--after-open{
+.ReactModal__Content.ReactModal__Content--after-open {
   opacity: 1;
   transform: translateY(0);
   transition: transform 350ms ease-out, opacity 600ms;
@@ -125,9 +149,9 @@ body, html {
 
 .facebook-btn,
 .google-btn {
-   	width: 42px;
-    height: 42px;
-    line-height: 1.8em;
+  width: 42px;
+  height: 42px;
+  line-height: 1.8em;
 }
 
 .facebook-btn:focus,
@@ -168,7 +192,7 @@ button.policy-modal-link {
 .line {
   align-items: center;
   margin: 1em -1em;
-  
+
 }
 
 .line:before,
@@ -188,70 +212,71 @@ button.policy-modal-link {
 
 
 .search-container {
-	position: relative;
-	display: inline-block;
-	margin: 4px 2px;
-	height: 50px;
-	width: 50px;
-	vertical-align: bottom;
+  position: relative;
+  display: inline-block;
+  margin: 4px 2px;
+  height: 50px;
+  width: 50px;
+  vertical-align: bottom;
 }
 
 .mglass {
-	display: inline-block;
-	pointer-events: none;
-	-webkit-transform: rotate(-45deg);
-	-moz-transform: rotate(-45deg);
-	-o-transform: rotate(-45deg);
+  display: inline-block;
+  pointer-events: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
 }
 
 .searchbutton {
   display: inline-block;
-	margin: 4px 2px;
-	font-size: 14px;
-	padding-left: 32px;
-	padding-right: 32px;
+  margin: 4px 2px;
+  font-size: 14px;
+  padding-left: 32px;
+  padding-right: 32px;
   height: 50px;
   color: #f2f2f2;
-	line-height: 50px;
-	text-align: center;
-	text-decoration: none;
-	cursor: pointer;
-	-moz-user-select: none;
-	-khtml-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	position: absolute;
-	font-size: 22px;
-	width: 100%;
-	margin: 0;
-	padding: 0;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  font-size: 22px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.search:focus + .searchbutton {
-	transition-duration: 0.4s;
-	-moz-transition-duration: 0.4s;
-	-webkit-transition-duration: 0.4s;
+.search:focus+.searchbutton {
+  transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
   -o-transition-duration: 0.4s;
 }
 
 .search {
-	position: absolute;
-	left: 49px; /* Button width-1px (Not 50px/100% because that will sometimes show a 1px line between the search box and button) */
+  position: absolute;
+  left: 49px;
+  /* Button width-1px (Not 50px/100% because that will sometimes show a 1px line between the search box and button) */
   background-color: #555e68;
   color: white;
-	outline: none;
+  outline: none;
   border: none;
   border-radius: 5px;
   padding: 0;
-	width: 0;
-	height: 100%;
-	z-index: 10;
-	transition-duration: 0.4s;
-	-moz-transition-duration: 0.4s;
-	-webkit-transition-duration: 0.4s;
-	-o-transition-duration: 0.4s;
+  width: 0;
+  height: 100%;
+  z-index: 10;
+  transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
 }
 
 .search::placeholder {
@@ -260,17 +285,19 @@ button.policy-modal-link {
 }
 
 .search:focus {
-	width: 363px; /* Bar width+1px */
-	padding: 0 16px 0 0;
+  width: 363px;
+  /* Bar width+1px */
+  padding: 0 16px 0 0;
 }
 
 .expandright {
-	left: auto;
-	right: 49px; /* Button width-1px */
+  left: auto;
+  right: 49px;
+  /* Button width-1px */
 }
 
 .expandright:focus {
-	padding: 0 16px 0 16px;
+  padding: 0 16px 0 16px;
 }
 
 /* Footer */
@@ -284,8 +311,8 @@ footer {
   padding: 1rem;
   /* height: 320px; */
   text-align: center;
-  color: #f2f2f2	;
-  line-height:2rem;
+  color: #f2f2f2;
+  line-height: 2rem;
 }
 
 .footer-container {
@@ -305,14 +332,14 @@ footer {
   text-align: left;
 }
 
-.footer-top h5{
-    text-transform: uppercase;
-    font-size: 1.3rem;
-    padding-top: 7px;
-    padding-bottom: 5px;
-    transform: scale(1.1, 1);
-    text-align: left;
-    color: #f2f2f2;
+.footer-top h5 {
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  padding-top: 7px;
+  padding-bottom: 5px;
+  transform: scale(1.1, 1);
+  text-align: left;
+  color: #f2f2f2;
 }
 
 .footer-logo {
@@ -327,9 +354,9 @@ footer {
 
 .footer-link:hover {
   color: rgb(209, 209, 209);
-}  
+}
 
-.footer-list > li {
+.footer-list>li {
   margin-left: -4px;
   text-align: left;
 }
@@ -343,10 +370,12 @@ footer {
 }
 
 @media screen and (max-width: 576px) {
-  .footer-list > li {
+  .footer-list>li {
     text-align: center;
   }
-  h4, h5{
+
+  h4,
+  h5 {
     text-align: center;
   }
 }
@@ -363,15 +392,14 @@ footer {
   padding: 3rem;
 }
 
-.navbar-items > a.active{
+.navbar-items>a.active {
   border-bottom: 2px solid #6DD1CC
 }
 
-.navbar-items > a {
+.navbar-items>a {
   text-decoration: none;
 }
 
-.navbar-items > a:hover{
+.navbar-items>a:hover {
   border-bottom: 2px solid #6DD1CC
 }
-
