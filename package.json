@@ -12,6 +12,9 @@
         "server": "nodemon index.js",
         "client": "yarn --cwd client run start",
         "dev": "concurrently --k \"yarn run server\" \"yarn run client\"",
+        "client-install": "cd client && yarn",
+        "server-install": "yarn",
+        "install-all": "concurrently --k \"yarn run client-install\" \"yarn run server-install\"",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
     "repository": "git@github.com:Dan-Y-Ko/v8-bears-team-01.git",
