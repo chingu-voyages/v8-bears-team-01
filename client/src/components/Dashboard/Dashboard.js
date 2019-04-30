@@ -15,8 +15,8 @@ class Dashboard extends Component {
         this.props.get_user_projects();
     }
 
-    onDeleteClick = id => {
-        this.props.delete_project(id);
+    onDeleteClick = (id, imageUrl) => {
+        this.props.delete_project(id, imageUrl);
     };
 
     render() {
