@@ -1,9 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { delete_project } from "../../actions/project";
 
 const YourProjects = ({ project, handleDeleteClick }) => {
+    let bucket_url;
+
+    if (process.env.NODE_ENV === "production") {
+        bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-prod`;
+    } else {
+        bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-image`;
+    }
     return (
         <>
             {project.map((project, key) => {
@@ -22,16 +29,17 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                 {project.imageUrl ? (
                                     <img
                                         className="card-img-top"
-                                        src={`https://s3.us-east-2.amazonaws.com/code-collab-image/${
+                                        src={`${bucket_url}/${
                                             project.imageUrl
                                         }`}
-                                        alt="Card image cap"
+                                        alt=""
+                                        crossorigin="anonymous"
                                     />
                                 ) : (
                                     <img
                                         className="card-img-top"
                                         src="https://via.placeholder.com/100"
-                                        alt="Card image cap"
+                                        alt=""
                                     />
                                 )}{" "}
                             </Link>
