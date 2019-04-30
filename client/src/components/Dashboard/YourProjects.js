@@ -15,7 +15,10 @@ const YourProjects = ({ project, handleDeleteClick }) => {
         <>
             {project.map((project, key) => {
                 return (
-                    <div className="col-sm-12 col-md-6 col-lg-3 pb-3">
+                    <div
+                        className="col-sm-12 col-md-6 col-lg-3 pb-3"
+                        key={project._id}
+                    >
                         <div className="card text-white bg-secondary m-0 mb-4">
                             <Link
                                 to={`/${project.ownerName}/project/${

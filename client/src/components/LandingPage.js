@@ -14,7 +14,7 @@ const Project = props => (
                 <img
                     className="card-img-top"
                     src="https://via.placeholder.com/100"
-                    alt="Card image cap"
+                    alt=""
                 />{" "}
             </Link>
             <div className="card-body">
@@ -105,11 +105,11 @@ export class LandingPage extends Component {
         return (
             <div className="projects-list-container container">
                 <div className="jumbotron tagline">
-                    <h1 class="display-4">
+                    <h1 className="display-4">
                         Code Collab is a collaborative environment for creators
                         and talents
                     </h1>
-                    <p class="lead">
+                    <p className="lead">
                         Develop your own existing projects anywhere you go and
                         find emerging talents along your journey.
                     </p>
