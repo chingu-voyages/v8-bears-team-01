@@ -32,4 +32,19 @@ module.exports = app => {
             (err, url) => res.send({ key, url })
         );
     });
+
+    app.delete("/api/upload/:imageUrl", requireLogin, (req, res) => {
+        const key = req.params.imageUrl;
+
+        const params = {
+            Bucket,
+            key
+        };
+
+        s3.deleteObject(params, function(err, data) {
+            if (err) console.log(err, err.stack);
+            // an error occurred
+            else console.log(data); // successful response
+        });
+    });
 };

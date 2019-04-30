@@ -395,3 +395,7 @@ footer {
 .navbar-items > a:hover {
     border-bottom: 2px solid #6dd1cc;
 }
+
+.rw-multiselect-taglist {
+    margin: 0.4rem 0 !important;
+}
