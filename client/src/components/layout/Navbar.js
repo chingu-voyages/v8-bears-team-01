@@ -166,12 +166,10 @@ export class Navbar extends Component {
   renderInbox() {
     return (
       <div>
-        <div class="row inbox">
-          <div class="col">
-            <div class="collapse multi-collapse" id="multiCollapse">
-              <div class="card card-body bg-dark">
+        <div className="row inbox">
+          <div className="col">
+            <div className="collapse multi-collapse" id="multiCollapse">
                 <Inbox />
-              </div>
             </div>
           </div>
         </div>
@@ -265,7 +263,7 @@ export class Navbar extends Component {
             </form>
           </div>
           <button 
-            class="mr-3 btn btn-sm" 
+            className="mr-3 btn btn-sm" 
             data-toggle="collapse" 
             href="#multiCollapse" 
             role="button" 
