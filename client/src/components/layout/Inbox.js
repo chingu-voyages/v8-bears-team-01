@@ -6,7 +6,7 @@ export class Inbox extends Component {
     this.state = {
       receivedMessages: [],
       sentMessages: [],
-      toggleSent: false
+      toggleSentMessages: false
     };
   }
   getReceivedMessages = () => {
@@ -39,13 +39,20 @@ export class Inbox extends Component {
         .catch(err => console.log(err));
     }
   }
+  toggleSentMessages = (value) => {
+    if(value){
+      this.setState({toggleSentMessages : true})
+    } else {
+      this.setState({toggleSentMessages : false})
+    }
+  }
   componentDidMount() {
     this.getReceivedMessages();
     this.getSentMessages();
   }
   render() {
     let messages;
-    if(this.state.toggleSent){
+    if(this.state.toggleSentMessages){
       messages = this.state.sentMessages
     } else {
       messages = this.state.receivedMessages
@@ -54,13 +61,13 @@ export class Inbox extends Component {
       <div className="inbox-container">
       <div className="inbox-header bg-dark">
           <p className="text-light font-weight-bold">Inbox</p>
-        <ul className="nav">
-          <div className="nav-item">
-            <button className="btn inbox-btn text-light active">Received</button>
-          </div>
-          <div className="nav-item">
-            <button className="btn inbox-btn text-light disabled">Sent</button>
-          </div>
+        <ul className="inbox-nav nav">
+            <button 
+              onClick={() => this.toggleSentMessages (false)}
+              className={this.state.toggleSentMessages ? "btn" : "btn active"}>Received</button>
+            <button 
+              onClick={() => this.toggleSentMessages (true)}
+              className={this.state.toggleSentMessages ? "btn active" : "btn"}>Sent</button>
         </ul>
       </div>
       <div className="messages-container">
@@ -75,11 +82,13 @@ export class Inbox extends Component {
               </div>
               <div className="col-md-9 text-left">
                 <p className="message">{message.messageBody}</p>
-                <button 
+                {!this.state.toggleSentMessages &&
+                  <button 
                   onClick={() => this.handleDeleteMessage (message._id)}
                   className="btn delete-message-btn">
                   <i class="text-light fas fa-times-circle"></i>
-                </button>
+                  </button>
+                }
               </div>
             </div>
           </div>

@@ -428,20 +428,19 @@ footer {
   text-overflow: ellipsis;
 }
 
-.inbox-btn {
+.inbox-nav .btn {
   border: none;
   border-radius: 0px;
   outline: none;
   padding: 0;
   margin: 0 8px 0 0;
-}
-
-.inbox-btn.active {
-  border-bottom: 2px solid #fff;
-}
-
-.inbox-btn.disabled {
   margin-bottom: 2px;
+  color: #adb5bd;
+}
+
+.inbox-nav .btn.active {
+  border-bottom: 2px solid #fff;
+  color: #f8f9fa;
 }
 
 .delete-message-btn {
