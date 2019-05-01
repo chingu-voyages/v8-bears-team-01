@@ -19,6 +19,18 @@ const userSchema = new Schema({
     picture: {
         type: String,
         required: false
+    },
+    about: {
+        type: String,
+        required: false
+    },
+    job_title:{
+        type: String,
+        required: false
+    },
+    location:{
+        type: String,
+        required: false
     }
 });
 
