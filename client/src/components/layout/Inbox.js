@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import moment from "moment";
 
 export class Inbox extends Component {
   constructor() {
@@ -6,7 +7,8 @@ export class Inbox extends Component {
     this.state = {
       receivedMessages: [],
       sentMessages: [],
-      toggleSentMessages: false
+      displaySentMessages: false,
+      displayMessageList: true
     };
   }
   getReceivedMessages = () => {
@@ -39,61 +41,91 @@ export class Inbox extends Component {
         .catch(err => console.log(err));
     }
   }
-  toggleSentMessages = (value) => {
+  displaySentMessages = (value) => {
     if(value){
-      this.setState({toggleSentMessages : true})
+      this.setState({
+        displayMessageList: true,
+        displaySentMessages : true
+      })
     } else {
-      this.setState({toggleSentMessages : false})
+      this.setState({
+        displayMessageList: true,
+        displaySentMessages : false
+      })
     }
   }
   componentDidMount() {
     this.getReceivedMessages();
     this.getSentMessages();
   }
-  render() {
+  renderSingleMessage = () => {
+    return (
+      <div>
+        <button 
+        onClick={() => this.setState ({displayMessageList: true})}
+        className="btn back-btn text-light"><i class="fas fa-angle-left"></i> Back</button>
+        <div className="message-wrapper">
+          <p>This is the message</p>
+        </div>
+        <div className="message-wrapper">
+          <textarea className="form-control" placeholder="reply"></textarea>
+          <button className="btn btn-success form-control">Send</button>
+        </div>
+      </div>
+    )
+  }
+  renderMessageList = () => {
     let messages;
-    if(this.state.toggleSentMessages){
+    if(this.state.displaySentMessages){
       messages = this.state.sentMessages
     } else {
       messages = this.state.receivedMessages
     }
+    return(
+      <div>
+        {messages.length === 0 && <p className="pb-5 pt-4">No messages to display.</p>}
+        {messages.map(message => (
+          <div 
+            className="message-wrapper" 
+            key={message._id}>
+            <div className="row message-row text-light mb-2 mt-2">
+              <div className="col-md-12 text-left">
+                <div
+                onClick={() => this.setState ({displayMessageList: false})}
+                >
+                  <span className="user-name message-list-info">UserName<span className="inbox-date text-secondary"> {moment(message.date).fromNow()}</span></span>
+                  <p className="message message-list-info">{message.messageBody}</p>
+                </div>
+                  <button 
+                  onClick={() => this.handleDeleteMessage (message._id)}
+                  className="btn delete-message-btn">
+                  <i class="text-light fas fa-times-circle"></i>
+                  </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+  render() {
     return (
       <div className="inbox-container">
       <div className="inbox-header bg-dark">
           <p className="text-light font-weight-bold">Inbox</p>
         <ul className="inbox-nav nav">
             <button 
-              onClick={() => this.toggleSentMessages (false)}
-              className={this.state.toggleSentMessages ? "btn" : "btn active"}>Received</button>
+              onClick={() => this.displaySentMessages (false)}
+              className={this.state.displaySentMessages ? "btn" : "btn active"}>Received</button>
             <button 
-              onClick={() => this.toggleSentMessages (true)}
-              className={this.state.toggleSentMessages ? "btn active" : "btn"}>Sent</button>
+              onClick={() => this.displaySentMessages (true)}
+              className={this.state.displaySentMessages ? "btn active" : "btn"}>Sent</button>
         </ul>
       </div>
-      <div className="messages-container">
-        {messages.length === 0 && <p className="pb-5 pt-4">No messages to display.</p>}
-        {messages.map(message => (
-          <div className="message-wrapper" key={message._id}>
-            <div className="row message-row text-light mb-2 mt-2">
-              <div className="col-md-3">
-                <label>
-                  <span className="user-name">UserName</span>
-                </label>
-              </div>
-              <div className="col-md-9 text-left">
-                <p className="message">{message.messageBody}</p>
-                {!this.state.toggleSentMessages &&
-                  <button 
-                  onClick={() => this.handleDeleteMessage (message._id)}
-                  className="btn delete-message-btn">
-                  <i class="text-light fas fa-times-circle"></i>
-                  </button>
-                }
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+        <div className="messages-container">
+          {this.state.displayMessageList && this.renderMessageList()}
+          {!this.state.displayMessageList && this.renderSingleMessage()}
+        </div>
     </div>
     )
   }

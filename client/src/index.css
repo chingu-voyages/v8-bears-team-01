@@ -381,16 +381,15 @@ footer {
 .inbox {
   position: absolute;
   z-index: 100;
-  right: 2px;
+  right: 1px;
   top: 90px;
 }
 
 .inbox-container {
   border: 1px solid #242a31;
   border-radius: 3px;
-  min-width: 20rem;
+  min-width: 25rem;
   max-width: 25rem;
-  width: 100%;
   min-height: 20rem;
   box-sizing: border-box;
   background-color: #35393e;
@@ -413,7 +412,6 @@ footer {
   margin-bottom: 5px;
   border: 2px solid #242a31;
   border-radius: 5px;
-
 }
 
 .message-wrapper:hover {
@@ -453,4 +451,18 @@ footer {
   position:absolute;
   top:0;
   right: 15px;
+}
+
+.btn.back-btn {
+  margin: 0;
+  padding: 0 0 1.5rem 0;
+  font-size: 14px;
+}
+
+.message-list-info {
+  cursor: pointer;
+}
+
+.inbox-date {
+  font-size: 14px;
 }

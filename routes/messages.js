@@ -10,7 +10,8 @@ module.exports = app => {
           role: req.body.role,
           senderId: senderId,
           recipientId: req.body.recipientId,
-          projectId: req.body.projectId
+          projectId: req.body.projectId,
+          date: Date.now()
         }).save();
       }
     });
