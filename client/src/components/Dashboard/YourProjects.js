@@ -1,9 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { delete_project } from "../../actions/project";
 
 const YourProjects = ({ project, handleDeleteClick }) => {
+    let bucket_url;
+
+    if (process.env.NODE_ENV === "production") {
+        bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-prod`;
+    } else {
+        bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-image`;
+    }
     return (
         <>
             {project.map((project, key) => {
@@ -12,7 +19,10 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                         className="col-sm-12 col-md-6 col-lg-3 pb-3"
                         key={project._id}
                     >
-                        <div className="card text-white bg-secondary m-0 mb-4">
+                        <div
+                            className="card text-white bg-secondary m-0 mb-4"
+                            style={{ minHeight: "420px" }}
+                        >
                             <Link
                                 to={`/${project.ownerName}/project/${
                                     project._id
@@ -22,16 +32,18 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                 {project.imageUrl ? (
                                     <img
                                         className="card-img-top"
-                                        src={`https://s3.us-east-2.amazonaws.com/code-collab-image/${
+                                        src={`${bucket_url}/${
                                             project.imageUrl
                                         }`}
-                                        alt="Card image cap"
+                                        alt=""
+                                        crossOrigin="anonymous"
+                                        style={{ minHeight: "245px" }}
                                     />
                                 ) : (
                                     <img
                                         className="card-img-top"
                                         src="https://via.placeholder.com/100"
-                                        alt="Card image cap"
+                                        alt=""
                                     />
                                 )}{" "}
                             </Link>
@@ -42,7 +54,7 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                 <p className="card-text">
                                     {project.description}
                                 </p>
-                                <div className="float-right">
+                                <div className="d-flex flex-row justify-content-start">
                                     <Link
                                         className="btn btn-primary"
                                         to={`/${project.ownerName}/project/${
@@ -56,7 +68,8 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                         className="btn btn-danger"
                                         onClick={handleDeleteClick.bind(
                                             this,
-                                            project._id
+                                            project._id,
+                                            project.imageUrl
                                         )}
                                     >
                                         <i className="fas fa-trash" />

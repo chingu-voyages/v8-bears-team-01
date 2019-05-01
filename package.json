@@ -4,16 +4,21 @@
     "main": "index.js",
     "engines": {
         "node": "10.13.0",
+        "npm": "6.5.0",
         "yarn": "1.12.3"
     },
     "scripts": {
         "start": "node index.js",
         "server": "nodemon index.js",
         "client": "yarn --cwd client run start",
-        "dev": "concurrently --k \"yarn run server\" \"yarn run client\""
+        "dev": "concurrently --k \"yarn run server\" \"yarn run client\"",
+        "client-install": "cd client && yarn",
+        "server-install": "yarn",
+        "install-all": "concurrently --k \"yarn run client-install\" \"yarn run server-install\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
     },
     "repository": "git@github.com:Dan-Y-Ko/v8-bears-team-01.git",
-    "author": "Daniel Ko <danko56666@gmail.com>",
+    "author": "Daniel Ko",
     "license": "MIT",
     "dependencies": {
         "aws-sdk": "^2.440.0",
@@ -30,6 +35,7 @@
         "passport": "^0.4.0",
         "passport-facebook": "^3.0.0",
         "passport-google-oauth20": "2",
+        "react-select-us-states": "^0.1.2",
         "uuid": "^3.3.2"
     },
     "devDependencies": {

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchUser } from "../../actions/auth";
@@ -16,8 +15,8 @@ class Dashboard extends Component {
         this.props.get_user_projects();
     }
 
-    onDeleteClick = id => {
-        this.props.delete_project(id);
+    onDeleteClick = (id, imageUrl) => {
+        this.props.delete_project(id, imageUrl);
     };
 
     render() {
@@ -29,24 +28,27 @@ class Dashboard extends Component {
                 </h3>
                 {/* <RecentMessages /> */}
                 <div className="projects-list-container container">
-                    <h4
-                        className="content-header"
-                        style={{ marginTop: "50px" }}
-                    >
+                    <h4 className="content-header" style={{ margin: "2rem 0" }}>
                         Your Projects
                     </h4>
 
                     <Link to="/newproject">
-                        <button className="btn btn-teal">Create project</button>
+                        <button
+                            className="btn btn-teal"
+                            style={{ margin: "0 0 2rem 0" }}
+                        >
+                            Create project
+                        </button>
                     </Link>
                 </div>
                 {projects && (
-                    <YourProjects
-                        project={projects}
-                        handleDeleteClick={this.onDeleteClick}
-                    />
+                    <div className="d-flex flex-row">
+                        <YourProjects
+                            project={projects}
+                            handleDeleteClick={this.onDeleteClick}
+                        />
+                    </div>
                 )}
-
                 <JoinedProjects />
             </div>
         );

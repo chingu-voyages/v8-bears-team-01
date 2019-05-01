@@ -29,14 +29,12 @@ const renderDropdownList = ({
     <div>
         <DropdownList
             {...input}
-            defaultValue={data[0].value}
             data={data}
             valueField={valueField}
             textField={textField}
             onChange={input.onChange}
         />
-        {touched && error}
-        {console.log(data[0])}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
@@ -56,7 +54,7 @@ const renderMultiselect = ({
             valueField={valueField}
             textField={textField}
         />
-        {touched && error}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
@@ -72,14 +70,24 @@ const renderDateTimePicker = ({
             time={showTime}
             value={!value ? null : new Date(value)}
         />
-        {touched && error}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
 export class NewProject extends Component {
     state = {
-        file: null
+        file: null,
+        type: null
     };
+
+    UNSAFE_componentWillReceiveProps(nextProps, nextState) {
+        const { values } = nextProps.type;
+        if (values) {
+            this.setState({
+                type: values
+            });
+        }
+    }
 
     onFileChange = event => {
         this.setState({
@@ -88,7 +96,6 @@ export class NewProject extends Component {
     };
 
     onSubmit = formValues => {
-        console.log(formValues);
         this.props.createProject(
             formValues,
             this.state.file,
@@ -98,6 +105,18 @@ export class NewProject extends Component {
 
     render() {
         const { handleSubmit, pristine, reset, submitting } = this.props;
+
+        const data =
+            this.state.type &&
+            this.state.type.projectType.type === "Game Development"
+                ? ["Animators", "Story Writers", "Programmers", "3d Modelers"]
+                : [
+                      "Front End Developer",
+                      "Back End Developer",
+                      "Full Stack Developer",
+                      "UI/UX Designer"
+                  ];
+
         return (
             <div>
                 <div className="py-5 text-center text-white">
@@ -108,73 +127,115 @@ export class NewProject extends Component {
                             get more volunteers!
                         </p>
                         <div className="container">
-                            <div className="form-row">
+                            <div
+                                className="form-row"
+                                style={{
+                                    display: "flexbox",
+                                    flexDirection: "column",
+                                    alignItems: "center"
+                                }}
+                            >
                                 <form onSubmit={handleSubmit(this.onSubmit)}>
-                                    <div>
-                                        <label>Select Project Type</label>
+                                    <div className="form-group">
+                                        <label
+                                            style={{
+                                                fontSize: "1.6rem"
+                                            }}
+                                        >
+                                            Select Project Type
+                                        </label>
                                         <Field
                                             name="projectType"
                                             component={renderDropdownList}
                                             data={type}
                                             valueField="value"
                                             textField="type"
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
-                                        <label>Roles Needed</label>
+                                    <div className="form-group">
+                                        <label
+                                            style={{
+                                                fontSize: "1.6rem"
+                                            }}
+                                        >
+                                            Roles Needed
+                                        </label>
                                         <Field
                                             name="roles"
                                             component={renderMultiselect}
-                                            data={[
-                                                "Animators",
-                                                "Story Writers",
-                                                "Programmers",
-                                                "3d Modelers"
-                                            ]}
+                                            data={data}
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
                                         <Field
                                             name="ownerName"
                                             label="Owner Name"
                                             type="input"
                                             component={ProjectField}
+                                            className="form-control"
                                         />
-                                        <label>Project Deadline</label>
+                                        <label
+                                            style={{
+                                                fontSize: "1.6rem"
+                                            }}
+                                        >
+                                            Project Deadline
+                                        </label>
                                         <Field
                                             name="deadline"
                                             showTime={false}
                                             component={renderDateTimePicker}
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
                                         <Field
                                             name="projectName"
                                             label="Project Name"
                                             type="input"
                                             component={ProjectField}
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
                                         <Field
                                             name="description"
                                             label="Project Description"
                                             type="textarea"
                                             component={ProjectField}
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
-                                        <label>Upload Image for project</label>
+                                    <div className="form-group">
+                                        <label
+                                            style={{
+                                                fontSize: "1.6rem"
+                                            }}
+                                        >
+                                            Upload Image for project
+                                        </label>
                                         <input
                                             type="file"
                                             accept="image/*"
                                             onChange={this.onFileChange}
+                                            className="form-control"
+                                            style={{
+                                                paddingBottom: "2.2rem"
+                                            }}
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
                                         <button
                                             type="submit"
                                             disabled={pristine || submitting}
+                                            className="form-control"
+                                            style={{
+                                                margin: "0.2rem 0",
+                                                border: "none",
+                                                backgroundColor: "#6dd1cc"
+                                            }}
                                         >
                                             Submit
                                         </button>
@@ -182,6 +243,7 @@ export class NewProject extends Component {
                                             type="button"
                                             disabled={pristine || submitting}
                                             onClick={reset}
+                                            className="form-control"
                                         >
                                             Reset Values
                                         </button>
@@ -226,8 +288,14 @@ function validate(values) {
     return errors;
 }
 
+const mapStateToProps = state => {
+    return {
+        type: state.form.projectForm
+    };
+};
+
 export default connect(
-    null,
+    mapStateToProps,
     { createProject }
 )(
     reduxForm({
