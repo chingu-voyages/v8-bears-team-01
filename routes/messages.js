@@ -1,4 +1,5 @@
 const Message = require ('../models/Message');
+const mongoUtil = require("../services/mongoUtil");
 
 module.exports = app => {
 
@@ -8,8 +9,8 @@ module.exports = app => {
         const message = await new Message({
           messageBody : req.body.messageBody,
           role: req.body.role,
-          senderId: senderId,
-          recipientId: req.body.recipientId,
+          sender: senderId,
+          recipient: req.body.recipientId,
           projectId: req.body.projectId,
           date: Date.now()
         }).save();
@@ -20,10 +21,15 @@ module.exports = app => {
     //DEVELOPMENT ONLY
     app.get ('/api/messages', async (req, res) => {
       try {
-        const messages = await Message.find ();
+        const messages = await Message.find().populate({
+          path: 'sender'
+        }).populate({
+          path: 'recipient'
+        });
+
         res.json (messages);
       } catch (err) {
-        // console.log("api error", err);
+        console.log("api error", err);
         res.status (422).send (err);
       }
     });
@@ -31,7 +37,11 @@ module.exports = app => {
     // Get the logged in user's sent messages
     app.get("/api/messages/sent", async (req, res) => {
       const id = req.session.user._id;
-      const messages = await Message.find({ "senderId": id });
+      const messages = await Message.find({ "sender": id }).sort('-date').populate({
+        path: 'sender'
+      }).populate({
+        path: 'recipient'
+      });
       res.json(messages);
       //res.send({ messages });
     });
@@ -39,7 +49,11 @@ module.exports = app => {
     // Get the logged in user's received messages
     app.get("/api/messages/received", async (req, res) => {
       const id = req.session.user._id;
-      const messages = await Message.find({ "recipientId": id });
+      const messages = await Message.find({ "recipient": id }).sort('-date').populate({
+        path: 'sender'
+      }).populate({
+        path: 'recipient'
+      });
       res.json(messages);
       //res.send({ messages });
     });

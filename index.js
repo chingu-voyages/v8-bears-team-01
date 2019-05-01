@@ -1,10 +1,9 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cookieSession = require("cookie-session");
 const cors = require("cors");
 const passport = require("passport");
 const bodyParser = require("body-parser");
-
+const mongoUtil = require("./services/mongoUtil");
 const keys = require("./config/keys");
 const authRoute = require("./routes/auth");
 const projectRoute = require("./routes/projects");
@@ -16,9 +15,7 @@ require("./models/User");
 require("./models/Projects");
 require("./services/passport");
 
-mongoose.connect(keys.mongoURI).catch(err => {
-    console.log("error connecting to DB:", err);
-});
+mongoUtil.connectToServer();
 
 const app = express();
 app.use(cors());

@@ -4,8 +4,8 @@ const { Schema } = mongoose;
 const messageSchema = new Schema({
     messageBody: String,
     role: String,
-    senderId: { type: Schema.Types.ObjectId, ref: "user" },
-    recipientId: { type: Schema.Types.ObjectId, ref: "user" },
+    sender: { type: Schema.Types.ObjectId, ref: "user" },
+    recipient: { type: Schema.Types.ObjectId, ref: "user" },
     date: { type: Date, default: Date.now }
 });
 

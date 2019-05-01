@@ -8,7 +8,8 @@ export class Inbox extends Component {
       receivedMessages: [],
       sentMessages: [],
       displaySentMessages: false,
-      displayMessageList: true
+      displayMessageList: true,
+      selectedMessage: {}
     };
   }
   getReceivedMessages = () => {
@@ -65,7 +66,7 @@ export class Inbox extends Component {
         onClick={() => this.setState ({displayMessageList: true})}
         className="btn back-btn text-light"><i class="fas fa-angle-left"></i> Back</button>
         <div className="message-wrapper">
-          <p>This is the message</p>
+          <p>{this.state.selectedMessage.messageBody}</p>
         </div>
         <div className="message-wrapper">
           <textarea className="form-control" placeholder="reply"></textarea>
@@ -91,9 +92,10 @@ export class Inbox extends Component {
             <div className="row message-row text-light mb-2 mt-2">
               <div className="col-md-12 text-left">
                 <div
-                onClick={() => this.setState ({displayMessageList: false})}
+                onClick={() => this.setState ({displayMessageList: false, selectedMessage:message})}
                 >
-                  <span className="user-name message-list-info">UserName<span className="inbox-date text-secondary"> {moment(message.date).fromNow()}</span></span>
+                  <span className="user-name message-list-info">{this.state.displaySentMessages ? message.recipient.name : message.sender.name}
+                  <span className="inbox-date text-secondary"> {moment(message.date).fromNow()}</span></span>
                   <p className="message message-list-info">{message.messageBody}</p>
                 </div>
                   <button 
