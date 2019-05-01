@@ -14,6 +14,7 @@ module.exports = app => {
           projectId: req.body.projectId,
           date: Date.now()
         }).save();
+        res.json(message);
       }
     });
 

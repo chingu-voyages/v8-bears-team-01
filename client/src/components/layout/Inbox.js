@@ -10,8 +10,7 @@ export class Inbox extends Component {
       displaySentMessages: false,
       displayMessageList: true,
       selectedMessage: {},
-      messageBody: '',
-      status: ''
+      messageBody: ''
     };
   }
   getReceivedMessages = () => {
@@ -38,6 +37,9 @@ export class Inbox extends Component {
             this.setState(prevState => ({
               receivedMessages: prevState.receivedMessages.filter(
                 message => messageId !== message._id
+              ),
+              sentMessages: prevState.sentMessages.filter(
+                message => messageId !== message._id
               )
             }))
         )
@@ -50,7 +52,7 @@ export class Inbox extends Component {
       this.setState (() => ({messageBody: messageBody}));
     }
   }
-  handleSendMessage = () =>{
+  handleSendMessage = () => {
     const message = this.state.selectedMessage;
     const data = {
       recipientId: message.sender._id,
@@ -63,9 +65,16 @@ export class Inbox extends Component {
         headers: { "Content-Type": "application/json" },
         credentials: "include" // include session cookie
       })
-      .then(res => res.json())
-      .then(alert('message sent'))
-      .catch(e => console.error("message error", e));
+      .then(res=> res.json())
+        .then(
+          message => 
+            this.setState({
+              sentMessages: [message, ...this.state.sentMessages], 
+              displaySentMessages: true, 
+              displayMessageList: true, 
+              messageBody: ''
+            }))
+          .catch(e => console.error("message error", e));
     } else {
       this.setState({
         status: "Your message cannot be empty."
@@ -101,15 +110,22 @@ export class Inbox extends Component {
           <span className="inbox-date text-secondary"> {moment(message.date).fromNow()}</span></span>
           <p>{message.messageBody}</p>
         </div>
+        {this.renderForm()}
+      </div>
+    )
+  }
+  renderForm = () => {
+    return (
+      <div>
         <div className="message-wrapper">
-          <textarea 
-            className="form-control" 
-            onChange={this.handleUpdateMessageBody}  
-            placeholder="reply">
-          </textarea>
-          <button 
-            onClick={this.handleSendMessage}
-            className="btn btn-success form-control">Send</button>
+        <textarea 
+          className="form-control" 
+          onChange={this.handleUpdateMessageBody}  
+          placeholder="reply">
+        </textarea>
+        <button 
+          onClick={this.handleSendMessage}
+          className="btn btn-success form-control">Send</button>
         </div>
       </div>
     )
