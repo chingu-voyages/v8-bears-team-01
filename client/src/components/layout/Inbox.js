@@ -9,7 +9,9 @@ export class Inbox extends Component {
       sentMessages: [],
       displaySentMessages: false,
       displayMessageList: true,
-      selectedMessage: {}
+      selectedMessage: {},
+      messageBody: '',
+      status: ''
     };
   }
   getReceivedMessages = () => {
@@ -42,6 +44,34 @@ export class Inbox extends Component {
         .catch(err => console.log(err));
     }
   }
+  handleUpdateMessageBody = (e) => {
+    if(e && e.target && e.target.value){
+      const messageBody = e.target.value
+      this.setState (() => ({messageBody: messageBody}));
+    }
+  }
+  handleSendMessage = () =>{
+    const message = this.state.selectedMessage;
+    const data = {
+      recipientId: message.sender._id,
+      messageBody: this.state.messageBody
+    }
+    if(this.state.messageBody.length > 0){
+      fetch('/api/messages/', {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include" // include session cookie
+      })
+      .then(res => res.json())
+      .then(alert('message sent'))
+      .catch(e => console.error("message error", e));
+    } else {
+      this.setState({
+        status: "Your message cannot be empty."
+      });
+    }
+  }
   displaySentMessages = (value) => {
     if(value){
       this.setState({
@@ -60,17 +90,26 @@ export class Inbox extends Component {
     this.getSentMessages();
   }
   renderSingleMessage = () => {
+    const message = this.state.selectedMessage;
     return (
       <div>
         <button 
         onClick={() => this.setState ({displayMessageList: true})}
-        className="btn back-btn text-light"><i class="fas fa-angle-left"></i> Back</button>
+        className="btn back-btn text-light"><i className="fas fa-angle-left"></i> Back</button>
         <div className="message-wrapper">
-          <p>{this.state.selectedMessage.messageBody}</p>
+          <span className="user-name message-list-info">{this.state.displaySentMessages ? message.recipient.name : message.sender.name}
+          <span className="inbox-date text-secondary"> {moment(message.date).fromNow()}</span></span>
+          <p>{message.messageBody}</p>
         </div>
         <div className="message-wrapper">
-          <textarea className="form-control" placeholder="reply"></textarea>
-          <button className="btn btn-success form-control">Send</button>
+          <textarea 
+            className="form-control" 
+            onChange={this.handleUpdateMessageBody}  
+            placeholder="reply">
+          </textarea>
+          <button 
+            onClick={this.handleSendMessage}
+            className="btn btn-success form-control">Send</button>
         </div>
       </div>
     )
@@ -101,7 +140,7 @@ export class Inbox extends Component {
                   <button 
                   onClick={() => this.handleDeleteMessage (message._id)}
                   className="btn delete-message-btn">
-                  <i class="text-light fas fa-times-circle"></i>
+                  <i className="text-light fas fa-times-circle"></i>
                   </button>
               </div>
             </div>

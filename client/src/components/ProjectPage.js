@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { getProject, delete_project } from "../actions/project";
 import ContactModal from "./layout/ContactModal";
 
-
 class ProjectPage extends Component {
     constructor() {
         super();
@@ -21,7 +20,6 @@ class ProjectPage extends Component {
       if(e && e.target && e.target.value){
         const messageBody = e.target.value
         this.setState (() => ({messageBody: messageBody}));
-        console.log(this.props.project)
       }
     }
 
@@ -32,8 +30,7 @@ class ProjectPage extends Component {
         projectRoles: projectRoles
       }));
     }
-
-    handleSubmitMessage = () => {
+    handleSubmitApplication = () => {
       const { project } = this.props;
       const data = {
         recipientId: project.user,
@@ -41,7 +38,6 @@ class ProjectPage extends Component {
         role: this.state.role,
         messageBody: this.state.messageBody
       }
-      console.log("data", data);
       if(this.state.messageBody.length >= 5){
         fetch('/api/messages/', {
           method: "POST",
@@ -113,7 +109,7 @@ class ProjectPage extends Component {
                 <ContactModal
                   isOpen={this.state.contactModalIsActive}
                   handleRequestClose={this.handleRequestClose}
-                  handleSubmitMessage={this.handleSubmitMessage}
+                  handleSubmitApplication={this.handleSubmitApplication}
                   handleUpdateMessageBody={this.handleUpdateMessageBody}
                 />
             </div>

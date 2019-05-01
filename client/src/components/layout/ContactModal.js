@@ -37,7 +37,7 @@ const ContactModal = props => (
           </textarea>
           <br />
           <button 
-            onClick={props.handleSubmitMessage}
+            onClick={props.handleSubmitApplication}
             className="btn btn-teal mb-4">
             Apply{" "}
           </button>
