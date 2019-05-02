@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { FETCH_USER } from "./types";
-import { GET_AUTH_TOKEN } from "./types";
+import { FETCH_USER, GET_AUTH_TOKEN, UPDATE_USER } from "./types";
+
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/current_user");
@@ -14,3 +14,9 @@ export const get_auth_token = () => async dispatch => {
 
   dispatch({ type: GET_AUTH_TOKEN, payload: res.data });
 };
+
+export const update_user =(value) => async dispatch =>{
+
+   const res = await axios.post("/auth/updateUser",value);
+    dispatch({type: UPDATE_USER, payload: res.data})
+}
