@@ -69,7 +69,7 @@ export class Navbar extends Component {
       'login'
     );
     if (response === false) {
-      this.setState ({errorMsg});
+      this.setState ({errorMsg,isLoading: false});
       return;
     }
     this.setState ({isLoading: true});
@@ -94,12 +94,12 @@ export class Navbar extends Component {
       })
       .catch (err => {
         err.response &&
-          this.setState ({errorMsg: err.response.data.errMessage});
+          this.setState ({errorMsg: err.response.data.errMessage,isLoading: false});
       });
   };
 
   handleSignup = () => {
-    const {name, email, password, comfirmPassword} = this.state;
+    const {name, email, password, comfirmPassword, jobTitle, location} = this.state;
     const {errorMsg, response} = handleValidation (
       name,
       email,
@@ -108,7 +108,7 @@ export class Navbar extends Component {
       'signup'
     );
     if (response === false) {
-      this.setState ({errorMsg});
+      this.setState ({errorMsg,isLoading: false});
       return;
     }
     this.setState ({isLoading: true});
@@ -117,6 +117,8 @@ export class Navbar extends Component {
       email: email.trim (),
       password: password.trim (),
       name: name.trim (),
+      jobTitle: jobTitle.trim(),
+      location: location.trim() 
     };
 
     axios
@@ -126,12 +128,14 @@ export class Navbar extends Component {
         //console.log(resp.data);
         this.clearFields ();
         this.setState ({errMessage: '', registerIsActive: false});
-
-        this.props.history.push ('/dashboard');
+        localStorage.setItem ('authToken', resp.data.token);
+        this.props.fetchUser ().then (resp => {
+          this.props.history.push ('/dashboard');
+        });
       })
       .catch (err => {
         err.response &&
-          this.setState ({errorMsg: err.response.data.errMessage});
+          this.setState ({errorMsg: err.response.data.errMessage,isLoading: false});
       });
   };
 
