@@ -1,14 +1,31 @@
 import React, {useState} from 'react';
 import Modal from 'react-modal';
+import {connect} from 'react-redux';
+
+import { update_user } from './../../../actions/auth'
+
 import SelectUSState from './../../../helpers/SelectUSState';
 import FileUploader from 'react-firebase-file-uploader';
 import firebase from '../../../helpers/firebase.js';
 
-const About = () => {
+const About = (props) => {
   const [isOpen, setOpen] = useState(false);
 
-  const [value, updateValue] = useState('');
   const [avatarURL, setAvatarURL] = useState('');
+
+  const [state, setState] = useState({ name: '', about: '', job_title: '', location: '' });
+
+ const handleChange = (name,{target: {value}}) =>{
+    setState({...state,[name]:value})
+  }
+
+  const handleClick = () =>{
+    let obj = {
+      ...state, picture:avatarURL
+    }
+
+    props.update_user(obj)
+  }
 
   const updateModal = () => {
     setOpen(true);
@@ -28,10 +45,8 @@ const About = () => {
     setOpen(false);
   };
 
-  const setNewValue = ({target: {value}}) => {
-    updateValue(value);
-  };
 
+  // console.log(props)
   return (
     <>
       <Modal
@@ -48,7 +63,7 @@ const About = () => {
             <i className="fas fa-times" />
           </button>
           <div className="profile-picture">
-            {!!avatarURL ? (
+            {avatarURL ? (
               <img
                 src={avatarURL}
                 className="profile-pricture"
@@ -73,42 +88,49 @@ const About = () => {
           </div>
           <div className="profile-button-input-container">
             <input
+              value={state.name}
               className="form-control profile-input-control"
               placeholder="Name"
+              onChange={e=>handleChange('name',e)}
             />
             <textarea
+              value={state.about}
               className="form-control profile-input-control"
               rows="5"
               placeholder="About yourself"
+              onChange={e=>handleChange('about',e)}
             />
             <input
+              value={state.job_title}
               className="form-control profile-input-control"
               placeholder="Job Title"
+              onChange={e=>handleChange('job_title',e)}
             />
             <div className="profile-location">
               <p htmlFor="state">Location:</p>
 
               <SelectUSState
                 className="form-control profile-input-control"
-                value={value}
-                handleChange={setNewValue}
+                value={state.location}
+                handleChange={e=>handleChange('location',e)}
               />
             </div>
           </div>
           <div className="profile-button-container">
-            <a onClick={updateModal} className="profile-button">
+            <a onClick={handleClick} className="profile-button">
               Update
             </a>
           </div>
         </div>
       </Modal>
       <div>
-        <h3>About John Doe</h3>
+        <h3>About {props.user.name}</h3>
         <p>
-          My name is John Doe and I am a Front End Developer. My previous
-          expereince was working for Orange Software for 8 years and I am
-          currently a freelance developer. For more information of my work,
-          check out my portfolio link.
+          {!!props.user.about ? (
+            props.user.about
+          ) : (
+            <em>Please click on the Edit Profile button to update this information</em>
+          )}
         </p>
       </div>
       <a onClick={updateModal} className="profile-button">
@@ -118,4 +140,11 @@ const About = () => {
   );
 };
 
-export default About;
+function mapStateToProps(state) {
+  return {user: state.auth};
+}
+
+export default connect(
+  mapStateToProps,
+  {update_user},
+)(About);
