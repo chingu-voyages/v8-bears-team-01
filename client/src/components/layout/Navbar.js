@@ -189,7 +189,7 @@ export class Navbar extends Component {
                 <div className="navbar-items">
                     {" "}
                     <button 
-                      className="mr-4 btn"
+                      className="mr-3 btn"
                       data-toggle="collapse"
                       href="#multiCollapse"
                       role="button"
