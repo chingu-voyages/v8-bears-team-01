@@ -4,17 +4,19 @@ const cookieSession = require("cookie-session");
 const cors = require("cors");
 const passport = require("passport");
 const bodyParser = require("body-parser");
-
+//const mongoUtil = require("./services/mongoUtil");
 const keys = require("./config/keys");
 const authRoute = require("./routes/auth");
 const projectRoute = require("./routes/projects");
 const searchRoute = require("./routes/search");
 const imageRoute = require("./routes/image");
+const messageRoute = require("./routes/messages");
 
 require("./models/User");
 require("./models/Projects");
 require("./services/passport");
 
+//mongoUtil.connectToServer();
 mongoose.connect(keys.mongoURI).catch(err => {
     console.log("error connecting to DB:", err);
 });
@@ -37,6 +39,7 @@ authRoute(app);
 projectRoute(app);
 searchRoute(app);
 imageRoute(app);
+messageRoute(app);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(__dirname + "/client/build"));

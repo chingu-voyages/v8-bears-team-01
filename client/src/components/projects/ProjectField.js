@@ -6,7 +6,7 @@ const ProjectField = ({ input, label, type, meta: { error, touched } }) => {
             <label style={{ fontSize: "1.6rem" }}>{label}</label>
             <div>
                 <input {...input} type={type} className="form-control" />
-                {touched && error}
+                {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
             </div>
         </div>
     );

@@ -1,15 +1,70 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getProject } from "../actions/project";
+import { getProject, delete_project } from "../actions/project";
+import ContactModal from "./layout/ContactModal";
 
 class ProjectPage extends Component {
     constructor() {
         super();
         this.state = {
             success: false,
-            project: {}
+            project: {},
+            messageBody: "",
+            contactModalIsActive: false,
+            status: "",
+            role: "developer"
         };
     }
+
+    handleUpdateMessageBody = e => {
+        if (e && e.target && e.target.value) {
+            const messageBody = e.target.value;
+            this.setState(() => ({ messageBody: messageBody }));
+        }
+    };
+
+    handleUpdateRoles = e => {
+        const projectRoles = [];
+        // TODO: Get project roles from e.target.value.
+        this.setState(() => ({
+            projectRoles: projectRoles
+        }));
+    };
+    handleSubmitApplication = () => {
+        const { project } = this.props;
+        const data = {
+            recipientId: project.user,
+            projectId: project._id,
+            role: this.state.role,
+            messageBody: this.state.messageBody
+        };
+        if (this.state.messageBody.length >= 5) {
+            fetch("/api/messages/", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/json" },
+                credentials: "include" // include session cookie
+            })
+                .then(res => res.json())
+                .then(alert("message sent"))
+                .catch(e => console.error("message error", e));
+        } else {
+            this.setState({
+                status: "Your message must be at least 5 characters long."
+            });
+        }
+    };
+    handleModalToggle = () => {
+        this.setState(() => ({
+            contactModalIsActive: !this.state.contactModalIsActive
+        }));
+    };
+
+    handleRequestClose = () => {
+        this.setState(() => ({
+            contactModalIsActive: false
+        }));
+    };
 
     componentDidMount() {
         var that = this;
@@ -19,6 +74,7 @@ class ProjectPage extends Component {
     }
     render() {
         const { project } = this.props;
+        console.log(this.state);
         return (
             <div>
                 <div className="py-5 text-white">
@@ -29,7 +85,6 @@ class ProjectPage extends Component {
                                 <img
                                     className="project-page-img"
                                     src="https://i.imgur.com/nZ22mf9.jpg"
-                                    alt=""
                                 />
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4">
@@ -44,13 +99,22 @@ class ProjectPage extends Component {
                                         ? project.ownerName
                                         : ""}
                                 </p>
-                                <button className="btn btn-teal btn-block">
+                                <button
+                                    onClick={this.handleModalToggle}
+                                    className="btn btn-teal btn-block"
+                                >
                                     Apply to Project
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <ContactModal
+                    isOpen={this.state.contactModalIsActive}
+                    handleRequestClose={this.handleRequestClose}
+                    handleSubmitApplication={this.handleSubmitApplication}
+                    handleUpdateMessageBody={this.handleUpdateMessageBody}
+                />
             </div>
         );
     }

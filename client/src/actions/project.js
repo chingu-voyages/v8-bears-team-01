@@ -58,9 +58,10 @@ export const editProject = (id, values, history) => async dispatch => {
     history.push("/dashboard");
 };
 
-export const delete_project = id => async dispatch => {
+export const delete_project = (id, imageUrl) => async dispatch => {
     try {
         await axios.delete(`/api/projects/${id}`);
+        // await axios.delete(`/api/upload/${imageUrl}`); aws s3 delete, try to figure out later
         dispatch({ type: DELETE_PROJECT, payload: id });
     } catch (err) {
         console.log(err);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import SelectUSState from "./../../../helpers/SelectUSState";
 import FileUploader from "react-firebase-file-uploader";
-import firebase from "../../../helpers/firebase.js";
+import firebase from "./../../../helpers/firebase";
 
 const About = () => {
     const [isOpen, setOpen] = useState(false);

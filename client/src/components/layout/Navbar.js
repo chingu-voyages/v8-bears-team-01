@@ -9,6 +9,8 @@ import { fetchUser } from "../../actions/auth";
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
 
+import Inbox from "./Inbox";
+
 import { handleValidation } from "../../helpers/handleValidation";
 
 export class Navbar extends Component {
@@ -151,7 +153,6 @@ export class Navbar extends Component {
                 console.log(err);
             });
     };
-
     clearFields = () => {
         this.setState({
             email: "",
@@ -162,6 +163,23 @@ export class Navbar extends Component {
             isLoading: false
         });
     };
+
+    renderInbox() {
+        return (
+            <div>
+                <div className="row inbox">
+                    <div className="col">
+                        <div
+                            className="collapse multi-collapse"
+                            id="multiCollapse"
+                        >
+                            <Inbox />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     renderContent() {
         if (localStorage.getItem("authToken")) {
@@ -192,14 +210,13 @@ export class Navbar extends Component {
                     >
                         My Profile
                     </Link>
-                    <Link
+                    <a
                         onClick={this.handleLogout}
                         className="text-light"
                         style={{ cursor: "pointer" }}
-                        to="/"
                     >
                         Logout
-                    </Link>
+                    </a>
                 </div>
             );
         } else {
@@ -251,6 +268,19 @@ export class Navbar extends Component {
                             </label>
                         </form>
                     </div>
+                    <button
+                        className="mr-3 btn btn-sm"
+                        data-toggle="collapse"
+                        href="#multiCollapse"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="multiCollapse"
+                    >
+                        <i className="text-light fas fa-envelope" />
+                    </button>
+
+                    {this.renderInbox()}
+
                     <nav className="my-2 my-md-0 mr-md-3">
                         {this.renderContent()}
                     </nav>

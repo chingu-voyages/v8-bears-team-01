@@ -34,7 +34,7 @@ const renderDropdownList = ({
             textField={textField}
             onChange={input.onChange}
         />
-        {touched && error}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
@@ -54,7 +54,7 @@ const renderMultiselect = ({
             valueField={valueField}
             textField={textField}
         />
-        {touched && error}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
@@ -70,7 +70,7 @@ const renderDateTimePicker = ({
             time={showTime}
             value={!value ? null : new Date(value)}
         />
-        {touched && error}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
@@ -221,6 +221,9 @@ export class NewProject extends Component {
                                             accept="image/*"
                                             onChange={this.onFileChange}
                                             className="form-control"
+                                            style={{
+                                                paddingBottom: "2.2rem"
+                                            }}
                                         />
                                     </div>
                                     <div className="form-group">
@@ -228,6 +231,11 @@ export class NewProject extends Component {
                                             type="submit"
                                             disabled={pristine || submitting}
                                             className="form-control"
+                                            style={{
+                                                margin: "0.2rem 0",
+                                                border: "none",
+                                                backgroundColor: "#6dd1cc"
+                                            }}
                                         >
                                             Submit
                                         </button>
