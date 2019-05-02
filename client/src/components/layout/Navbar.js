@@ -165,6 +165,7 @@ export class Navbar extends Component {
     };
 
     renderInbox() {
+      if (localStorage.getItem("authToken")) {
         return (
             <div>
                 <div className="row inbox">
@@ -179,6 +180,7 @@ export class Navbar extends Component {
                 </div>
             </div>
         );
+      } 
     }
 
     renderContent() {
@@ -186,6 +188,15 @@ export class Navbar extends Component {
             return (
                 <div className="navbar-items">
                     {" "}
+                    <button 
+                      className="mr-4 btn"
+                      data-toggle="collapse"
+                      href="#multiCollapse"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="multiCollapse">
+                        <i className="text-light fas fa-envelope" />
+                    </button>
                     <Link
                         className={
                             this.state.dashboard
@@ -268,19 +279,7 @@ export class Navbar extends Component {
                             </label>
                         </form>
                     </div>
-                    <button
-                        className="mr-3 btn btn-sm"
-                        data-toggle="collapse"
-                        href="#multiCollapse"
-                        role="button"
-                        aria-expanded="false"
-                        aria-controls="multiCollapse"
-                    >
-                        <i className="text-light fas fa-envelope" />
-                    </button>
-
                     {this.renderInbox()}
-
                     <nav className="my-2 my-md-0 mr-md-3">
                         {this.renderContent()}
                     </nav>
