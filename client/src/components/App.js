@@ -10,7 +10,7 @@ import LandingPage from "./LandingPage";
 import NewProject from "./projects/NewProject";
 import ProjectPage from "./ProjectPage";
 import PrivacyPage from "./PrivacyPage";
-import Dashboard from "./dashboard/Dashboard";
+import Dashboard from "./Dashboard/Dashboard";
 import Auth from "./Auth";
 import Profile from "./profile/Profile";
 import EditProject from "./projects/EditProject";

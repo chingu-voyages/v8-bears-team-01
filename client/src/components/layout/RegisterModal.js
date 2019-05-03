@@ -82,7 +82,7 @@ const RegisterModal = props => (
               className="form-control ml-1"
               onChange={e =>
                 props.updateField ('comfirmPassword', e.target.value)}
-              placeholder="Comfirm Password"
+              placeholder="Confirm Password"
             />
           </div>
           <p style={{color: 'red'}}>

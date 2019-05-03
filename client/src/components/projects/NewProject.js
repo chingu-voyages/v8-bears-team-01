@@ -34,7 +34,7 @@ const renderDropdownList = ({
             textField={textField}
             onChange={input.onChange}
         />
-        {touched && error}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
@@ -54,7 +54,7 @@ const renderMultiselect = ({
             valueField={valueField}
             textField={textField}
         />
-        {touched && error}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
@@ -70,7 +70,7 @@ const renderDateTimePicker = ({
             time={showTime}
             value={!value ? null : new Date(value)}
         />
-        {touched && error}
+        {touched && <span style={{ color: "#6dd1cc" }}>{error}</span>}
     </div>
 );
 
@@ -80,7 +80,7 @@ export class NewProject extends Component {
         type: null
     };
 
-    componentWillReceiveProps(nextProps, nextState) {
+    UNSAFE_componentWillReceiveProps(nextProps, nextState) {
         const { values } = nextProps.type;
         if (values) {
             this.setState({
@@ -127,68 +127,115 @@ export class NewProject extends Component {
                             get more volunteers!
                         </p>
                         <div className="container">
-                            <div className="form-row">
+                            <div
+                                className="form-row"
+                                style={{
+                                    display: "flexbox",
+                                    flexDirection: "column",
+                                    alignItems: "center"
+                                }}
+                            >
                                 <form onSubmit={handleSubmit(this.onSubmit)}>
-                                    <div>
-                                        <label>Select Project Type</label>
+                                    <div className="form-group">
+                                        <label
+                                            style={{
+                                                fontSize: "1.6rem"
+                                            }}
+                                        >
+                                            Select Project Type
+                                        </label>
                                         <Field
                                             name="projectType"
                                             component={renderDropdownList}
                                             data={type}
                                             valueField="value"
                                             textField="type"
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
-                                        <label>Roles Needed</label>
+                                    <div className="form-group">
+                                        <label
+                                            style={{
+                                                fontSize: "1.6rem"
+                                            }}
+                                        >
+                                            Roles Needed
+                                        </label>
                                         <Field
                                             name="roles"
                                             component={renderMultiselect}
                                             data={data}
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
                                         <Field
                                             name="ownerName"
                                             label="Owner Name"
                                             type="input"
                                             component={ProjectField}
+                                            className="form-control"
                                         />
-                                        <label>Project Deadline</label>
+                                        <label
+                                            style={{
+                                                fontSize: "1.6rem"
+                                            }}
+                                        >
+                                            Project Deadline
+                                        </label>
                                         <Field
                                             name="deadline"
                                             showTime={false}
                                             component={renderDateTimePicker}
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
                                         <Field
                                             name="projectName"
                                             label="Project Name"
                                             type="input"
                                             component={ProjectField}
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
                                         <Field
                                             name="description"
                                             label="Project Description"
                                             type="textarea"
                                             component={ProjectField}
+                                            className="form-control"
                                         />
                                     </div>
-                                    <div>
-                                        <label>Upload Image for project</label>
+                                    <div className="form-group">
+                                        <label
+                                            style={{
+                                                fontSize: "1.6rem"
+                                            }}
+                                        >
+                                            Upload Image for project
+                                        </label>
                                         <input
                                             type="file"
                                             accept="image/*"
                                             onChange={this.onFileChange}
+                                            className="form-control"
+                                            style={{
+                                                paddingBottom: "2.2rem"
+                                            }}
                                         />
                                     </div>
-                                    <div>
+                                    <div className="form-group">
                                         <button
                                             type="submit"
                                             disabled={pristine || submitting}
+                                            className="form-control"
+                                            style={{
+                                                margin: "0.2rem 0",
+                                                border: "none",
+                                                backgroundColor: "#6dd1cc"
+                                            }}
                                         >
                                             Submit
                                         </button>
@@ -196,6 +243,7 @@ export class NewProject extends Component {
                                             type="button"
                                             disabled={pristine || submitting}
                                             onClick={reset}
+                                            className="form-control"
                                         >
                                             Reset Values
                                         </button>

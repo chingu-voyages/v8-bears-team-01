@@ -67,9 +67,9 @@ const About = (props) => {
       .then((url) => setAvatarURL(url));
   };
 
-  const handleRequestClose = () => {
-    setOpen(false);
-  };
+    const handleRequestClose = () => {
+        setOpen(false);
+    };
 
   return (
     <>

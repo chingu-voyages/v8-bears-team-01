@@ -19,7 +19,10 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                         className="col-sm-12 col-md-6 col-lg-3 pb-3"
                         key={project._id}
                     >
-                        <div className="card text-white bg-secondary m-0 mb-4">
+                        <div
+                            className="card text-white bg-secondary m-0 mb-4"
+                            style={{ minHeight: "420px" }}
+                        >
                             <Link
                                 to={`/${project.ownerName}/project/${
                                     project._id
@@ -33,7 +36,8 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                             project.imageUrl
                                         }`}
                                         alt=""
-                                        crossorigin="anonymous"
+                                        crossOrigin="anonymous"
+                                        style={{ minHeight: "245px" }}
                                     />
                                 ) : (
                                     <img
@@ -50,7 +54,7 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                 <p className="card-text">
                                     {project.description}
                                 </p>
-                                <div className="float-right">
+                                <div className="d-flex flex-row justify-content-start">
                                     <Link
                                         className="btn btn-primary"
                                         to={`/${project.ownerName}/project/${
@@ -64,7 +68,8 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                         className="btn btn-danger"
                                         onClick={handleDeleteClick.bind(
                                             this,
-                                            project._id
+                                            project._id,
+                                            project.imageUrl
                                         )}
                                     >
                                         <i className="fas fa-trash" />
