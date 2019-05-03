@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Modal from 'react-modal';
 import {connect} from 'react-redux';
 
-import { update_user } from './../../../actions/auth'
+import {update_user} from './../../../actions/auth';
 
 import SelectUSState from './../../../helpers/SelectUSState';
 import FileUploader from 'react-firebase-file-uploader';
@@ -10,29 +10,46 @@ import firebase from '../../../helpers/firebase.js';
 
 const About = (props) => {
   const [isOpen, setOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [msg, setMsg] = useState('')
 
   const [avatarURL, setAvatarURL] = useState('');
 
-  const [state, setState] = useState({ name: '', about: '', job_title: '', location: '' });
+  const {name, location, about, job_title} = props.user;
 
- const handleChange = (name,{target: {value}}) =>{
-    setState({...state,[name]:value})
-  }
+  const [state, setState] = useState({
+    name,
+    about,
+    job_title,
+    location,
+  });
 
-  const handleClick = () =>{
+  const handleChange = (name, value) => {
+    setState({...state, [name]: value});
+  };
+
+  const handleClick = () => {
+    setLoading(true);
     let obj = {
-      ...state, picture:avatarURL
-    }
+      ...state,
+      picture: avatarURL,
+    };
 
-    props.update_user(obj)
-  }
+    props.update_user(obj).then(() => {
+      setLoading(false);
+      setAvatarURL('');
+      setMsg('Successully uploaded')
+      setTimeout(() => {
+        setMsg('')
+      }, 4000);
+    });
+  };
 
   const updateModal = () => {
     setOpen(true);
   };
 
   const handleUploadSuccess = (filename) => {
-    // this.setState({ avatar: filename, progress: 100, isUploading: false });
     firebase
       .storage()
       .ref('photos')
@@ -45,8 +62,6 @@ const About = (props) => {
     setOpen(false);
   };
 
-
-  // console.log(props)
   return (
     <>
       <Modal
@@ -57,6 +72,11 @@ const About = (props) => {
         ariaHideApp={false}
         closeTimeoutMS={300}>
         <div className="editprofile-modal">
+        <p style={{color: 'green'}}>
+            <em>
+              <small>{msg}</small>
+            </em>
+          </p>
           <button
             className="btn btn-link nav-link text-light close-button profile-close"
             onClick={handleRequestClose}>
@@ -66,6 +86,12 @@ const About = (props) => {
             {avatarURL ? (
               <img
                 src={avatarURL}
+                className="profile-pricture"
+                alt="profile picture"
+              />
+            ) : props.user.picture ? (
+              <img
+                src={props.user.picture}
                 className="profile-pricture"
                 alt="profile picture"
               />
@@ -91,20 +117,20 @@ const About = (props) => {
               value={state.name}
               className="form-control profile-input-control"
               placeholder="Name"
-              onChange={e=>handleChange('name',e)}
+              onChange={(e) => handleChange('name', e.target.value)}
             />
             <textarea
               value={state.about}
               className="form-control profile-input-control"
               rows="5"
               placeholder="About yourself"
-              onChange={e=>handleChange('about',e)}
+              onChange={(e) => handleChange('about', e.target.value)}
             />
             <input
               value={state.job_title}
               className="form-control profile-input-control"
               placeholder="Job Title"
-              onChange={e=>handleChange('job_title',e)}
+              onChange={(e) => handleChange('job_title', e.target.value)}
             />
             <div className="profile-location">
               <p htmlFor="state">Location:</p>
@@ -112,13 +138,20 @@ const About = (props) => {
               <SelectUSState
                 className="form-control profile-input-control"
                 value={state.location}
-                handleChange={e=>handleChange('location',e)}
+                handleChange={(e) => handleChange('location', e.target.value)}
               />
             </div>
           </div>
           <div className="profile-button-container">
             <a onClick={handleClick} className="profile-button">
-              Update
+              Update{' '}
+              {isLoading && (
+                <div
+                  className="spinner-border spinner-border-sm "
+                  role="status">
+                  <span className="sr-only">Loading...</span>
+                </div>
+              )}
             </a>
           </div>
         </div>
@@ -129,7 +162,9 @@ const About = (props) => {
           {!!props.user.about ? (
             props.user.about
           ) : (
-            <em>Please click on the Edit Profile button to update this information</em>
+            <em>
+              Please click on the Edit Profile button to update this information
+            </em>
           )}
         </p>
       </div>
