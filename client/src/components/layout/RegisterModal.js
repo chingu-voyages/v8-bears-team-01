@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import {Link} from 'react-router-dom';
+import SelectUSState from './../../helpers/SelectUSState'
 
 const RegisterModal = props => (
   <div>
-    <div className="container">
+    <div className="container ">
+   
       <ReactModal
-        className="Modal"
+        className="Modal register-modal"
         overlayClassName="Overlay"
         isOpen={props.isOpen}
         onRequestClose={props.handleRequestClose}
@@ -39,12 +41,32 @@ const RegisterModal = props => (
           />
           <br />
           <input
+            type="email"
             value={props.email}
             className="form-control"
             onChange={e => props.updateField ('email', e.target.value)}
             placeholder="Email"
           />
           <br />
+          <input
+            value={props.jobTitle}
+            className="form-control"
+            onChange={e => props.updateField ('jobTitle', e.target.value)}
+            placeholder="Job Title"
+          />
+          <br />
+          
+          <div className="profile-location">
+              <p style={{color:'black'}} htmlFor="state">Location:</p>
+
+              <SelectUSState
+                className="form-control profile-input-control"
+                value={props.location}
+                handleChange={e => props.updateField ('location', e.target.value)}
+              />
+            </div>
+
+          <br/>
           <div className="input-group">
             <input
               value={props.password}

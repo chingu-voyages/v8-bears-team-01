@@ -1,20 +1,35 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+
+
 import './profile.css';
 
 const SideBar = (props) => {
+  
   return (
     <>
       <nav className="sidebar ">
         <div className="d-flex flex-column text-center">
           <div className="sidebar-picture">
+
+         { props.user.picture ? (
+            <img
+              src={props.user.picture}
+              className="profile-pricture"
+              alt="profile picture"
+            />
+          ) : (
             <i className="fas fa-user-circle fa-7x" />
+          )
+}
           </div>
           <p className="h5" style={{marginBottom: '0'}}>
-            <strong>John Doe</strong>
+            <strong>{props.user.name}</strong>
           </p>
-          <p>Los Angeles</p>
-          <p>Front End Developer</p>
+          <p>{!!props.user.location?props.user.location:(<em>Please update your location</em>)}</p>
+          <p>{!!props.user.job_title?props.user.job_title:(<em>Please update your job title</em>)}</p>
         </div>
 
         <div className="components">
@@ -32,23 +47,18 @@ const SideBar = (props) => {
             My Projects
           </Link>
 
-          <Link
-            className={props.collaborators ? 'active' : undefined}
-            onClick={() => props.updateState('collaborators')}
-            to="/profile/uu/collaborators">
-            Collaborators
-          </Link>
-
-          <Link
-            className={props.myContacts ? 'active' : undefined}
-            onClick={() => props.updateState('myContacts')}
-            to="/profile/uu/contact">
-            My Contacts
-          </Link>
+          
         </div>
       </nav>
     </>
   );
 };
 
-export default SideBar;
+function mapStateToProps(state) {
+
+ return {user: state.auth}
+}
+
+
+export default connect(mapStateToProps,null)(SideBar)
+

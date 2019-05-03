@@ -216,7 +216,7 @@ export class Navbar extends Component {
                                 : "mr-4 text-light"
                         }
                         style={{ cursor: "pointer" }}
-                        to="/profile/uu"
+                        to="/profile/uu/about"
                         onClick={() => this.updateSelected("profile")}
                     >
                         My Profile
