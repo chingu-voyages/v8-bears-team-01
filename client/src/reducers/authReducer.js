@@ -29,7 +29,6 @@ export default function(state = initialState, action) {
         token: action.payload
       };
     case UPDATE_USER:
-
     return {
       ...state,
       name: action.payload.name,
