@@ -30,9 +30,18 @@ const About = (props) => {
 
   const handleClick = () => {
     setLoading(true);
+    let pic
+
+    if(avatarURL===''){
+       pic = props.picture
+    } else {
+      pic = avatarURL
+    }
+
+
     let obj = {
       ...state,
-      picture: avatarURL,
+      picture: pic,
     };
 
     props.update_user(obj).then(() => {
