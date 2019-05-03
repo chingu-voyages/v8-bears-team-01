@@ -11,7 +11,7 @@ import firebase from '../../../helpers/firebase.js';
 const About = (props) => {
   const [isOpen, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const [msg, setMsg] = useState('')
+  const [msg, setMsg] = useState('');
 
   const [avatarURL, setAvatarURL] = useState('');
 
@@ -38,9 +38,9 @@ const About = (props) => {
     props.update_user(obj).then(() => {
       setLoading(false);
       setAvatarURL('');
-      setMsg('Successully uploaded')
+      setMsg('Successully uploaded');
       setTimeout(() => {
-        setMsg('')
+        setMsg('');
       }, 4000);
     });
   };
@@ -72,7 +72,7 @@ const About = (props) => {
         ariaHideApp={false}
         closeTimeoutMS={300}>
         <div className="editprofile-modal">
-        <p style={{color: 'green'}}>
+          <p style={{color: 'green'}}>
             <em>
               <small>{msg}</small>
             </em>
