@@ -13,9 +13,9 @@ const SideBar = (props) => {
           <div className="text-center">
             <div
               style={{width: '3em', height: '3em'}}
-              class="spinner-grow text-info  "
+              className="spinner-grow text-info  "
               role="status">
-              <span class="sr-only">Loading...</span>
+              <span className="sr-only">Loading...</span>
             </div>
           </div>
         ) : (
