@@ -399,7 +399,9 @@ footer {
 
 .project-page-img {
     width: 100%;
-    max-width: 800px;
+    max-width: 700px;
+    max-height: 300px;
+    object-fit: cover;
 }
 
 .project-container {
