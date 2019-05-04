@@ -43,14 +43,14 @@ class Project extends Component {
               className={this.state.currentProjects ? 'active' : undefined}
               onClick={() => this.updateSelected('currentProjects')}
               to="/profile/uu/myprojects/currentprojects">
-              Current Peojects
+              Current Projects
             </Link>
 
             <Link
               className={this.state.completedProjects ? 'active' : undefined}
               onClick={() => this.updateSelected('completedProjects')}
               to="/profile/uu/myprojects/completedprojects">
-              Completed Peojects
+              Completed Projects
             </Link>
           </div>
         </div>

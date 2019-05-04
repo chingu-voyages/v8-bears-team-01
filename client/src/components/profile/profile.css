@@ -6,11 +6,12 @@
   display: flex;
   flex-direction: column;
   width: 250px;
-  top: 90px;
+  top: 35vh;
   left: 0;
-  height: 100vh;
+  height: 50vh;
   background: #343A40;
   position: absolute;
+  padding-top: 6px;
 }
 
 .sidebar a {
