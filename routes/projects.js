@@ -31,10 +31,10 @@ module.exports = app => {
   });
 
   //create a project
+
   app.post ('/api/projects', async (req, res) => {
     const {
       projectType,
-      ownerName,
       projectName,
       deadline,
       description,
@@ -42,16 +42,14 @@ module.exports = app => {
       imageUrl,
     } = req.body;
 
-    //console.log (req.user);
-
     const project = new Project ({
       projectType,
-      ownerName,
       projectName,
       deadline,
       description,
       roles,
       imageUrl,
+      ownerName: req.session.user.name,
       user: req.session.user._id,
       createdOn: new Date()
     });
