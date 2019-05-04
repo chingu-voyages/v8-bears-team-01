@@ -2,16 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import axios from "axios";
-
-import { fetchUser } from "../../actions/auth";
-
 import RegisterModal from "./RegisterModal";
 import LoginModal from "./LoginModal";
-
-import Inbox from "./Inbox";
-
-import { handleValidation } from "../../helpers/handleValidation";
+import axios from "axios";
+import { fetchUser } from "../../actions/auth";
 
 export class Navbar extends Component {
     state = {
@@ -21,11 +15,7 @@ export class Navbar extends Component {
         password: "",
         comfirmPassword: "",
         name: "",
-        errorMsg: "",
-        isLoading: false,
-        dashboard: true,
-        profile: false,
-        currentInput: "dashboard"
+        errorMsg: ""
     };
     handleRegisterToggle = () => {
         this.clearFields();
@@ -45,36 +35,73 @@ export class Navbar extends Component {
         }));
     };
 
-    updateSelected = name => {
-        let currentInput = this.state.currentInput;
-        this.setState(prevState => ({
-            [currentInput]: !prevState[currentInput]
-        }));
-
-        this.setState(prevState => ({
-            [name]: !prevState[name],
-            currentInput: name
-        }));
+    updateEmail = val => {
+        this.setState({ email: val });
     };
 
-    updateField = (name, val) => {
-        this.setState({ [name]: val });
+    updatePassword = val => {
+        this.setState({ password: val });
+    };
+
+    updateConfirmPassword = val => {
+        this.setState({ comfirmPassword: val });
+    };
+
+    updateName = val => {
+        this.setState({ name: val });
+    };
+
+    handleValidation = type => {
+        const { email, password, comfirmPassword, name } = this.state;
+        if (type === "signup") {
+            if (!email || !password || !name) {
+                this.setState({ errorMsg: "All fields are required" });
+                return false;
+            }
+            if (password.length < 6 || password.length > 30) {
+                this.setState({
+                    errorMsg: "Password must be between 6 and 30 characters"
+                });
+                return false;
+            }
+            if (password.includes(" ")) {
+                this.setState({ errorMsg: "Password cannot contain spaces" });
+                return false;
+            }
+            if (comfirmPassword !== password) {
+                this.setState({ errorMsg: "Passwords must match" });
+                return false;
+            }
+        }
+
+        if (type === "login") {
+            if (!email || !password) {
+                this.setState({ errorMsg: "All fields are required" });
+                return false;
+            }
+        }
+
+        if (!email.includes("@")) {
+            this.setState({ errorMsg: "Invalid email address." });
+            return false;
+        }
+
+        if (
+            email.includes("'") ||
+            email.includes('"') ||
+            password.includes("'") ||
+            password.includes('"')
+        ) {
+            this.setState({ errorMsg: "Fields cannot contain ' or \"" });
+            return false;
+        }
     };
 
     handleLogin = () => {
-        const { name, email, password, comfirmPassword } = this.state;
-        const { errorMsg, response } = handleValidation(
-            name,
-            email,
-            password,
-            comfirmPassword,
-            "login"
-        );
-        if (response === false) {
-            this.setState({ errorMsg });
-            return;
-        }
-        this.setState({ isLoading: true });
+        let response = this.handleValidation("login");
+        if (response === false) return;
+        let email = this.state.email;
+        let password = this.state.password;
 
         let obj = {
             email: email.trim(),
@@ -85,14 +112,12 @@ export class Navbar extends Component {
             .post(`/auth/login`, obj)
             .then(resp => {
                 //   console.log(resp.data);
-                this.setState({ isLoading: false });
                 this.clearFields();
                 this.setState({ errMessage: "", loginIsActive: false });
-                localStorage.setItem("authToken", resp.data.token);
-                this.props.fetchUser().then(resp => {
-                    this.props.history.push("/dashboard");
-                });
-                // window.location.assign("/");
+                this.fetchUser();
+
+                //push user to home page
+                //this.props.history.push('/');
             })
             .catch(err => {
                 err.response &&
@@ -101,20 +126,11 @@ export class Navbar extends Component {
     };
 
     handleSignup = () => {
-        const { name, email, password, comfirmPassword } = this.state;
-        const { errorMsg, response } = handleValidation(
-            name,
-            email,
-            password,
-            comfirmPassword,
-            "signup"
-        );
-        if (response === false) {
-            this.setState({ errorMsg });
-            return;
-        }
-        this.setState({ isLoading: true });
-
+        let response = this.handleValidation("signup");
+        if (response === false) return;
+        let email = this.state.email;
+        let password = this.state.password;
+        let name = this.state.name;
         let obj = {
             email: email.trim(),
             password: password.trim(),
@@ -124,12 +140,10 @@ export class Navbar extends Component {
         axios
             .post(`/auth/signup`, obj)
             .then(resp => {
-                this.setState({ isLoading: false });
                 //console.log(resp.data);
                 this.clearFields();
                 this.setState({ errMessage: "", registerIsActive: false });
-
-                this.props.history.push("/dashboard");
+                // this.props.history.push('/');
             })
             .catch(err => {
                 err.response &&
@@ -137,97 +151,25 @@ export class Navbar extends Component {
             });
     };
 
-    handleLogout = () => {
-        //send token object while logging out
-        axios
-            .get("/api/logout", {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("authToken")}`
-                }
-            })
-            .then(resp => {
-                localStorage.removeItem("authToken");
-                this.props.history.push("/");
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
     clearFields = () => {
         this.setState({
             email: "",
             password: "",
             name: "",
             errorMsg: "",
-            comfirmPassword: "",
-            isLoading: false
+            comfirmPassword: ""
         });
     };
 
-    renderInbox() {
-      if (localStorage.getItem("authToken")) {
-        return (
-            <div>
-                <div className="row inbox">
-                    <div className="col">
-                        <div
-                            className="collapse multi-collapse"
-                            id="multiCollapse"
-                        >
-                            <Inbox />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-      } 
-    }
-
     renderContent() {
-        if (localStorage.getItem("authToken")) {
+        if (this.props.auth) {
             return (
-                <div className="navbar-items">
+                <div>
                     {" "}
-                    <button 
-                      className="mr-3 btn"
-                      data-toggle="collapse"
-                      href="#multiCollapse"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="multiCollapse">
-                        <i className="text-light fas fa-envelope" />
-                    </button>
-                    <Link
-                        className={
-                            this.state.dashboard
-                                ? "active mr-4 text-light"
-                                : "mr-4 text-light"
-                        }
-                        onClick={() => this.updateSelected("dashboard")}
-                        style={{ cursor: "pointer" }}
-                        to="/dashboard"
-                    >
-                        Dashboard
-                    </Link>
-                    <Link
-                        className={
-                            this.state.profile
-                                ? "active mr-4 text-light"
-                                : "mr-4 text-light"
-                        }
-                        style={{ cursor: "pointer" }}
-                        to="/profile/uu/about"
-                        onClick={() => this.updateSelected("profile")}
-                    >
+                    <a href="#" className="mr-4">
                         My Profile
-                    </Link>
-                    <a
-                        onClick={this.handleLogout}
-                        className="text-light"
-                        style={{ cursor: "pointer" }}
-                    >
-                        Logout
                     </a>
+                    <a href="/api/logout">Logout</a>
                 </div>
             );
         } else {
@@ -235,7 +177,7 @@ export class Navbar extends Component {
                 <div>
                     <button
                         onClick={this.handleLoginToggle}
-                        className="btn btn-outline-light mr-2"
+                        className="btn btn-outline-primary mr-2"
                     >
                         Log In
                     </button>
@@ -252,34 +194,12 @@ export class Navbar extends Component {
     render() {
         return (
             <div>
-                <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4  bg-dark ">
+                <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
                     <h5 className="my-0 mr-md-auto font-weight-normal">
-                        <Link
-                            className="text-light"
-                            to="/"
-                            style={{ textDecoration: "none" }}
-                        >
+                        <Link className="text-dark" to="/">
                             CodeCollab
                         </Link>
                     </h5>
-                    <div className="search-container d-xs-none d-sm-none d-md-block">
-                        <form action="/search" method="get">
-                            <input
-                                className="search expandright d-xs-none d-sm-none d-md-block"
-                                id="searchright"
-                                type="search"
-                                name="q"
-                                placeholder="Search"
-                            />
-                            <label
-                                className="button searchbutton"
-                                htmlFor="searchright"
-                            >
-                                <span className="mglass">&#9906;</span>
-                            </label>
-                        </form>
-                    </div>
-                    {this.renderInbox()}
                     <nav className="my-2 my-md-0 mr-md-3">
                         {this.renderContent()}
                     </nav>
@@ -291,10 +211,12 @@ export class Navbar extends Component {
                     confirmPassword={this.state.comfirmPassword}
                     isOpen={this.state.registerIsActive}
                     handleRequestClose={this.handleRequestClose}
+                    updateEmail={this.updateEmail}
+                    updatePassword={this.updatePassword}
                     handleSignup={this.handleSignup}
+                    updateName={this.updateName}
                     errorMsg={this.state.errorMsg}
-                    isLoading={this.state.isLoading}
-                    updateField={this.updateField}
+                    updateConfirmPassword={this.updateConfirmPassword}
                 />
                 <LoginModal
                     email={this.state.email}
@@ -302,19 +224,25 @@ export class Navbar extends Component {
                     password={this.state.password}
                     isOpen={this.state.loginIsActive}
                     handleRequestClose={this.handleRequestClose}
+                    updateEmail={this.updateEmail}
+                    updatePassword={this.updatePassword}
                     handleLogin={this.handleLogin}
                     errorMsg={this.state.errorMsg}
-                    isLoading={this.state.isLoading}
-                    updateField={this.updateField}
                 />
             </div>
         );
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        auth: state.auth
+    };
+}
+
 export default withRouter(
     connect(
-        null,
+        mapStateToProps,
         { fetchUser }
     )(Navbar)
 );
