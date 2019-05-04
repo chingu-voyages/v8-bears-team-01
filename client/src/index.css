@@ -17,10 +17,6 @@ html {
     color: white;
 }
 
-body {
-    margin-bottom: 2rem;
-}
-
 .tagline {
     background-color: #6c757d;
     margin-top: 3rem;
@@ -32,7 +28,7 @@ body {
 
 .page-content {
     min-height: 90vh;
-    /* padding-bottom: 20rem; */
+    padding-bottom: 2rem;
 }
 
 /* Reusable Styles */
