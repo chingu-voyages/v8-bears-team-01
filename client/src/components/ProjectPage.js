@@ -67,6 +67,7 @@ class ProjectPage extends Component {
     };
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         var that = this;
         this.props.getProject(this.props.match.params.id, function(data) {
             that.setState({ project: data });
@@ -89,7 +90,10 @@ class ProjectPage extends Component {
                             <div className="col-sm-8 col-md-8 col-lg-8">
                                 <img
                                     className="project-page-img"
-                                    src={project.imageUrl?`${bucket_url}/${project.imageUrl}`:"https://via.placeholder.com/100"}
+                                    src={!!project && project.projectName 
+                                      ? project.imageUrl?`${bucket_url}/${project.imageUrl}`:"https://via.placeholder.com/100"
+                                      : "https://i.imgur.com/nZ22mf9.jpg"
+                                    }
                                 />
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4">
