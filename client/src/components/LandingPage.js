@@ -19,7 +19,7 @@ const Project = props => {
             >
                 {" "}
                 <img
-                    className="card-img-top"
+                    className="card-img-top project-card"
                     src={props.project.imageUrl?`${bucket_url}/${props.project.imageUrl}`:"https://via.placeholder.com/100"}
                     alt=""
                 />{" "}
