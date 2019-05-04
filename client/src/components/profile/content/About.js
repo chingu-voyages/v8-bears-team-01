@@ -11,6 +11,7 @@ import firebase from '../../../helpers/firebase.js';
 const About = (props) => {
   const [isOpen, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
+   
   const [msg, setMsg] = useState('');
 
   const [avatarURL, setAvatarURL] = useState('');
@@ -24,9 +25,7 @@ const About = (props) => {
     location,
   });
 
-  useEffect(()=>{
-    props.fetchUser()
-  },[])
+
 
   const handleChange = (name, value) => {
     setState({...state, [name]: value});

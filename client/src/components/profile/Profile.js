@@ -1,5 +1,7 @@
 import React, {Component, Suspense} from 'react';
-import { withRouter } from 'react-router-dom'
+import {connect} from 'react-redux';
+import {fetchUser} from './../../actions/auth';
+
 
 import Sidebar from './Sidebar';
 // import Content from './Content';
@@ -12,10 +14,16 @@ class Profile extends Component {
     collaborators: false,
     myContacts: false,
     currentInput: 'about',
+    loading: false
   };
 
   componentDidMount(){
-   this.props.history.push('/profile/uu/about')
+    this.setState({loading:true})
+    this.props.fetchUser()
+        .then(()=>{
+          this.setState({loading:false})
+        })
+   //this.props.history.push('/profile/uu/about')
   }
 
   updateState = name => {
@@ -43,4 +51,4 @@ class Profile extends Component {
   }
 }
 
-export default withRouter(Profile);
+export default connect(null,{fetchUser})(Profile);
