@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getProjects } from "../actions/project";
 
 const Project = props => {
-
+        let bucket_url;
     if (process.env.NODE_ENV === "production") {
         bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-prod`;
     } else {
@@ -20,7 +20,7 @@ const Project = props => {
                 {" "}
                 <img
                     className="card-img-top"
-                    src={props.project.imageUrl}
+                    src={props.project.imageUrl?`${bucket_url}/${props.project.imageUrl}`:"https://via.placeholder.com/100"}
                     alt=""
                 />{" "}
             </Link>
