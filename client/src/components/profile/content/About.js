@@ -11,6 +11,7 @@ import firebase from '../../../helpers/firebase.js';
 const About = (props) => {
   const [isOpen, setOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
+   
   const [msg, setMsg] = useState('');
 
   const [avatarURL, setAvatarURL] = useState('');
@@ -24,9 +25,7 @@ const About = (props) => {
     location,
   });
 
-  useEffect(()=>{
-    props.fetchUser()
-  },[])
+
 
   const handleChange = (name, value) => {
     setState({...state, [name]: value});
@@ -127,20 +126,20 @@ const About = (props) => {
           </div>
           <div className="profile-button-input-container">
             <input
-              value={state.name}
+              value={state.name||props.user.name}
               className="form-control profile-input-control"
               placeholder="Name"
               onChange={(e) => handleChange('name', e.target.value)}
             />
             <textarea
-              value={state.about}
+              value={state.about||props.user.about}
               className="form-control profile-input-control"
               rows="5"
               placeholder="About yourself"
               onChange={(e) => handleChange('about', e.target.value)}
             />
             <input
-              value={state.job_title}
+              value={state.job_title||props.user.job_title}
               className="form-control profile-input-control"
               placeholder="Job Title"
               onChange={(e) => handleChange('job_title', e.target.value)}
@@ -150,7 +149,7 @@ const About = (props) => {
 
               <SelectUSState
                 className="form-control profile-input-control"
-                value={state.location}
+                value={state.location||props.user.location}
                 handleChange={(e) => handleChange('location', e.target.value)}
               />
             </div>
