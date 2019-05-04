@@ -5,7 +5,8 @@ module.exports = app => {
   //get all projects
   app.get ('/api/projects', async (req, res) => {
     try {
-      const projects = await Project.find ();
+      const projects = await Project.find ().sort('-createdOn')
+      //console.log(projects)
       res.json (projects);
     } catch (err) {
       // console.log("api error", err);
@@ -52,6 +53,7 @@ module.exports = app => {
       roles,
       imageUrl,
       user: req.session.user._id,
+      createdOn: new Date()
     });
 
     try {
