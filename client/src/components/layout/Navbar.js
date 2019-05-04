@@ -128,8 +128,10 @@ export class Navbar extends Component {
                 //console.log(resp.data);
                 this.clearFields();
                 this.setState({ errMessage: "", registerIsActive: false });
-
-                this.props.history.push("/dashboard");
+                localStorage.setItem("authToken", resp.data.token);
+                this.props.fetchUser().then(resp => {
+                    this.props.history.push("/dashboard");
+                });
             })
             .catch(err => {
                 err.response &&
