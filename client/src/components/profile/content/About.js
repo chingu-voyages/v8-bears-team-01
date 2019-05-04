@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Modal from 'react-modal';
 import {connect} from 'react-redux';
 
-import {update_user} from './../../../actions/auth';
+import {update_user,fetchUser} from './../../../actions/auth';
 
 import SelectUSState from './../../../helpers/SelectUSState';
 import FileUploader from 'react-firebase-file-uploader';
@@ -23,6 +23,10 @@ const About = (props) => {
     job_title,
     location,
   });
+
+  useEffect(()=>{
+    props.fetchUser()
+  },[])
 
   const handleChange = (name, value) => {
     setState({...state, [name]: value});
@@ -190,5 +194,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  {update_user},
+  {update_user,fetchUser},
 )(About);

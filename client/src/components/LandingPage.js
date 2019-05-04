@@ -4,8 +4,15 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProjects } from "../actions/project";
 
-const Project = props => (
-    <div className="col-sm-12 col-md-6 col-lg-3 pb-3" key={props.project._id}>
+const Project = props => {
+        let bucket_url;
+    if (process.env.NODE_ENV === "production") {
+        bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-prod`;
+    } else {
+        bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-image`;
+    }
+
+   return (<div className="col-sm-12 col-md-6 col-lg-3 pb-3" key={props.project._id}>
         <div className="card text-white bg-secondary m-0 mb-4">
             <Link
                 to={`/${props.project.ownerName}/project/${props.project._id}`}
@@ -13,7 +20,7 @@ const Project = props => (
                 {" "}
                 <img
                     className="card-img-top"
-                    src="https://via.placeholder.com/100"
+                    src={props.project.imageUrl?`${bucket_url}/${props.project.imageUrl}`:"https://via.placeholder.com/100"}
                     alt=""
                 />{" "}
             </Link>
@@ -22,8 +29,8 @@ const Project = props => (
                 <p className="card-text">{props.project.description}</p>
             </div>
         </div>
-    </div>
-);
+    </div>)
+}
 
 export class LandingPage extends Component {
     state = {
@@ -95,6 +102,7 @@ export class LandingPage extends Component {
     };
 
     render() {
+        
         const pages = Math.ceil(
             this.state.projects.length / this.state.projectPerPage
         );
