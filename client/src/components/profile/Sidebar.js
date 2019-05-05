@@ -21,7 +21,7 @@ const SideBar = (props) => {
         ) : (
           <>
             <div className="d-flex flex-column text-center">
-              <div className="sidebar-picture">
+              <div className="sidebar-picture mt-3">
                 {props.user.picture ? (
                   <img
                     src={props.user.picture}

@@ -23,7 +23,7 @@ class Dashboard extends Component {
         const { projects } = this.props;
         return (
             <div className="projects-list-container container">
-                <h3 className="content-header text-center display-4">
+                <h3 className="content-header text-center display-4 mt-4">
                     Dashboard
                 </h3>
                 {/* <RecentMessages /> */}

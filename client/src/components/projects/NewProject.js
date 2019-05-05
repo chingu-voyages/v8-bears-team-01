@@ -169,13 +169,6 @@ export class NewProject extends Component {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <Field
-                                            name="ownerName"
-                                            label="Owner Name"
-                                            type="input"
-                                            component={ProjectField}
-                                            className="form-control"
-                                        />
                                         <label
                                             style={{
                                                 fontSize: "1.6rem"

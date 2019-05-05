@@ -12,6 +12,12 @@ class SearchPage extends Component {
     }
     renderContent() {
         const projects = this.state.projects;
+        let bucket_url;
+        if (process.env.NODE_ENV === "production") {
+            bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-prod`;
+        } else {
+            bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-image`;
+        }
         return (
             <div>
                 <h3>Showing Results for: {this.state.query}</h3>
@@ -25,12 +31,12 @@ class SearchPage extends Component {
                             key={project._id}
                         >
                             <div className="card text-white bg-secondary m-0 mb-4">
-                                <Link to={"/project/:" + project._id}>
+                                <Link to={`/${project.ownerName}/project/${project._id}`}>
                                     {" "}
                                     <img
-                                        className="card-img-top"
-                                        src="https://via.placeholder.com/100"
-                                        alt=""
+                                        className="card-img-top project-card"
+                                        src={project.imageUrl?`${bucket_url}/${project.imageUrl}`:"https://via.placeholder.com/100"}
+                                        alt="project thumbnail"
                                     />{" "}
                                 </Link>
                                 <div className="card-body">
@@ -38,10 +44,11 @@ class SearchPage extends Component {
                                         {!!project.projectName &&
                                             project.projectName}
                                     </h5>
-                                    <p class="card-text">
+                                    <div className="card-text">
+                                        <div class="overlay"></div>
                                         {!!project.description &&
                                             project.description}
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

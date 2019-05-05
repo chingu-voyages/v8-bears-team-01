@@ -31,7 +31,7 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                 {" "}
                                 {project.imageUrl ? (
                                     <img
-                                        className="card-img-top"
+                                        className="card-img-top project-card"
                                         src={`${bucket_url}/${
                                             project.imageUrl
                                         }`}
@@ -52,6 +52,7 @@ const YourProjects = ({ project, handleDeleteClick }) => {
                                     {project.projectName}
                                 </h5>
                                 <p className="card-text">
+                                    <div class="overlay"></div>
                                     {project.description}
                                 </p>
                                 <div className="d-flex flex-row justify-content-start">
