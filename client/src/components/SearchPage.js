@@ -34,7 +34,7 @@ class SearchPage extends Component {
                                 <Link to={`/${project.ownerName}/project/${project._id}`}>
                                     {" "}
                                     <img
-                                        className="card-img-top"
+                                        className="card-img-top project-card"
                                         src={project.imageUrl?`${bucket_url}/${project.imageUrl}`:"https://via.placeholder.com/100"}
                                         alt="project thumbnail"
                                     />{" "}
@@ -44,10 +44,11 @@ class SearchPage extends Component {
                                         {!!project.projectName &&
                                             project.projectName}
                                     </h5>
-                                    <p className="card-text">
+                                    <div className="card-text">
+                                        <div class="overlay"></div>
                                         {!!project.description &&
                                             project.description}
-                                    </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
