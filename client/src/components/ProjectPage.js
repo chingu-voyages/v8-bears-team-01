@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getProject, delete_project } from "../actions/project";
+import { fetchUser } from '../actions/auth'
 import ContactModal from "./layout/ContactModal";
 
 class ProjectPage extends Component {
@@ -72,6 +73,7 @@ class ProjectPage extends Component {
         this.props.getProject(this.props.match.params.id, function(data) {
             that.setState({ project: data });
         });
+        this.props.fetchUser()
     }
     render() {
         const { project } = this.props;
@@ -103,17 +105,25 @@ class ProjectPage extends Component {
                                         : ""}
                                 </h1>
                                 <p className="mb-4 lead text-light">
-                                    Created by:{" "}
+                                   <b>Created by:</b>{" "}
                                     {!!project && project.ownerName
                                         ? project.ownerName
                                         : ""}
                                 </p>
-                                <button
+
+                                <p className="mb-4 lead text-light">
+                                    <b>Description:</b>{" "}
+                                    {!!project && project.ownerName
+                                        ? project.description
+                                        : ""}
+                                </p>
+
+                               { this.props.user.name && (<button
                                     onClick={this.handleModalToggle}
                                     className="btn btn-teal btn-block"
                                 >
                                     Apply to Project
-                                </button>
+                                </button>)}
                             </div>
                         </div>
                     </div>
@@ -130,10 +140,10 @@ class ProjectPage extends Component {
 }
 
 function mapStateToProps(state) {
-    return { project: state.project.project };
+    return { project: state.project.project, user: state.auth };
 }
 
 export default connect(
     mapStateToProps,
-    { getProject }
+    { getProject,fetchUser }
 )(ProjectPage);
