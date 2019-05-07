@@ -26,6 +26,7 @@ passport.use(
             userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
         },
         async (accessToken, refreshToken, profile, done) => {
+            
             const existingUser = await User.findOne({
                 googleId: profile.id
             });
@@ -35,10 +36,13 @@ passport.use(
             }
 
             const user = await new User({
-                googleId: profile.id
+                googleId: profile.id,
+                name: profile.displayName,
+                email: profile.emails[0].value,
+                picture: profile.photos[0].value,
+                password: "password"
             }).save();
 
-            console.log(user);
 
             done(null, user);
         }
@@ -54,13 +58,13 @@ passport.use(
             profileFields: ["emails", "name", "picture.type(large)"]
         },
         (accessToken, refreshToken, profile, done) => {
-            console.log(profile);
+           
             process.nextTick(() => {
                 User.findOne({ profileID: profile.id }, (err, user) => {
                     if (err) return done(err);
                     if (user) return done(null, user);
                     else {
-                        console.log("****new facebook signup****");
+                       
                         const profileInfo = {
                             fbID: profile.id,
                             name: profile.name.givenName,
