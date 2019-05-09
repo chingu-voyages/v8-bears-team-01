@@ -13,7 +13,8 @@ class ProjectPage extends Component {
             messageBody: "",
             contactModalIsActive: false,
             status: "",
-            role: "developer"
+            role: "developer",
+            loading: false
         };
     }
 
@@ -68,12 +69,16 @@ class ProjectPage extends Component {
     };
 
     componentDidMount() {
+        this.setState({loading: true})
         window.scrollTo(0, 0);
         var that = this;
         this.props.getProject(this.props.match.params.id, function(data) {
             that.setState({ project: data });
         });
         this.props.fetchUser()
+                  .then(()=>{
+                    this.setState({loading: false})
+                  })
     }
     render() {
         const { project } = this.props;
@@ -84,8 +89,8 @@ class ProjectPage extends Component {
             bucket_url = `https://s3.us-east-2.amazonaws.com/code-collab-image`;
         }
         return (
-            <div>
-                <div className="py-5 text-white">
+            <div>{ this.state.loading ? <p>loading...</p>:
+                (<div className="py-5 text-white">
                     <div className="mx-auto col-md-10">
                         {!!this.state.success && this.displaySuccessMesage()}
                         <div className="project-container row">
@@ -127,7 +132,7 @@ class ProjectPage extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>)}
                 <ContactModal
                     isOpen={this.state.contactModalIsActive}
                     handleRequestClose={this.handleRequestClose}
