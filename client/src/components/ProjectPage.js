@@ -77,7 +77,8 @@ class ProjectPage extends Component {
         });
         this.props.fetchUser()
                   .then(()=>{
-                    this.setState({loading: false})
+                      setTimeout( this.setState({loading: false}), 2000)
+                   
                   })
     }
     render() {
@@ -97,7 +98,7 @@ class ProjectPage extends Component {
                             <div className="col-sm-8 col-md-8 col-lg-8">
                                 <img
                                     className="project-page-img"
-                                    src={!!project && project.projectName 
+                                    src={ !!project && project.projectName 
                                       ? project.imageUrl?`${bucket_url}/${project.imageUrl}`:"https://via.placeholder.com/100"
                                       : "https://i.imgur.com/nZ22mf9.jpg"
                                     }
@@ -105,7 +106,7 @@ class ProjectPage extends Component {
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4">
                                 <h1 className="text-light">
-                                    {!!project && project.projectName
+                                    { this.state.loading && !!project && project.projectName
                                         ? project.projectName
                                         : ""}
                                 </h1>
@@ -118,7 +119,7 @@ class ProjectPage extends Component {
 
                                 <p className="mb-4 lead text-light">
                                     <b>Description:</b>{" "}
-                                    {!!project && project.ownerName
+                                    {this.state.loading && !!project && project.ownerName
                                         ? project.description
                                         : ""}
                                 </p>
