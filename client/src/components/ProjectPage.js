@@ -98,7 +98,7 @@ class ProjectPage extends Component {
                             <div className="col-sm-8 col-md-8 col-lg-8">
                                 <img
                                     className="project-page-img"
-                                    src={ !!project && project.projectName 
+                                    src={ !this.state.loading
                                       ? project.imageUrl?`${bucket_url}/${project.imageUrl}`:"https://via.placeholder.com/100"
                                       : "https://i.imgur.com/nZ22mf9.jpg"
                                     }
@@ -106,20 +106,20 @@ class ProjectPage extends Component {
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4">
                                 <h1 className="text-light">
-                                    { this.state.loading && !!project && project.projectName
+                                    { !this.state.loading
                                         ? project.projectName
                                         : ""}
                                 </h1>
                                 <p className="mb-4 lead text-light">
                                    <b>Created by:</b>{" "}
-                                    {!!project && project.ownerName
+                                    {!this.state.loading
                                         ? project.ownerName
                                         : ""}
                                 </p>
 
                                 <p className="mb-4 lead text-light">
                                     <b>Description:</b>{" "}
-                                    {this.state.loading && !!project && project.ownerName
+                                    { !this.state.loading
                                         ? project.description
                                         : ""}
                                 </p>
