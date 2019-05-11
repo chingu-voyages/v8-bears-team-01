@@ -30,14 +30,22 @@ export class Navbar extends Component {
   };
 
   componentDidMount() {
-     let str = this.props.history.location.pathname;
-     let arr =  str.split('/')
-     let name = arr[arr.length-1]
-     if(name=='about') name='profile'
-     if(name=='/') name='home'
-     if(str==="/") name="home"
-
-     this.updateSelected(name)
+    if (window.performance) {
+      console.info("window.performance works fine on this browser");
+    }
+      if (performance.navigation.type == 1) {
+        console.info( "This page is reloaded" );
+        let str = this.props.history.location.pathname;
+        let arr =  str.split('/')
+        let name = arr[arr.length-1]
+        if(name=='about') name='profile'
+        if(name=='/') name='home'
+        if(str==="/") name="home"
+   
+        this.updateSelected(name)
+      } else {
+        console.info( "This page is not reloaded");
+      }
 
   }
 
